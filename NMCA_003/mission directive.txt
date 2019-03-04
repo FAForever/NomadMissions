@@ -1,0 +1,90 @@
+story/objectives/stuff that happens:
+send to save a ship that was shot down by aeon forces
+you are deployed at the crash site of the ship with your acu
+collect a series of crystals to bring the ship back online
+keep aeon forces away from the ship
+each crystal unlocks an additional ability (i.e. airstrike, orbital arty support, resource generation…)
+
+lore:
+In a nearby sector, one of your ships attempting to find safe territory is shot down, and the fleet commander instructs your commander to rescue the crew before they are killed off by the Aeon forces on planet.
+You arrive there and discover that much of the planet is already in ruin; the UEF forces that were in the region are being killed off, and the Aeon are obliterating them in swath of merciless destruction.
+You are to fend off the Aeon menace before they are able to inflict further harm upon the ship and its crew, and scavenge from UEF remnants what you can find information regarding the Aeon war machine.
+After escaping off planet, the data collected is grim: the Aeon are a zealous faction believing in the eradication of unbelievers to their mad ideology, the Way, and pose the greatest threat to the Nomads and their way of life. Worse yet, the Aeon are winning the war.
+They also discover hints pertaining to a super weapon in construction by the UEF, as a last desperate effort to win the war against the Cybrans and Aeon.
+
+
+characters:
+Nicols (second in command) 
+Benson (chief engineer)
+aeon commander
+aeon commander
+
+detailed mission plan:
+map type: ice/snow OR crystalline, destroyed UEF city close to the starting location, crashed nomad orbital frigate (twice the size of a normal frigate)
+available tech: t2 land, t2 navy, t2 air
+-------------------------------
+part 1:
+intro:
+Nicols: sir, we are aproaching the planet with stealth systems on and picked up the emergency beacon of the warship Adarus. Prepare for deployment of your command unit close to its crash site. There are hostile forces on the south of this position and a destroyed base from the UEF.
+Benson: with your acu, we will deploy a repair unit (5 t2 engies) to assess the damage on the Adarus and repair it if possible. Protect them.
+
+Objective:
+secure the landing area (destroy the aeon outpost close to the crash site, the aeon attacks on first sight, thinking you are UEF/Cybran special forces)
+secondary:
+capture the administrative building to find out about the defenses of the bases in part 2 (when the building is captured, the defences will be already scouted after the map expands)
+
+
+outro:
+Benson: the crew of the ship is dead and the hyperspace core of the Adarus is heavily damaged. To get the drive and other systems back online, we need to gather some crystals.
+
+
+-------------------------------
+part 2:
+intro:
+Nicols: scans from the surrounding area show more hostile activity and several large crystal deposits. Elimimate the thread from the western side of the ship and secure the necessary ressources for the repairs.
+
+Objective:
+destroy the two defensive bases near the crystal field to prevent them from sending support when you assault the aeon palace and to disrupt their operations
+Objective:
+Collect the crystal to unlock +10 mass/+500 power ressource generation on the crashed ship
+
+secondary:
+upgrade an air factory to t2 to unlock the airstrike (like in the previous missions)
+
+
+
+
+-------------------------------
+part 3:
+intro:
+Nicols: there are alarming signals on the far east. Large energy spikes and quantum interference. Sir! There are 2 enemy command units gating in and deploying a base
+(cutscene where aeon acus create a base similar to fletcher in the FA mission against QAI)
+
+Objective:
+The aeon got reinforcements on the far right of your base, take out the north eastern outpost and the larger base (with quantum gate and acu) in the south east.
+Objective:
+Collect the crystal to launch a t3 arty satellite from the crashed ship. Arty support (one salvo) is available every 2/4/8 minutes.
+secondary: 
+upgrade the t2 air factory to t3 to get a stronger airstrike (including t3 bombers). T3 units are restricted completely.
+
+
+
+-------------------------------
+part 4:
+intro:
+Benson: we located the crystals we need to repair the engines.
+Nicols: The crystal field is heavily defended. It seems our sensors didnt pick up on this acu that gate in there.
+Nicols: Repeating long range scans...
+(cutscene where multiple sensor probes are launched from the orbital frigate)
+Nicols: we are detecting a large ship under construction in a supply base on the north east of your position. 
+
+Objective:
+after destruction of the two bases you can now strike at the aeon main base to gather the crystals you need to repair your ship
+secondary:
+destroy the tempest production site on the top right before it finishes construction (timed objective)
+secondary: 
+*yet unknown*
+
+outro:
+Benson: the engines of the ship are now operational again. Parts of our crew are operating the controls of the Adarus and signal that they are ready for launch.
+Nicols: we are detecting quantum activity again, lets get out of here fast.
