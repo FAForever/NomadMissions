@@ -1,2 +1,2 @@
 # NomadMissions
-Repository containing the missions for Nomads Coop.
+Repository containing the missions for Nomads Coop. Updated.
