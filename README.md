@@ -33,3 +33,5 @@ These missions are designed to be run on top of the mod, so we need to change ho
 7.Host a coop game through FAF on any map. If everything was done correctly, you _should_ get two errors when hosting the game saying that a file could not be patched. The nomads should appear as a faction choice in the lobby.
 
 8.Switch maps to a map from the Nomads campaign, and enjoy!
+
+9.It is important to note that you need to disable these changes if you want to play without nomads later! To do this, simply uncheck the read only option from your ```init_coop.lua``` or delete it and it will be patched next time you run coop.
