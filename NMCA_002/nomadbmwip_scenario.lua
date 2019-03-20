@@ -27,7 +27,7 @@ ScenarioInfo = {
     Configurations = {
         ['standard'] = {
             teams = {
-                { name = 'FFA', armies = {'Player1','Cybran','CybranCivilian','UEF','Player2','Player3','Player4',} },
+                { name = 'FFA', armies = {'Player1','Cybran','CybranCivilian','UEF','Player2','Player3','Player4','NEUTRAL_CIVILIAN','Nomads',} },
             },
             customprops = {
                 ['ExtraArmies'] = STRING( 'ARMY_9 NEUTRAL_CIVILIAN' ),
