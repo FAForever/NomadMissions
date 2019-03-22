@@ -48,4 +48,4 @@ These missions are designed to be run on top of the mod, so we need to change ho
 
 8.Switch maps to a map from the Nomads campaign, and enjoy!
 
-9.It is important to note that you need to disable these changes if you want to play coop missions without nomads later! To do this, simply uncheck the read only option from your ```init_coop.lua``` or delete it and it will be patched next time you run coop.
+9.It is important to note that you need to disable these changes if you want to play coop missions without nomads later! To do this, simply uncheck the read only option from your ```init_coop.lua``` or delete it and it will be patched next time you run coop. You are can play non-coop games normally without disabling these changes, so if you only play Nomads coop missions then you dont need to do anything.
