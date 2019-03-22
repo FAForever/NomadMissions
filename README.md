@@ -29,7 +29,7 @@ These missions are designed to be run on top of the mod, so we need to change ho
 
 5.In the client, click on `Settings`, then on `Forged Alliance Forever`. Under the `Advanced` section, put ```C:\ProgramData\FAForever\bin\ForgedAlliance.exe /init init_NomadsCoop.lua``` into the `Command line format for executable` field, deleting entirely anything that was there before.
 
-6.It is important to note that you need to disable these changes if you want to play any game without nomads later! To do this, simply blank out the line in the settings, reversing step 5. The file can stay in your folder and wont be active unless you do step 5 again.
+6.It is important to note that you need to disable these changes if you want to play any game without nomads later! To do this, replace the entire contents of the field with `"%s"` (including the quotation marks), reversing step 5. The file can stay in your folder and wont be active unless you do step 5 again.
 
 ### Legacy client instructions:
 1.You need to have the Nomads mod downloaded onto your computer. Simply host a game with Nomads in FAF by double clicking on it in the featured mod list. This will download the files you need. Once in the lobby you can close the game. You only need to perform this step once per Nomads release, simply to keep the files updated.
