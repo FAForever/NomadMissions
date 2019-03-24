@@ -28,6 +28,7 @@ These missions are designed to be run on top of the mod, so we need to change ho
 4.Place the ```init_NomadsCoop.lua``` file into ```C:\ProgramData\FAForever\bin\``` note: NOT program files
 
 5.In the client, click on `Settings`, then on `Forged Alliance Forever`. Under the `Advanced` section, put ```C:\ProgramData\FAForever\bin\ForgedAlliance.exe /init init_NomadsCoop.lua``` into the `Command line format for executable` field, deleting entirely anything that was there before.
+5.a. Note: Do not include any quotation marks around the contents you put into this field.
 
 6.It is important to note that you need to disable these changes if you want to play any game without nomads later! To do this, replace the entire contents of the field with `"%s"` (including the quotation marks), reversing step 5. The file can stay in your folder and wont be active unless you do step 5 again.
 
@@ -48,4 +49,4 @@ These missions are designed to be run on top of the mod, so we need to change ho
 
 8.Switch maps to a map from the Nomads campaign, and enjoy!
 
-9.It is important to note that you need to disable these changes if you want to play coop missions without nomads later! To do this, simply uncheck the read only option from your ```init_coop.lua``` or delete it and it will be patched next time you run coop. You are can play non-coop games normally without disabling these changes, so if you only play Nomads coop missions then you dont need to do anything.
+9.It is important to note that you need to disable these changes if you want to play coop missions without nomads later! To do this, simply uncheck the read only option from your ```init_coop.lua``` or delete it and it will be patched next time you run coop. You are can play non-coop games normally without disabling these changes, so if you only play Nomads coop missions then you dont need to do anything. Additionally, running coop with Downlords client will not work while you have this file set to read-only!
