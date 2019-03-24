@@ -25,9 +25,9 @@ You need to download all the files that the missions need to work, and then enab
 1. Make sure you have also downloaded the latest coop mod. Similar to above, host a coop game to let the client download the files. You can then close the game without starting.
 1. Download the maps in this repository, and place them into your maps folder, in the same way as you would install the regular maps. Click on the green `Clone or download` button near the top of this page, and choose download as zip. Then unpack the maps into your maps folder. Hang onto the zip file. You will some files from it later when enabling the missions.
 1. These missions have custom sounds and videos. You can grab them from this folder here: https://mega.nz/#F!YhBhlaiR!BsgJziQalzs5ZJtU6iqXfQ
- * Each mission has two files, sound and video. The sound files are `N0x_VO.nx2` while the video files have `Movies_UnPackMe` at the end of their name.
- * Place the ```N0x_VO.nx2``` file into ```C:\ProgramData\FAForever\gamedata\``` note: NOT program files, and do not unpack the file.
- * Unpack the Movies file into: ```C:\ProgramData\FAForever\movies```  note: NOT program files, you must unpack the file, which will contain a set of `.sfd` files.
+  * Each mission has two files, sound and video. The sound files are `N0x_VO.nx2` while the video files have `Movies_UnPackMe` at the end of their name.
+  * Place the ```N0x_VO.nx2``` file into ```C:\ProgramData\FAForever\gamedata\``` note: NOT program files, and do not unpack the file.
+  * Unpack the Movies file into: ```C:\ProgramData\FAForever\movies```  note: NOT program files, you must unpack the file, which will contain a set of `.sfd` files.
 
 You are all set to enable the missions! Follow either the official (downlords) client instructions, or the legacy client instructions to enable the missions.
 
@@ -36,7 +36,7 @@ You are all set to enable the missions! Follow either the official (downlords) c
 1. If you haven't already during the file installation, download the ```init_NomadsCoop.lua``` from this repository. You will be using this to run the game in a different way.
 1. Place the ```init_NomadsCoop.lua``` file into ```C:\ProgramData\FAForever\bin\``` note: NOT program files
 1. In the client, click on `Settings`, then on `Forged Alliance Forever`. Under the `Advanced` section, put ```C:\ProgramData\FAForever\bin\ForgedAlliance.exe /init init_NomadsCoop.lua``` into the `Command line format for executable` field, deleting entirely anything that was there before.
- * Note: Do not include any quotation marks around the contents you put into this field.
+  * Note: Do not include any quotation marks around the contents you put into this field.
 1. Host a coop mission on any map, switch maps to a map from the Nomads campaign, and enjoy!
 1. It is important to note that you need to disable these changes if you want to play any game without nomads later! To do this, replace the entire contents of the field with `"%s"` (including the quotation marks), reversing step 5. The file can stay in your folder and wont be active unless you do step 5 again.
 
