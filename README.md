@@ -38,7 +38,7 @@ You are all set to enable the missions! Follow either the official (downlords) c
 1. In the client, click on `Settings`, then on `Forged Alliance Forever`. Under the `Advanced` section, put ```C:\ProgramData\FAForever\bin\ForgedAlliance.exe /init init_NomadsCoop.lua``` into the `Command line format for executable` field, deleting entirely anything that was there before.
   * Note: Do not include any quotation marks around the contents you put into this field.
 1. Host a coop mission on any map, switch maps to a map from the Nomads campaign, and enjoy!
-1. It is important to note that you need to disable these changes if you want to play any game without nomads later! To do this, replace the entire contents of the field with `"%s"` (including the quotation marks), reversing step 5. The file can stay in your folder and wont be active unless you do step 5 again.
+1. It is important to note that you need to disable these changes if you want to play _any_ game without nomads later! To do this, replace the entire contents of the field with `"%s"` (including the quotation marks), reversing step 5. The file can stay in your folder and wont be active unless you do step 5 again.
 
 ### Legacy client instructions:
 1. If you haven't already during the file installation, download the ```init_coop.lua``` from this repository. You will be replacing another file with this one.
