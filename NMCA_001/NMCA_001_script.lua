@@ -1,7 +1,7 @@
 --****************************************************************************
 --**
 --**  File     :  /maps/NMCA_001/NMCA_001_script.lua
---**  Author(s):  JJs_AI, Tokyto_, speed2, Exotic_Retard, zesty_lime, biass, and Wise Old Dog
+--**  Author(s):  JJ173, Tokyto_, speed2, Exotic_Retard, zesty_lime, biass, and Wise Old Dog (AKA The 'Mad Men)
 --**
 --**  Summary  :  Ths script for the first mission of the Nomads campaign.
 --**
