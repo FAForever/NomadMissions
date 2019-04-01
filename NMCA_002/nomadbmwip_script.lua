@@ -1,3 +1,12 @@
+--****************************************************************************
+--**
+--**  File     :  /maps/NMCA_001/NMCA_001_script.lua
+--**  Author(s):  JJ173, speed2, Exotic_Retard, zesty_lime, biass, and Wise Old Dog (AKA The 'Mad Men)
+--**
+--**  Summary  :  Ths script for the first mission of the Nomads campaign.
+--**
+--****************************************************************************
+
 local Behaviors = import('/lua/ai/opai/OpBehaviors.lua')
 local Objectives = import('/lua/SimObjectives.lua')
 local ScenarioFramework = import('/lua/ScenarioFramework.lua')
@@ -47,6 +56,9 @@ local M2ReinforcementsIntro = false
 local M2UEFNavyBaseDestroyed = false
 local M2UEFLandBaseDestroyed = false
 
+local M1Complete = false
+local M2Complete = false
+
 local M2UEFCybranAttackStage = 1
 
 local M1UEFScoutTimer = {300, 180, 90}
@@ -55,7 +67,7 @@ local M1UEFAirAttackTimer = {300, 240, 180}
 local M1UEFTransportAttackTimer = {450, 300, 180}
 local M1UEFACUSnipeTimer = {600, 450, 300}
 
-local M1ExpansionTime = {23 * 60, 20 * 60, 17 * 60}
+local M1ExpansionTime = {30, 30, 30}  --{19 * 60, 16 * 60, 13 * 60}
 local M2ExpansionTime = {34 * 60, 31 * 60, 28 * 60}
 
 local M2ReinforcementCoolDown = {5 * 60, 7 * 60, 10 * 60} -- Easy Difficuly: 5 Minutes, Medium Difficulty: 7 Minutes, Hard Difficulty: 10 Minutes.
@@ -257,6 +269,11 @@ function M1Objectives()
 
 	ScenarioFramework.CreateTimerTrigger(M1UEFScoutHandler, M1UEFScoutTimer[Difficulty])
 	ScenarioFramework.CreateTimerTrigger(M1CybranPatrols, M1CybranPatrolTimer[Difficulty])
+
+	-- Expand to next part of the mission.
+	if TimedExapansion then
+		ScenarioFramework.CreateTimerTrigger(M2NISIntro, M1ExpansionTime[Difficulty])
+	end
 end
 
 function M1SetNavalSecondaryObjective()
@@ -381,6 +398,13 @@ end
 
 -- M2 Functions
 function M2NISIntro()
+	-- If this flag hasn't been marked as true, set it to true, that way we can exit the function straight away if this is true.
+	if not M1Complete then
+		M1Complete = true
+	else
+		return -- ABORT!
+	end
+
 	-- Spawn M2 Units
 	ScenarioInfo.CybranCommander = ScenarioFramework.SpawnCommander('Cybran', 'CybranCommander', false, 'Jerrax', false, false,
 	{'MicrowaveLaserGenerator', 'T3Engineering', 'ResourceAllocation'})
@@ -411,6 +435,9 @@ function M2NISIntro()
 	for k, v in CybranAirPatrol:GetPlatoonUnits() do
         ScenarioFramework.GroupPatrolRoute({v}, ScenarioPlatoonAI.GetRandomPatrolRoute(ScenarioUtils.ChainToPositions('M2_Cybran_Main_Base_Air_Patrol_Chain')))
     end
+
+	-- Create Cybran Town defences
+	ScenarioUtils.CreateArmyGroup('Cybran', 'M2_Town_Defenses')
 
 	-- Spawn the UEF AI
 	M2UEFNavalBaseAI:UEFNavyBaseFunction()
@@ -449,26 +476,49 @@ function M2NISIntro()
 	WaitSeconds(3)
 	Cinematics.CameraTrackEntity(ScenarioInfo.PlayerACU[1], 30, 1)
 	WaitSeconds(2)
+	Cinematics.CameraMoveToMarker(ScenarioUtils.GetMarker('M2_Cam_Final'), 5)
 	VisMarker2_1:Destroy()
 	VisMarker2_2:Destroy()
+	WaitSeconds(5)
 	Cinematics.ExitNISMode()
 	-- End Cutscene
 
-	-- Handle player reinforcements.
-	ScenarioFramework.CreateTimerTrigger(M2PlayerReinforcements, 15)
+	-- Assign some objectives.
+	ForkThread(M2Objectives)
 
 	-- Send UEF Engineers to base
 	ForkThread(M2SendUEFEngineersToPlataeu)
-
-	-- Assign some objectives.
-	ForkThread(M2Objectives)
 	
 	-- Trigger units that will attack the Cybran main base every now and again.
 	ForkThread(M2SpawnUEFUnitsToAttackCybran)
+
+	-- Handle player reinforcements.
+	ScenarioFramework.CreateTimerTrigger(M2PlayerReinforcements, 15)
 end
 
 function M2Objectives()
-	-- Set the first objective as complete here, and reassign the player to protect the Civilian town.
+	-- Handle the first objectives based on timed expansion.
+	if TimedExapansion and ScenarioInfo.M1P1.Active then
+		ScenarioInfo.M1P1:ManualResult(false)
+
+		-- Spawn some UEF Transports to attack the town.
+		local destination = ScenarioUtils.MarkerToPosition('M2_UEF_Town_Transport_Drop_' .. Random(1, 3))
+
+		local transports = ScenarioUtils.CreateArmyGroup('UEF', 'M2_Town_Transports_D' .. Difficulty)
+		local units = ScenarioUtils.CreateArmyGroupAsPlatoon('UEF', 'M2_Town_Transport_Units_D' .. Difficulty, 'AttackFormation')
+
+		import('/lua/ai/aiutilities.lua').UseTransports(units:GetPlatoonUnits(), transports, destination)
+
+		for _, transport in transports do
+			ScenarioFramework.CreateUnitToMarkerDistanceTrigger(DestroyUnit, transport,  ScenarioUtils.MarkerToPosition('M2_Remove_UEF_Transports'), 15)
+
+			IssueTransportUnload({transport}, destination)
+			IssueMove({transport}, ScenarioUtils.MarkerToPosition('M2_Remove_UEF_Transports'))
+		end
+		
+		ScenarioFramework.PlatoonPatrolChain(units, 'M2_UEF_Town_Transport_Attacker_Chain')
+	end
+
 	ScenarioInfo.M1P2:ManualResult(true)
 
 	-- Set a new objective.
@@ -618,7 +668,11 @@ function M2SendPlayerReinforcements()
 			IssueMove({transport}, ScenarioUtils.MarkerToPosition('M2_Remove_Nomads_Transports'))
 		end
 
-        for k, v in units do
+        for k, v in units:GetPlatoonUnits() do
+			while (v:IsUnitState('Attached')) do
+				WaitSeconds(.1)
+			end
+
             if (v and not v:IsDead() and (v:GetAIBrain() == ArmyBrains[Nomads]) and not v:IsUnitState('Attached')) then
                 ScenarioFramework.GiveUnitToArmy(v, Player1)
             end
@@ -629,36 +683,36 @@ function M2SendPlayerReinforcements()
 end
 
 function M2SendUEFEngineersToPlataeu()
-	WARN("Sending UEF Engineers")
-
 	-- We need to create some transports and send them to drop Engineers off on the Plateau next to the Cybran base. They will attempt to build artillery.
 	-- The AI file that is in place will take care of the Engineers once they are dropped off. We only care about what the Engineers are doing during the phase
 	-- of M2P1 (Protect the town) being active.
-	if ScenarioInfo.M2P1.Active then
-		ForkThread(function()
-			WaitSeconds(45)
-			local destination = ScenarioUtils.MarkerToPosition('M1_UEF_Transport_Drop_0' .. Random(1, 3))
+	if ScenarioInfo.M2P1 then
+		WaitSeconds(45)
 
-			local transports = ScenarioUtils.CreateArmyGroup('UEF', 'M2_UEF_Engineer_Transports')
-			local units = ScenarioUtils.CreateArmyGroupAsPlatoon('UEF', 'M2_UEF_Engineers', 'GrowthFormation')
+		local destination = ScenarioUtils.MarkerToPosition('M2_UEF_Engineer_Dropoff')
 
-			import('/lua/ai/aiutilities.lua').UseTransports(units:GetPlatoonUnits(), transports, destination)
+		local transports = ScenarioUtils.CreateArmyGroup('UEF', 'M2_UEF_Engineer_Transports')
+		local units = ScenarioUtils.CreateArmyGroupAsPlatoon('UEF', 'M2_UEF_Engineers', 'GrowthFormation')
 
-			for _, transport in transports do
-				ScenarioFramework.CreateUnitToMarkerDistanceTrigger(DestroyUnit, transport,  ScenarioUtils.MarkerToPosition('M2_Remove_UEF_Transports'), 15)
+		import('/lua/ai/aiutilities.lua').UseTransports(units:GetPlatoonUnits(), transports, destination)
 
-				IssueTransportUnload({transport}, destination)
-				IssueMove({transport}, ScenarioUtils.MarkerToPosition('M2_Remove_UEF_Transports'))
-			end
+		for _, transport in transports do
+			ScenarioFramework.CreateUnitToMarkerDistanceTrigger(DestroyUnit, transport,  ScenarioUtils.MarkerToPosition('M2_Remove_UEF_Transports'), 15)
+
+			IssueTransportUnload({transport}, destination)
+			IssueMove({transport}, ScenarioUtils.MarkerToPosition('M2_Remove_UEF_Transports'))
+		end
 		
-			ScenarioFramework.CreatePlatoonDeathTrigger(M2SendUEFEngineersToPlataeu, units)
-		end)
+		ScenarioFramework.CreatePlatoonDeathTrigger(M2SendUEFEngineersToPlataeu, units)
+
+		-- Disband the Platoon
+		ArmyBrains[UEF]:DisbandPlatoon(units)
 	end
 end
 
 function M2CheckObjectiveProgress()
 	-- We can safely assume that both primary objectives have been completed at this point, we should now complete the city objective by force and move on with the mission.
-	if (M2UEFLandBaseDestroyed and M2UEFNavyBaseDestroyed) then
+	if (M2UEFLandBaseDestroyed and M2UEFNavyBaseDestroyed and ScenarioInfo.M2P1.Active) then
 		ScenarioInfo.M2P1:ManualResult(true)
 
 		-- Start up some dialogue to say that the city is safe for now.

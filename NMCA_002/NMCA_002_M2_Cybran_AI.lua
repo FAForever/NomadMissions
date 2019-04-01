@@ -8,13 +8,14 @@ local Difficulty = ScenarioInfo.Options.Difficulty
 local CybranMainBase = BaseManager.CreateBaseManager()
 
 function CybranMainBaseAI()
-    CybranMainBase:Initialize(ArmyBrains[Cybran], 'M2_MainBase', 'M2_Cybran_Main_Base_Marker', 150, {M2_MainBase = 100})
+    CybranMainBase:Initialize(ArmyBrains[Cybran], 'M2_MainBase', 'M2_Cybran_Main_Base_Marker', 200, {M2_MainBase = 100})
     CybranMainBase:StartNonZeroBase({{14, 12, 10}, {10, 8, 6}})
 
 	CybranMainBase:AddBuildGroup('M2_MainBase_Navy', 90, false)
 
 	M2CybranLandAttacks()
 	M2CybranNavalAttacks()
+	M2CybranAirAttacks()
 end
 
 function M2CybranNavalAttacks()
@@ -81,6 +82,17 @@ function M2CybranLandAttacks()
 		},
 	}
 	ArmyBrains[Cybran]:PBMAddPlatoon( Builder )
+
+	opai = CybranMainBase:AddOpAI('BasicLandAttack', 'M2_Cybran_Land_Patrol_3', 
+		{
+	       MasterPlatoonFunction = {SPAIFileName, 'PatrolThread'},
+           PlatoonData = {
+               PatrolChain = 'M2_Cybran_Extra_Land_Patrol_Chain'
+           },
+           Priority = 250,
+		}
+	)
+	opai:SetChildQuantity('MobileFlak', 6)
 end
 
 function M2CybranAirAttacks()
@@ -107,7 +119,7 @@ function M2CybranAirAttacks()
            Priority = 175,
 		}
 	)
-	opai:SetChildQuantity('Interceptors', 8)
+	opai:SetChildQuantity('Interceptors', 12)
 
 	opai = CybranMainBase:AddOpAI('AirAttacks', 'M2_Cybran_Air_Attack_3', 
 		{
@@ -118,5 +130,18 @@ function M2CybranAirAttacks()
            Priority = 150,
 		}
 	)
-	opai:SetChildQuantity('Gunships', 3)
+	opai:SetChildQuantity('Gunships', 4)
+
+	quantity = {10, 8, 6}
+    opai = CybranMainBase:AddOpAI('AirAttacks', 'M2_Cybran_Air_Attack_4',
+        {
+            MasterPlatoonFunction = {'/lua/ScenarioPlatoonAI.lua', 'CategoryHunterPlatoonAI'},
+            PlatoonData = {
+              CategoryList = { categories.NAVAL * categories.UEF },
+            },
+            Priority = 125,
+        }
+    )
+    opai:SetChildQuantity('TorpedoBombers', quantity[Difficulty])
+	opai:SetLockingStyle('DeathRatio', {Ratio = 0.5})
 end

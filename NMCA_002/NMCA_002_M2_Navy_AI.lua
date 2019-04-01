@@ -9,12 +9,13 @@ local UEFNavyBase = BaseManager.CreateBaseManager()
 
 function UEFNavyBaseFunction()
     UEFNavyBase:Initialize(ArmyBrains[UEF], 'M2_Naval_Base', 'M2_UEF_Naval_Base_Marker', 100, {M2_Naval_Base = 100})
-    UEFNavyBase:StartNonZeroBase({{14, 12, 10}, {10, 8, 6}})
+    UEFNavyBase:StartNonZeroBase({{18, 14, 12}, {10, 8, 6}})
 
 	UEFNavyBase:SetActive('AirScouting', true)
 
 	UEFNavyBase_AirAttacks()
 	UEFNavy_NavalAttacks()
+	UEFNavy_TransportAttacks()
 end
 
 function UEFNavyBase_AirAttacks()
@@ -22,7 +23,7 @@ function UEFNavyBase_AirAttacks()
 	local opai = nil
 	local quantity = {}
 
-	quantity = {4, 6, 8}
+	quantity = {6, 8, 10}
 	opai = UEFNavyBase:AddOpAI('AirAttacks', 'M2_UEF_NavalBase_AirAttack_1',
 		{
 			MasterPlatoonFunction = {SPAIFileName, 'PatrolChainPickerThread'},
@@ -33,6 +34,7 @@ function UEFNavyBase_AirAttacks()
 		}
 	)
 	opai:SetChildQuantity('Bombers', quantity[Difficulty])
+	opai:SetLockingStyle('DeathRatio', {Ratio = 0.5})
 
 	quantity = {6, 10, 14}
 	opai = UEFNavyBase:AddOpAI('AirAttacks', 'M2_UEF_NavalBase_AirAttack_2',
@@ -103,6 +105,37 @@ function UEFNavyBase_AirAttacks()
 	opai:AddBuildCondition('/lua/editor/otherarmyunitcountbuildconditions.lua', 'BrainsCompareNumCategory',
 		{'default_brain', {'HumanPlayers'}, 35, categories.AIR * categories.MOBILE, '>='})
 	opai:SetChildQuantity('Interceptors', quantity[Difficulty])
+
+	-- Send Anti-PD attacks. 
+	quantity = {6, 8, 10}
+    opai = UEFNavyBase:AddOpAI('AirAttacks', 'M2_UEF_NavalBase_AirAttack_7',
+        {
+            MasterPlatoonFunction = {'/lua/ScenarioPlatoonAI.lua', 'CategoryHunterPlatoonAI'},
+            PlatoonData = {
+              CategoryList = { categories.inb2101 },
+            },
+            Priority = 1000,
+        }
+    )
+    opai:SetChildQuantity('Bombers', quantity[Difficulty])
+    opai:AddBuildCondition('/lua/editor/otherarmyunitcountbuildconditions.lua', 'BrainGreaterThanOrEqualNumCategory',
+    {'default_brain', 'Player', 1, categories.inb2101})
+	opai:SetLockingStyle('DeathRatio', {Ratio = 0.5})
+
+	quantity = {4, 6, 8}
+    opai = UEFNavyBase:AddOpAI('AirAttacks', 'M2_UEF_NavalBase_AirAttack_8',
+        {
+            MasterPlatoonFunction = {'/lua/ScenarioPlatoonAI.lua', 'CategoryHunterPlatoonAI'},
+            PlatoonData = {
+              CategoryList = { categories.inb2101 },
+            },
+            Priority = 975,
+        }
+    )
+    opai:SetChildQuantity('Gunships', quantity[Difficulty])
+    opai:AddBuildCondition('/lua/editor/otherarmyunitcountbuildconditions.lua', 'BrainGreaterThanOrEqualNumCategory',
+    {'default_brain', 'Player', 1, categories.inb2101})
+	opai:SetLockingStyle('DeathRatio', {Ratio = 0.5})
 end
 
 function UEFNavy_NavalAttacks()
@@ -192,6 +225,119 @@ function UEFNavy_NavalAttacks()
 		},
 	}
 	ArmyBrains[UEF]:PBMAddPlatoon( Builder )
+
+	local Temp = {
+		'NavalAttackTemp5',
+		'NoPlan',
+		{ 'ues0201', 1, 2, 'Attack', 'GrowthFormation' },
+		{ 'ues0202', 1, 2, 'Attack', 'GrowthFormation' },
+		{ 'ues0103', 1, 6, 'Attack', 'GrowthFormation' },
+	}
+	local Builder = {
+		BuilderName = 'NavyAttackBuilder5',
+		PlatoonTemplate = Temp,
+		InstanceCount = 1,
+		Priority = 900,
+		PlatoonType = 'Sea',
+		RequiresConstruction = true,
+		LocationType = 'M2_Naval_Base',
+		PlatoonAIFunction = {SPAIFileName, 'PatrolChainPickerThread'},     
+		PlatoonData = {
+			PatrolChains = {'M2_UEF_Player_Navy_Attack_Chain_1', 'M2_UEF_Player_Navy_Attack_Chain_2'}
+		},
+	}
+	ArmyBrains[UEF]:PBMAddPlatoon( Builder )
+end
+
+function UEFNavy_TransportAttacks()
+	local opai = nil
+    local quantity = {}
+
+    -- Transport Builder
+    opai = UEFNavyBase:AddOpAI('EngineerAttack', 'M2_NavalBase_Transport_Builder',
+    {
+        MasterPlatoonFunction = {SPAIFileName, 'LandAssaultWithTransports'},
+        PlatoonData = {
+            AttackChain = 'M1_UEF_Transport_Troops_Chain',
+            LandingChain = 'M2_UEF_Transport_Player_Drop_Chain',
+            TransportReturn = 'M2_UEF_Naval_Base_Marker',
+        },
+        Priority = 1000,
+    })
+    opai:SetChildActive('All', false)
+    opai:SetChildActive('T2Transports', true)
+    opai:SetChildQuantity('T2Transports', 6)
+    opai:AddBuildCondition('/lua/editor/unitcountbuildconditions.lua',
+        'HaveLessThanUnitsWithCategory', {'default_brain', 6, categories.uea0104})
+
+    -- Drops
+	quantity = {8, 12, 16}
+	for i = 1, Difficulty do
+		opai = UEFNavyBase:AddOpAI('BasicLandAttack', 'M2_UEF_NavalBase_Drop_' .. i,
+		{
+			MasterPlatoonFunction = {SPAIFileName, 'LandAssaultWithTransports'},
+			PlatoonData = {
+				AttackChain = 'M1_UEF_Transport_Troops_Chain',
+				LandingChain = 'M2_UEF_Transport_Player_Drop_Chain',
+				TransportReturn = 'M2_UEF_Naval_Base_Marker',
+			},
+			Priority = 250,
+		})
+		opai:SetChildQuantity('LightArtillery', quantity[Difficulty])
+		opai:AddBuildCondition('/lua/editor/unitcountbuildconditions.lua',
+			'HaveGreaterThanUnitsWithCategory', {'default_brain', 1, categories.uea0104})
+	end
+
+	quantity = {6, 8, 10}
+	for i = 1, Difficulty do
+		opai = UEFNavyBase:AddOpAI('BasicLandAttack', 'M2_UEF_NavalBase_Drop2_' .. i,
+		{
+			MasterPlatoonFunction = {SPAIFileName, 'LandAssaultWithTransports'},
+			PlatoonData = {
+				AttackChain = 'M1_UEF_Transport_Troops_Chain',
+				LandingChain = 'M2_UEF_Transport_Player_Drop_Chain',
+				TransportReturn = 'M2_UEF_Naval_Base_Marker',
+			},
+			Priority = 225,
+		})
+		opai:SetChildQuantity('HeavyTanks', quantity[Difficulty])
+		opai:AddBuildCondition('/lua/editor/unitcountbuildconditions.lua',
+			'HaveGreaterThanUnitsWithCategory', {'default_brain', 1, categories.uea0104})
+	end
+
+	quantity = {12, 16, 20}
+	for i = 1, Difficulty do
+		opai = UEFNavyBase:AddOpAI('BasicLandAttack', 'M2_UEF_NavalBase_Drop3_' .. i,
+		{
+			MasterPlatoonFunction = {SPAIFileName, 'LandAssaultWithTransports'},
+			PlatoonData = {
+				AttackChain = 'M1_UEF_Transport_Troops_Chain',
+				LandingChain = 'M2_UEF_Transport_Player_Drop_Chain',
+				TransportReturn = 'M2_UEF_Naval_Base_Marker',
+			},
+			Priority = 200,
+		})
+		opai:SetChildQuantity('LightTanks', quantity[Difficulty])
+		opai:AddBuildCondition('/lua/editor/unitcountbuildconditions.lua',
+			'HaveGreaterThanUnitsWithCategory', {'default_brain', 1, categories.uea0104})
+	end
+
+	quantity = {4, 6, 8}
+	for i = 1, Difficulty do
+		opai = UEFNavyBase:AddOpAI('BasicLandAttack', 'M2_UEF_NavalBase_Drop4_' .. i,
+		{
+			MasterPlatoonFunction = {SPAIFileName, 'LandAssaultWithTransports'},
+			PlatoonData = {
+				AttackChain = 'M1_UEF_Transport_Troops_Chain',
+				LandingChain = 'M2_UEF_Transport_Player_Drop_Chain',
+				TransportReturn = 'M2_UEF_Naval_Base_Marker',
+			},
+			Priority = 175,
+		})
+		opai:SetChildQuantity('MobileFlak', quantity[Difficulty])
+		opai:AddBuildCondition('/lua/editor/unitcountbuildconditions.lua',
+			'HaveGreaterThanUnitsWithCategory', {'default_brain', 1, categories.uea0104})
+	end
 end
 
 function DisableBase()
