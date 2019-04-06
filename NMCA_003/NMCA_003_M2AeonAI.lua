@@ -52,7 +52,6 @@ function AeonM2NorthBaseAI(location)
     AeonM2NorthBase:SetMaximumConstructionEngineers(3)
     AeonM2NorthBase:SetActive('AirScouting', true)
     AeonM2NorthBase:SetActive('LandScouting', true)
-    AeonM2NorthBase:AddBuildGroupDifficulty('M2_Aeon_North_Base_Support_Factories', 100, true)
 
     -- Naval factories are either west (1) or south (2) of the main base
     local num = 1
@@ -61,7 +60,6 @@ function AeonM2NorthBaseAI(location)
     end
 
     AeonM2NorthBase:AddBuildGroup('M2_North_Naval_Base_' .. num, 100, true)
-    AeonM2NorthBase:AddBuildGroup('M2_North_Naval_Support_Factories_' .. num, 100, true)
     AeonM2NorthBase:AddBuildGroupDifficulty('M2_North_Naval_Base_' .. num .. '_Defenses', 90, true)
 
     AeonM2NorthBaseAirAttacks()
@@ -487,7 +485,6 @@ function AeonM2SouthBaseAI(location)
     AeonM2SouthBase:StartNonZeroBase({{7, 9, 11}, {6, 7, 9}})
     AeonM2SouthBase:SetActive('AirScouting', true)
     AeonM2SouthBase:SetActive('LandScouting', true)
-    AeonM2SouthBase:AddBuildGroupDifficulty('M2_Aeon_South_Base_Support_Factories', 100, true)
 
     -- Save naval location for later
     SouthNavalLoc = location
