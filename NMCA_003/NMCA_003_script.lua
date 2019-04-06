@@ -298,45 +298,49 @@ function ShipDeath()
 end
 
 function PlayerWin()
-    ScenarioFramework.FlushDialogueQueue()
-    while ScenarioInfo.DialogueLock do
-        WaitSeconds(0.2)
-    end
-
-    ScenarioInfo.M1P1:ManualResult(true) -- Complete protect ship objective
-
-    WaitSeconds(2)
-
-    if not ScenarioInfo.OpEnded then
-        ScenarioFramework.EndOperationSafety({ScenarioInfo.CrashedShip})
-        ScenarioInfo.OpComplete = true
-
-        Cinematics.EnterNISMode()
-        WaitSeconds(2)
-
-        ScenarioFramework.Dialogue(OpStrings.PlayerWin1, nil, true)
-        Cinematics.CameraMoveToMarker('Cam_Final_1', 3)
-
-
-        ForkThread(
-            function()
-                WaitSeconds(1)
-                ScenarioInfo.CrashedShip:TakeOff()
-                WaitSeconds(3)
-                ScenarioInfo.CrashedShip:StartRotators()
+    ForkThread(
+        function()
+            ScenarioFramework.FlushDialogueQueue()
+            while ScenarioInfo.DialogueLock do
+                WaitSeconds(0.2)
             end
-        )
 
-        WaitSeconds(3)
+            ScenarioInfo.M1P1:ManualResult(true) -- Complete protect ship objective
 
-        Cinematics.CameraMoveToMarker('Cam_Final_2', 5)
+            WaitSeconds(2)
 
-        WaitSeconds(1)
+            if not ScenarioInfo.OpEnded then
+                ScenarioFramework.EndOperationSafety({ScenarioInfo.CrashedShip})
+                ScenarioInfo.OpComplete = true
 
-        Cinematics.CameraMoveToMarker('Cam_Final_3', 4)
+                Cinematics.EnterNISMode()
+                WaitSeconds(2)
 
-        KillGame()
-    end
+                ScenarioFramework.Dialogue(OpStrings.PlayerWin1, nil, true)
+                Cinematics.CameraMoveToMarker('Cam_Final_1', 3)
+
+
+                ForkThread(
+                    function()
+                        WaitSeconds(1)
+                        ScenarioInfo.CrashedShip:TakeOff()
+                        WaitSeconds(3)
+                        ScenarioInfo.CrashedShip:StartRotators()
+                    end
+                )
+
+                WaitSeconds(3)
+
+                Cinematics.CameraMoveToMarker('Cam_Final_2', 5)
+
+                WaitSeconds(1)
+
+                Cinematics.CameraMoveToMarker('Cam_Final_3', 4)
+
+                KillGame()
+            end
+        end
+    )
 end
 
 function KillGame()
