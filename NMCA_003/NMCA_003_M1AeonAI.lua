@@ -21,7 +21,6 @@ function AeonM1BaseAI()
     AeonM1Base:StartNonZeroBase({{3, 4, 5}, {3, 3, 3}})
     AeonM1Base:SetActive('AirScouting', true)
     AeonM1Base:SetActive('LandScouting', true)
-    AeonM1Base:AddBuildGroup('M1_Aeon_Base_Support_Factories', 100, true)
 
     AeonM1BaseAirAttacks()
     AeonM1BaseLandAttacks()

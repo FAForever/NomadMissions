@@ -165,6 +165,9 @@ function OnPopulate(self)
     -- Walls
     ScenarioUtils.CreateArmyGroup('Aeon', 'M1_Walls')
 
+    -- Refresh build restriction in support factories and engineers
+    ScenarioFramework.RefreshRestrictions('Aeon')
+
     -- Initial Patrols
     -- Air Patrol
     local platoon = ScenarioUtils.CreateArmyGroupAsPlatoon('Aeon', 'M1_Initial_Air_Patrol_D' .. Difficulty, 'NoFormation')
@@ -895,6 +898,8 @@ function IntroMission2()
     -- Walls
     ScenarioUtils.CreateArmyGroup('Aeon', 'M2_Walls')
 
+    -- Refresh build restriction in support factories and engineers
+    ScenarioFramework.RefreshRestrictions('Aeon')
 
     -- Patrols
     -- North
@@ -1772,6 +1777,9 @@ function IntroMission4()
 
     -- Walls
     ScenarioUtils.CreateArmyGroup('Aeon', 'M4_Walls')
+
+    -- Refresh build restriction in support factories and engineers
+    ScenarioFramework.RefreshRestrictions('Aeon')
 
     -- Expand the map, no cinematics in this part
     ScenarioFramework.SetPlayableArea('M4_Area', true)
