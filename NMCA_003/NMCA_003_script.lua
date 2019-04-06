@@ -915,7 +915,7 @@ function IntroMission2()
     end
 
     -- Naval base patrol
-    platoon = ScenarioUtils.CreateArmyGroupAsPlatoon('Aeon', 'M2_Init_North_Naval_Patrol_D' .. Difficulty, 'GrowthFormation')
+    platoon = ScenarioUtils.CreateArmyGroupAsPlatoon('Aeon', 'M2_Init_North_Naval_Patrol_D' .. Difficulty, 'NoFormation')
     for _, v in platoon:GetPlatoonUnits() do
         ScenarioFramework.GroupPatrolChain({v}, 'M2_Aeon_North_Base_Naval_Defense_Chain')
     end
@@ -933,7 +933,7 @@ function IntroMission2()
     end
 
     -- Naval base patrol
-    platoon = ScenarioUtils.CreateArmyGroupAsPlatoon('Aeon', 'M2_Init_South_Naval_Patrol_D' .. Difficulty, 'GrowthFormation')
+    platoon = ScenarioUtils.CreateArmyGroupAsPlatoon('Aeon', 'M2_Init_South_Naval_Patrol_D' .. Difficulty, 'NoFormation')
     for _, v in platoon:GetPlatoonUnits() do
         ScenarioFramework.GroupPatrolChain({v}, 'M2_Aeon_South_Base_Naval_Defense_Chain')
     end
