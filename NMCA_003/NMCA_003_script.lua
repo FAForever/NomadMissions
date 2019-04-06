@@ -366,7 +366,7 @@ function IntroMission1NIS()
         ScenarioInfo.PlayersACUs = {}
         local i = 1
         while armyList[ScenarioInfo['Player' .. i]] do
-            ScenarioInfo['Player' .. i .. 'CDR'] = ScenarioFramework.SpawnCommander('Player' .. i, 'ACU', false, true, true, PlayerDeath)
+            ScenarioInfo['Player' .. i .. 'CDR'] = ScenarioFramework.SpawnCommander('Player' .. i, 'ACU', 'Warp', true, true, PlayerDeath)
             table.insert(ScenarioInfo.PlayersACUs, ScenarioInfo['Player' .. i .. 'CDR'])
             WaitSeconds(1)
             local ship = GetArmyBrain('Player' .. i).NomadsMothership
