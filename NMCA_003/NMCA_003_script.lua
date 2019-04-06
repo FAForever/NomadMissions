@@ -205,14 +205,15 @@ function OnPopulate(self)
     end
 
     -- Crashed Ship
-    ScenarioInfo.CrashedShip = ScenarioUtils.CreateArmyUnit('Crashed_Ship', 'Crashed_Ship')
+    --ScenarioInfo.CrashedShip = ScenarioUtils.CreateArmyUnit('Crashed_Ship', 'Crashed_Ship')
+    ScenarioInfo.CrashedShip = ScenarioUtils.CreateArmyUnit('Crashed_Ship', 'Crashed_Cruiser')
     ScenarioInfo.CrashedShip:SetCustomName('Crashed Ship')
     ScenarioInfo.CrashedShip:SetReclaimable(false)
     ScenarioInfo.CrashedShip:SetCapturable(false) 
     ScenarioInfo.CrashedShip:SetHealth(ScenarioInfo.CrashedShip, 2250)
     -- Adjust the position
     local pos = ScenarioInfo.CrashedShip:GetPosition()
-    ScenarioInfo.CrashedShip:SetPosition({pos[1], pos[2] - 3, pos[3]}, true)
+    ScenarioInfo.CrashedShip:SetPosition({pos[1], pos[2] - 4.5, pos[3]}, true)
     ScenarioInfo.CrashedShip:StopRotators()
     local thread = ForkThread(ShipHPThread)
     ScenarioInfo.CrashedShip.Trash:Add(thread)
