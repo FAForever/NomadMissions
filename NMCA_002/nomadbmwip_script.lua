@@ -61,11 +61,11 @@ local M2Complete = false
 
 local M2UEFCybranAttackStage = 1
 
-local M1UEFScoutTimer = {300, 180, 90}
+local M1UEFScoutTimer = {180, 120, 60}
 local M1CybranPatrolTimer = {240, 180, 120}
-local M1UEFAirAttackTimer = {300, 240, 180}
-local M1UEFTransportAttackTimer = {450, 300, 180}
-local M1UEFACUSnipeTimer = {600, 450, 300}
+local M1UEFAirAttackTimer = {90, 60, 30}
+local M1UEFTransportAttackTimer = {180, 120, 90}
+local M1UEFACUSnipeTimer = {180, 160, 140}
 
 local M1ExpansionTime = {30, 30, 30}  --{19 * 60, 16 * 60, 13 * 60}
 local M2ExpansionTime = {34 * 60, 31 * 60, 28 * 60}
@@ -98,7 +98,7 @@ function OnPopulate()
         end
     end
 
-    ScenarioFramework.SetSharedUnitCap(1500)
+    ScenarioFramework.SetSharedUnitCap(1000)
 	SetArmyUnitCap(UEF, 450)
 	SetArmyUnitCap(Cybran, 450)
 	SetArmyUnitCap(CybranCivilian, 150)
@@ -189,10 +189,14 @@ function M1IntroScene()
 	end
 
 	WaitSeconds(14)
+	Cinematics.CameraMoveToMarker(ScenarioUtils.GetMarker('M1_Intro_Cam_3'), 2)
 
 	ScenarioFramework.Dialogue(OpStrings.M2_Intro_CDR_Dropped_Dialogue_2, nil, true)
 
 	VisMarker1_1:Destroy()
+
+	WaitSeconds(2)
+
 	Cinematics.ExitNISMode()
 
 	local function MissionNameAnnouncement()
@@ -246,6 +250,7 @@ function M1Objectives()
         'Capture Civilian Town',
         'The buildings in the Civilian Town have some interesting technical readings. Capture them so we can learn more.',
         {
+			FlashVisible = true,
             Units = ScenarioInfo.Town,
         }
     )
@@ -375,7 +380,7 @@ function M1UEFTransportAttacks()
 				IssueMove({transport}, ScenarioUtils.MarkerToPosition('M1_NIS_Remove_UEF_Transports'))
 			end
 		
-			ScenarioFramework.PlatoonPatrolChain(units, 'M2_Transport_Attack_Route')
+			ScenarioFramework.PlatoonPatrolChain(units, 'M1_UEF_Transport_Troops_Chain')
 			ScenarioFramework.CreatePlatoonDeathTrigger(M1UEFTransportAttacks, units)
 		end)
 	end
@@ -703,8 +708,6 @@ function M2SendUEFEngineersToPlataeu()
 			IssueMove({transport}, ScenarioUtils.MarkerToPosition('M2_Remove_UEF_Transports'))
 		end
 		
-		ScenarioFramework.CreatePlatoonDeathTrigger(M2SendUEFEngineersToPlataeu, units)
-
 		-- Disband the Platoon
 		ArmyBrains[UEF]:DisbandPlatoon(units)
 	end
