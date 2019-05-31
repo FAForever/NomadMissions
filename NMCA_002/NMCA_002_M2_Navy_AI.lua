@@ -184,7 +184,7 @@ function UEFNavy_NavalAttacks()
 		'NavalAttackTemp3',
 		'NoPlan',
 		{ 'ues0201', 1, 2, 'Attack', 'GrowthFormation' },
-		{ 'ues0103', 1, 4, 'Attack', 'GrowthFormation' },
+		{ 'ues0103', 1, 2, 'Attack', 'GrowthFormation' },
 		{ 'ues0203', 1, 2, 'Attack', 'GrowthFormation' },
 	}
 	local Builder = {
@@ -206,47 +206,6 @@ function UEFNavy_NavalAttacks()
 	}
 	ArmyBrains[UEF]:PBMAddPlatoon( Builder )
 
-	local Temp = {
-		'NavalAttackTemp4',
-		'NoPlan',
-		{ 'ues0202', 1, 2, 'Attack', 'GrowthFormation' },
-	}
-	local Builder = {
-		BuilderName = 'NavyAttackBuilder4',
-		PlatoonTemplate = Temp,
-		InstanceCount = 1,
-		Priority = 925,
-		PlatoonType = 'Sea',
-		RequiresConstruction = true,
-		LocationType = 'M2_Naval_Base',
-		PlatoonAIFunction = {SPAIFileName, 'PatrolChainPickerThread'},     
-		PlatoonData = {
-			PatrolChains = {'M2_UEF_Player_Navy_Attack_Chain_1', 'M2_UEF_Player_Navy_Attack_Chain_2'}
-		},
-	}
-	ArmyBrains[UEF]:PBMAddPlatoon( Builder )
-
-	local Temp = {
-		'NavalAttackTemp5',
-		'NoPlan',
-		{ 'ues0201', 1, 2, 'Attack', 'GrowthFormation' },
-		{ 'ues0202', 1, 2, 'Attack', 'GrowthFormation' },
-		{ 'ues0103', 1, 6, 'Attack', 'GrowthFormation' },
-	}
-	local Builder = {
-		BuilderName = 'NavyAttackBuilder5',
-		PlatoonTemplate = Temp,
-		InstanceCount = 1,
-		Priority = 900,
-		PlatoonType = 'Sea',
-		RequiresConstruction = true,
-		LocationType = 'M2_Naval_Base',
-		PlatoonAIFunction = {SPAIFileName, 'PatrolChainPickerThread'},     
-		PlatoonData = {
-			PatrolChains = {'M2_UEF_Player_Navy_Attack_Chain_1', 'M2_UEF_Player_Navy_Attack_Chain_2'}
-		},
-	}
-	ArmyBrains[UEF]:PBMAddPlatoon( Builder )
 end
 
 function UEFNavy_TransportAttacks()
@@ -271,7 +230,7 @@ function UEFNavy_TransportAttacks()
         'HaveLessThanUnitsWithCategory', {'default_brain', 6, categories.uea0104})
 
     -- Drops
-	quantity = {8, 12, 16}
+	quantity = {8, 12, 14}
 	for i = 1, Difficulty do
 		opai = UEFNavyBase:AddOpAI('BasicLandAttack', 'M2_UEF_NavalBase_Drop_' .. i,
 		{
@@ -288,7 +247,7 @@ function UEFNavy_TransportAttacks()
 			'HaveGreaterThanUnitsWithCategory', {'default_brain', 1, categories.uea0104})
 	end
 
-	quantity = {6, 8, 10}
+	quantity = {6, 9, 12}
 	for i = 1, Difficulty do
 		opai = UEFNavyBase:AddOpAI('BasicLandAttack', 'M2_UEF_NavalBase_Drop2_' .. i,
 		{
@@ -305,7 +264,7 @@ function UEFNavy_TransportAttacks()
 			'HaveGreaterThanUnitsWithCategory', {'default_brain', 1, categories.uea0104})
 	end
 
-	quantity = {12, 16, 20}
+	quantity = {14, 21, 28}
 	for i = 1, Difficulty do
 		opai = UEFNavyBase:AddOpAI('BasicLandAttack', 'M2_UEF_NavalBase_Drop3_' .. i,
 		{
@@ -322,7 +281,7 @@ function UEFNavy_TransportAttacks()
 			'HaveGreaterThanUnitsWithCategory', {'default_brain', 1, categories.uea0104})
 	end
 
-	quantity = {4, 6, 8}
+	quantity = {4, 6, 6}
 	for i = 1, Difficulty do
 		opai = UEFNavyBase:AddOpAI('BasicLandAttack', 'M2_UEF_NavalBase_Drop4_' .. i,
 		{

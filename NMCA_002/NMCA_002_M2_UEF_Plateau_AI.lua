@@ -10,7 +10,7 @@ local UEFPlateauBase = BaseManager.CreateBaseManager()
 function UEFPlateauBaseFunction()
     UEFPlateauBase:Initialize(ArmyBrains[UEF], 'M2_UEF_Plateau_Base', 'M2_UEF_Plateau_Base_Marker', 20, {M2_UEF_Plateau_Base = 100})
     UEFPlateauBase:StartEmptyBase(8, 5)
-
+    UEFPlateauBase.MaximumConstructionEngineers = 8
 	UEFArtilleryBase_Patrols()
 end
 

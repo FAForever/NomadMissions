@@ -10,7 +10,7 @@ local UEFArtilleryBase = BaseManager.CreateBaseManager()
 function UEFArtilleryBaseFunction()
     UEFArtilleryBase:Initialize(ArmyBrains[UEF], 'M2_Arty_Base_Units', 'M2_UEF_Artillery_Base_Marker', 100, {M2_Arty_Base_Units = 100})
     UEFArtilleryBase:StartNonZeroBase({{16, 12, 10}, {8, 6, 4}})
-
+    UEFArtilleryBase.MaximumConstructionEngineers = 5
 	UEFArtilleryBase:SetActive('AirScouting', true)
 
     UEFArtilleryBase:AddBuildGroup('M2_Arty_Base_Expansion_D' .. Difficulty, 100, false)
@@ -24,7 +24,7 @@ function UEFArtilleryBase_AirAttacks()
 	local opai = nil
 	local quantity = {}
 
-	quantity = {8, 10, 12}
+	quantity = {8, 8, 10}
 	opai = UEFArtilleryBase:AddOpAI('AirAttacks', 'M2_UEF_Artillery_Base_AirAttack_1',
 		{
 			MasterPlatoonFunction = {SPAIFileName, 'PatrolThread'},
@@ -36,9 +36,22 @@ function UEFArtilleryBase_AirAttacks()
 	)
 	opai:SetChildQuantity('Bombers', quantity[Difficulty])
 	opai:SetLockingStyle('DeathRatio', {Ratio = 0.5})
-
-	quantity = {4, 6, 8}
+	
+	quantity = {8, 8, 10}
 	opai = UEFArtilleryBase:AddOpAI('AirAttacks', 'M2_UEF_Artillery_Base_AirAttack_2',
+		{
+			MasterPlatoonFunction = {SPAIFileName, 'PatrolThread'},
+			PlatoonData = {
+				PatrolChain = 'M2_UEF_Artillery_Base_Air_Attack_2'
+			},
+			Priority = 600,
+		}
+	)
+	opai:SetChildQuantity('Bombers', quantity[Difficulty])
+	opai:SetLockingStyle('DeathRatio', {Ratio = 0.5})
+
+	quantity = {4, 4, 6}
+	opai = UEFArtilleryBase:AddOpAI('AirAttacks', 'M2_UEF_Artillery_Base_AirAttack_3',
 		{
 			MasterPlatoonFunction = {SPAIFileName, 'PatrolThread'},
 			PlatoonData = {
@@ -49,9 +62,22 @@ function UEFArtilleryBase_AirAttacks()
 	)
 	opai:SetChildQuantity('Gunships', quantity[Difficulty])
 	opai:SetLockingStyle('DeathRatio', {Ratio = 0.5})
+	
+	quantity = {4, 4, 6}
+	opai = UEFArtilleryBase:AddOpAI('AirAttacks', 'M2_UEF_Artillery_Base_AirAttack_4',
+		{
+			MasterPlatoonFunction = {SPAIFileName, 'PatrolThread'},
+			PlatoonData = {
+				PatrolChain = 'M2_UEF_Artillery_Base_Air_Attack_2'
+			},
+			Priority = 575,
+		}
+	)
+	opai:SetChildQuantity('Gunships', quantity[Difficulty])
+	opai:SetLockingStyle('DeathRatio', {Ratio = 0.5})
 
-	quantity = {8, 10, 12}
-	opai = UEFArtilleryBase:AddOpAI('AirAttacks', 'M2_UEF_Artillery_Base_AirAttack_3',
+	quantity = {4, 6, 8}
+	opai = UEFArtilleryBase:AddOpAI('AirAttacks', 'M2_UEF_Artillery_Base_AirAttack_5',
 		{
 			MasterPlatoonFunction = {SPAIFileName, 'PatrolThread'},
 			PlatoonData = {
@@ -64,7 +90,7 @@ function UEFArtilleryBase_AirAttacks()
 	opai:SetLockingStyle('DeathRatio', {Ratio = 0.5})
 
 	quantity = {6, 8, 10}
-	opai = UEFArtilleryBase:AddOpAI('AirAttacks', 'M2_UEF_Artillery_Base_AirAttack_4',
+	opai = UEFArtilleryBase:AddOpAI('AirAttacks', 'M2_UEF_Artillery_Base_AirAttack_6',
 		{
 			MasterPlatoonFunction = {SPAIFileName, 'PatrolThread'},
 			PlatoonData = {
@@ -76,8 +102,8 @@ function UEFArtilleryBase_AirAttacks()
 	opai:SetChildQuantity('Gunships', quantity[Difficulty])
 	opai:SetLockingStyle('DeathRatio', {Ratio = 0.5})
 
-	quantity = {4, 6, 8}
-	opai = UEFArtilleryBase:AddOpAI('AirAttacks', 'M2_UEF_Artillery_Base_AirAttack_5',
+	quantity = {4, 4, 6}
+	opai = UEFArtilleryBase:AddOpAI('AirAttacks', 'M2_UEF_Artillery_Base_AirAttack_7',
 		{
 			MasterPlatoonFunction = {SPAIFileName, 'PatrolThread'},
 			PlatoonData = {
@@ -88,6 +114,29 @@ function UEFArtilleryBase_AirAttacks()
 	)
 	opai:SetChildQuantity('CombatFighters', quantity[Difficulty])
 	opai:SetLockingStyle('DeathRatio', {Ratio = 0.5})
+	
+	Temp = {
+       'UEFAirM2AttackTemp0',
+       'NoPlan',
+       { 'uea0103', 1, 5, 'Attack', 'GrowthFormation' }, --Bombers
+       { 'uea0102', 1, 9, 'Attack', 'GrowthFormation' }, --Fighters
+       { 'uea0203', 1, 4, 'Attack', 'GrowthFormation' }, --Gunships 	 	   
+    }
+    Builder = {
+       BuilderName = 'UEFAirM2AttackBuilder0',
+       PlatoonTemplate = Temp,
+       InstanceCount = 2,
+       Priority = 70,
+       PlatoonType = 'Air',
+       RequiresConstruction = true,
+       LocationType = 'M2_Arty_Base_Units',
+      PlatoonAIFunction = {SPAIFileName, 'RandomDefensePatrolThread'},     
+       PlatoonData = {
+           PatrolChain = 'M2_UEF_Air_Base_Patrol_Chain_1'
+       },
+    }
+    ArmyBrains[UEF]:PBMAddPlatoon( Builder )
+	
 end
 
 function UEFArtilleryBase_LandAttacks()
@@ -103,7 +152,7 @@ function UEFArtilleryBase_LandAttacks()
            Priority = 1000,
 		}
 	)
-	opai:SetChildQuantity('HeavyTanks', 8)
+	opai:SetChildQuantity('HeavyTanks', 6)
 
 	opai = UEFArtilleryBase:AddOpAI('BasicLandAttack', 'M2_UEF_Artillery_Base_Land_Patrol_2', 
 		{
@@ -114,7 +163,7 @@ function UEFArtilleryBase_LandAttacks()
            Priority = 975,
 		}
 	)
-	opai:SetChildQuantity('MobileFlak', 6)
+	opai:SetChildQuantity('MobileFlak', 4)
 
 	opai = UEFArtilleryBase:AddOpAI('BasicLandAttack', 'M2_UEF_Artillery_Base_Land_Patrol_3', 
 		{
@@ -127,17 +176,6 @@ function UEFArtilleryBase_LandAttacks()
 	)
 	opai:SetChildQuantity('LightTanks', 16)
 
-	opai = UEFArtilleryBase:AddOpAI('BasicLandAttack', 'M2_UEF_Artillery_Base_Land_Patrol_4', 
-		{
-	       MasterPlatoonFunction = {SPAIFileName, 'PatrolThread'},
-           PlatoonData = {
-               PatrolChain = 'M2_UEF_Artillery_Base_Cybran_Attack'
-           },
-           Priority = 925,
-		}
-	)
-	opai:SetChildQuantity('MobileMissiles', 6)
-
 	opai = UEFArtilleryBase:AddOpAI('BasicLandAttack', 'M2_UEF_Artillery_Base_Land_Patrol_5', 
 		{
 	       MasterPlatoonFunction = {SPAIFileName, 'PatrolThread'},
@@ -147,7 +185,7 @@ function UEFArtilleryBase_LandAttacks()
            Priority = 900,
 		}
 	)
-	opai:SetChildQuantity('HeavyTanks', 10)
+	opai:SetChildQuantity('HeavyTanks', 6)
 
 	quantity = {8, 12, 16}
 	opai = UEFArtilleryBase:AddOpAI('BasicLandAttack', 'M2_UEF_Artillery_Base_Land_Patrol_6', 
@@ -173,7 +211,7 @@ function UEFArtilleryBase_LandAttacks()
 	)
 	opai:SetChildQuantity('LightBots', quantity[Difficulty])
 
-	quantity = {4, 6, 8}
+	quantity = {2, 3, 4}
 	opai = UEFArtilleryBase:AddOpAI('BasicLandAttack', 'M2_UEF_Artillery_Base_Land_Patrol_8', 
 		{
 	       MasterPlatoonFunction = {SPAIFileName, 'PatrolThread'},

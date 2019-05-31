@@ -44,15 +44,54 @@ M2_P2_Town_Destroyed = {
 }
 
 M2_P2_Town_Safe = {
-	{text = "[Jerrax]: The UEF bases have been destroyed and the town is safe. Thank you, Captain!", vid = '', bank = '', cue = '', faction = 'UEF'},
+	{text = "[Jerrax]: The UEF bases have been destroyed and the town is safe. Thank you, Captain!", vid = '', bank = '', cue = '', faction = 'Cybran'},
 }
 
 M2_IntroReinforcements = {
 	{text = "[Benson]: Captain, I\'ve prepared some new units for you to use against the UEF. These prototypes should be able to match up to any UEF Tech 2 unit. Use the Command Signal Button to call them in, and I will send them to you via transports.", vid = '', bank = '', cue = '', faction = 'UEF'},
+	{text = "[Benson]: I have also managed to covert some of our stronger space drones into Atmopshere fighters and Gunships. Both of them have several functions and will make up the backbone of your T2 air force, test them out for me will yeah?", vid = '', bank = '', cue = '', faction = 'UEF'},
 }
 
 M2_ReinforcementsCalled = {
 	{text = "[Benson]: Reinforcements are inbound.", vid = '', bank = '', cue = '', faction = 'UEF'},
+}
+
+M3_Intro_Dialogue = {
+	{text = "[Jerrax]: The UEF Commander and his main base are positioned to the north of me.", vid = '', bank = '', cue = '', faction = 'Cybran'},
+	{text = "[Jerrax]: The land path into his base is heavly guarded by artillery and point defence placed on this hill.", vid = '', bank = '', cue = '', faction = 'Cybran'},
+	{text = "[Jerrax]: I will assault him head on while you support me.", vid = '', bank = '', cue = '', faction = 'Cybran'},
+}
+
+M3_Intro_Dialogue2 = {
+	{text = "[Nichols]: The Cybran is right that base is a fortress, im picking up advance Anti-air enplacements on the western cliffs.", vid = '', bank = '', cue = '', faction = 'UEF'},
+	{text = "[Nichols]: There is also a small firebase on a island of stratgic importance in the river.", vid = '', bank = '', cue = '', faction = 'UEF'},
+	{text = "[Nichols]: Im also picking up a Missile Launcher that could provide a solution to our Anti-air problem.", vid = '', bank = '', cue = '', faction = 'UEF'},
+	{text = "[Nichols]: Either way do what you can to keep that Cybran alive, Command needs that intel. Nichols out.", vid = '', bank = '', cue = '', faction = 'UEF'},
+}
+
+M3_Missile_Captured = {
+	{text = "[Nichols]: Good work sir, now use that missile launcher to clear up some of the Anti-air on those cliffs.", vid = '', bank = '', cue = '', faction = 'UEF'},
+	}
+	
+M3_Arty_Destroyed = {
+	{text = "[Jerrax]: Thanks, thats going to make it much easier to break his front line.", vid = '', bank = '', cue = '', faction = 'UEF'},
+	}
+
+M3_TechIntel = {
+	{text = "[Benson]: Captain, those new units i been senting for yeah, are now avaible in your list of build options along with aditional defencive structures i have managed to come up with.", vid = '', bank = '', cue = '', faction = 'UEF'},
+}
+
+M3_UEFDeath = {
+{text = '<LOC C03_M03_050_010>[{i Berry}]: No, I can\'t aaaaaaaaaargh!', vid = 'C03_Berry_M03_0457.sfd', bank = 'C03_VO', cue = 'C03_Berry_M03_0457', faction = 'UEF'},
+}
+
+M3_Outro_Dialogue = {
+	{text = "[Jerrax]: The UEF Commander no more, I can finally evacuate the civilians.", vid = '', bank = '', cue = '', faction = 'Cybran'},
+	{text = "[Nichols]: I don\'t think so. We are going to hold on to your civilians untill you give us the information on the UEF.", vid = '', bank = '', cue = '', faction = 'UEF'},
+	{text = "[Jerrax]: You... You can\'t do this!", vid = '', bank = '', cue = '', faction = 'Cybran'},
+	{text = "[Nichols]: Take any action against us and they all die, is that understood?", vid = '', bank = '', cue = '', faction = 'UEF'},
+	{text = "[Jerrax]: Yes. Just please don\'t harm them.", vid = '', bank = '', cue = '', faction = 'Cybran'},
+	{text = "[Nichols]: Good, now about that information....", vid = '', bank = '', cue = '', faction = 'UEF'},
 }
 
 M2_Cybran_Defeated = {

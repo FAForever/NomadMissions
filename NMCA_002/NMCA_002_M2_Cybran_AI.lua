@@ -93,6 +93,18 @@ function M2CybranLandAttacks()
 		}
 	)
 	opai:SetChildQuantity('MobileFlak', 6)
+	
+	opai = CybranMainBase:AddOpAI('BasicLandAttack', 'M2_Cybran_Land_Patrol_4', 
+		{
+	       MasterPlatoonFunction = {SPAIFileName, 'PatrolThread'},
+           PlatoonData = {
+               PatrolChain = 'M2_Cybran_Artillery_Attack_Chain'
+           },
+           Priority = 250,
+		}
+	)
+	opai:SetChildQuantity('HeavyTanks', 8)
+	
 end
 
 function M2CybranAirAttacks()
@@ -108,7 +120,7 @@ function M2CybranAirAttacks()
            Priority = 200,
 		}
 	)
-	opai:SetChildQuantity('Bombers', 6)
+	opai:SetChildQuantity('Bombers', 5)
 
 	opai = CybranMainBase:AddOpAI('AirAttacks', 'M2_Cybran_Air_Attack_2', 
 		{
@@ -119,7 +131,7 @@ function M2CybranAirAttacks()
            Priority = 175,
 		}
 	)
-	opai:SetChildQuantity('Interceptors', 12)
+	opai:SetChildQuantity('Interceptors', 6)
 
 	opai = CybranMainBase:AddOpAI('AirAttacks', 'M2_Cybran_Air_Attack_3', 
 		{
@@ -130,10 +142,32 @@ function M2CybranAirAttacks()
            Priority = 150,
 		}
 	)
-	opai:SetChildQuantity('Gunships', 4)
+	opai:SetChildQuantity('Gunships', 3)
+	
+	opai = CybranMainBase:AddOpAI('AirAttacks', 'M2_Cybran_Air_Attack_4', 
+		{
+	       MasterPlatoonFunction = {SPAIFileName, 'PatrolThread'},
+           PlatoonData = {
+               PatrolChain = 'M2_Cybran_Artillery_Attack_Chain'
+           },
+           Priority = 150,
+		}
+	)
+	opai:SetChildQuantity('Bombers', 5)
+	
+	opai = CybranMainBase:AddOpAI('AirAttacks', 'M2_Cybran_Air_Attack_5', 
+		{
+	       MasterPlatoonFunction = {SPAIFileName, 'PatrolThread'},
+           PlatoonData = {
+               PatrolChain = 'M2_Cybran_Artillery_Attack_Chain'
+           },
+           Priority = 150,
+		}
+	)
+	opai:SetChildQuantity('Interceptors', 6)
 
 	quantity = {10, 8, 6}
-    opai = CybranMainBase:AddOpAI('AirAttacks', 'M2_Cybran_Air_Attack_4',
+    opai = CybranMainBase:AddOpAI('AirAttacks', 'M2_Cybran_Air_Attack_6',
         {
             MasterPlatoonFunction = {'/lua/ScenarioPlatoonAI.lua', 'CategoryHunterPlatoonAI'},
             PlatoonData = {
@@ -144,4 +178,94 @@ function M2CybranAirAttacks()
     )
     opai:SetChildQuantity('TorpedoBombers', quantity[Difficulty])
 	opai:SetLockingStyle('DeathRatio', {Ratio = 0.5})
+end
+
+function M3CybranAttacks()
+
+    local Temp = {
+       'CybranLandM3AttackTemp0',
+       'NoPlan',
+       { 'url0303', 1, 2, 'Attack', 'GrowthFormation' }, --Seige Bots
+       { 'url0202', 1, 7, 'Attack', 'GrowthFormation' }, --Heavy tanks  
+       { 'url0205', 1, 3, 'Attack', 'GrowthFormation' }, --Flak  	   
+    }
+    local Builder = {
+       BuilderName = 'CybranLandM3AttackBuilder0',
+       PlatoonTemplate = Temp,
+       InstanceCount = 2,
+       Priority = 300,
+       PlatoonType = 'Land',
+       RequiresConstruction = true,
+       LocationType = 'M2_MainBase',
+       PlatoonAIFunction = {SPAIFileName, 'PatrolChainPickerThread'},     
+       PlatoonData = {
+           PatrolChains = {'M3_Cybran_Landattack1','M3_Cybran_Landattack2'}
+       },
+    }
+    ArmyBrains[Cybran]:PBMAddPlatoon( Builder )
+	
+	Temp = {
+       'CybranLandM3AttackTemp1',
+       'NoPlan',
+       { 'url0303', 1, 2, 'Attack', 'GrowthFormation' }, --Seige Bots
+       { 'url0202', 1, 8, 'Attack', 'GrowthFormation' }, --Heavy tanks  	   
+    }
+    Builder = {
+       BuilderName = 'CybranLandM3AttackBuilder1',
+       PlatoonTemplate = Temp,
+       InstanceCount = 2,
+       Priority = 300,
+       PlatoonType = 'Land',
+       RequiresConstruction = true,
+       LocationType = 'M2_MainBase',
+       PlatoonAIFunction = {SPAIFileName, 'PatrolChainPickerThread'},     
+       PlatoonData = {
+           PatrolChains = {'M3_Cybran_Landattack1','M3_Cybran_Landattack2'}
+       },
+    }
+    ArmyBrains[Cybran]:PBMAddPlatoon( Builder )
+	
+	Temp = {
+       'CybranAirM3AttackTemp0',
+       'NoPlan',
+       { 'ura0203', 1, 5, 'Attack', 'GrowthFormation' }, --Gunships
+       { 'ura0102', 1, 5, 'Attack', 'GrowthFormation' }, --Fighters    
+    }
+    Builder = {
+       BuilderName = 'CybranAirM3AttackBuilder0',
+       PlatoonTemplate = Temp,
+       InstanceCount = 2,
+       Priority = 300,
+       PlatoonType = 'Air',
+       RequiresConstruction = true,
+       LocationType = 'M2_MainBase',
+       PlatoonAIFunction = {SPAIFileName, 'PatrolChainPickerThread'},     
+       PlatoonData = {
+           PatrolChains = {'M3_Cybran_Airattack1','M3_Cybran_Airattack2', 'M3_Cybran_Airattack3'}
+       },
+    }
+    ArmyBrains[Cybran]:PBMAddPlatoon( Builder )
+	
+	Temp = {
+       'CybranNavalM3AttackTemp0',
+       'NoPlan',
+       { 'urs0103', 1, 4, 'Attack', 'GrowthFormation' }, --Frigates
+       { 'urs0203', 1, 4, 'Attack', 'GrowthFormation' }, --Subs   	   
+    }
+    Builder = {
+       BuilderName = 'CybranNavalM3AttackBuilder0',
+       PlatoonTemplate = Temp,
+       InstanceCount = 2,
+       Priority = 300,
+       PlatoonType = 'Sea',
+       RequiresConstruction = true,
+       LocationType = 'M2_MainBase',
+       PlatoonAIFunction = {SPAIFileName, 'PatrolChainPickerThread'},     
+       PlatoonData = {
+           PatrolChains = {'M3_Cybran_Navalattack1'}
+       },
+    }
+    ArmyBrains[Cybran]:PBMAddPlatoon( Builder )
+
+
 end

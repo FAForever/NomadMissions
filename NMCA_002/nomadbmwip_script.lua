@@ -1,9 +1,9 @@
 --****************************************************************************
 --**
---**  File     :  /maps/NMCA_001/NMCA_001_script.lua
---**  Author(s):  JJ173, speed2, Exotic_Retard, zesty_lime, biass, and Wise Old Dog (AKA The 'Mad Men)
+--**  File     :  /maps/NMCA_002/NMCA_002_script.lua
+--**  Author(s):  JJ173, speed2, Exotic_Retard, zesty_lime, biass, Shadowlorda1, and Wise Old Dog (AKA The 'Mad Men)
 --**
---**  Summary  :  Ths script for the first mission of the Nomads campaign.
+--**  Summary  :  This script for the Second mission of the Nomads campaign.
 --**
 --****************************************************************************
 
@@ -21,9 +21,11 @@ local VizMarker = import('/lua/sim/VizMarker.lua').VizMarker
 
 -- AI
 local M2CybranMainBaseAI = import('/maps/NMCA_002/NMCA_002_M2_Cybran_AI.lua')
+local M1CybranAirBaseAI = import('/maps/NMCA_002/NMCA_002_M1_Cybran_AI.lua')
 local M2UEFNavalBaseAI = import('/maps/NMCA_002/NMCA_002_M2_Navy_AI.lua')
 local M2UEFArtilleryBaseAI = import('/maps/NMCA_002/NMCA_002_M2_UEF_Artillery_AI.lua')
 local M2UEFPlateauBaseAI = import('/maps/NMCA_002/NMCA_002_M2_UEF_Plateau_AI.lua')
+local M3UEFMainBaseAI = import('/maps/NMCA_002/NMCA_002_M3_UEF_MainBase_AI.lua')
 
 -- Global Variables
 ScenarioInfo.Player1 = 1
@@ -61,10 +63,10 @@ local M2Complete = false
 
 local M2UEFCybranAttackStage = 1
 
-local M1UEFScoutTimer = {180, 120, 60}
-local M1CybranPatrolTimer = {240, 180, 120}
-local M1UEFAirAttackTimer = {90, 60, 30}
-local M1UEFTransportAttackTimer = {180, 120, 90}
+local M1UEFScoutTimer = {3*60, 2*60, 60}
+local M1CybranPatrolTimer = {4*60, 3*60, 2*60}
+local M1UEFAirAttackTimer = {3*60, 2*60, 1.5*60}
+local M1UEFTransportAttackTimer = {4*60, 3*60, 2.5*60}
 local M1UEFACUSnipeTimer = {180, 160, 140}
 
 local M1ExpansionTime = {30, 30, 30}  --{19 * 60, 16 * 60, 13 * 60}
@@ -99,8 +101,8 @@ function OnPopulate()
     end
 
     ScenarioFramework.SetSharedUnitCap(1000)
-	SetArmyUnitCap(UEF, 450)
-	SetArmyUnitCap(Cybran, 450)
+	SetArmyUnitCap(UEF, 1050)
+	SetArmyUnitCap(Cybran, 1050)
 	SetArmyUnitCap(CybranCivilian, 150)
 end
 
@@ -131,7 +133,9 @@ function OnStart(self)
 	
 	ScenarioInfo.Town = ScenarioUtils.CreateArmyGroup('CybranCivilian', 'M1_Civilian_Town')
 	ScenarioUtils.CreateArmyGroup('CybranCivilian', 'M1_Civilian_Town_Power')
-
+    
+	M1CybranAirBaseAI:CybranAirBaseAI()
+	
 	local units = ScenarioUtils.CreateArmyGroupAsPlatoon('CybranCivilian', 'M1_Civilian_Engineers', 'NoFormation')
     for _, v in units:GetPlatoonUnits() do
         ScenarioFramework.GroupPatrolRoute({v}, ScenarioPlatoonAI.GetRandomPatrolRoute(ScenarioUtils.ChainToPositions('M1_Civilian_Engineers_Patrol_Chain')))
@@ -225,16 +229,27 @@ function M1_Play_Berry_Dialogue()
 end
 
 function M1Objectives() 
-    ScenarioInfo.M1P1 = Objectives.KillOrCapture(
+  
+	ScenarioInfo.M1P1 = Objectives.CategoriesInArea(
         'primary',
         'incomplete',
         'Neutralize Civilian Town',
         'Scans indicate that there are hostile defence structures located in a civilian town to the east. Destroy the hostile defences and seize control of the town.',
-        {
+        'kill',                         -- action
+        {                               -- target
+            MarkUnits = true,
 			FlashVisible = true,
-            Units = ScenarioInfo.M1CybranDefences,
+            Requirements = {
+                {   
+                    Area = 'M1_Zone',
+                    Category = categories.FACTORY + categories.DEFENSE - categories.urb5101,
+                    CompareOp = '<=',
+                    Value = 0,
+                    ArmyIndex = Cybran,
+                },
+            },
         }
-    )
+	)
 	ScenarioInfo.M1P1:AddResultCallback(
         function(result)
 			if (result) then
@@ -312,9 +327,9 @@ end
 
 function M1UnlockNavalTech()
 	ScenarioFramework.PlayUnlockDialogue()
-	ScenarioFramework.RemoveRestrictionForAllHumans(categories.inb0103)
-	ScenarioFramework.RemoveRestrictionForAllHumans(categories.ins1001)
-	ScenarioFramework.RemoveRestrictionForAllHumans(categories.ins1002)
+	ScenarioFramework.RemoveRestrictionForAllHumans(categories.xnb0103)
+	ScenarioFramework.RemoveRestrictionForAllHumans(categories.xns0101)
+	ScenarioFramework.RemoveRestrictionForAllHumans(categories.xns0102)
 end
 
 function M1UEFScoutHandler()
@@ -332,6 +347,7 @@ function M1UEFAirAttacks()
 			local units = ScenarioUtils.CreateArmyGroupAsPlatoon('UEF', 'M1_AirAttacks_D' ..Difficulty, 'AttackFormation')
 			ScenarioFramework.PlatoonPatrolChain(units, 'M1_UEF_Air_Attack_Chain')
 			WaitSeconds(M1UEFAirAttackTimer[Difficulty])
+			ScenarioFramework.CreatePlatoonDeathTrigger(M1UEFAirAttacks, units)
 		end)
 	end
 end
@@ -484,7 +500,7 @@ function M2NISIntro()
 	Cinematics.CameraMoveToMarker(ScenarioUtils.GetMarker('M2_Cam_Final'), 5)
 	VisMarker2_1:Destroy()
 	VisMarker2_2:Destroy()
-	WaitSeconds(5)
+	WaitSeconds(2)
 	Cinematics.ExitNISMode()
 	-- End Cutscene
 
@@ -623,6 +639,44 @@ function M2Objectives()
         end
     )
     table.insert(AssignedObjectives, ScenarioInfo.M2S1)
+	
+	ForkThread(M2SecondaryObjectives)
+	
+end
+
+function M2SecondaryObjectives()
+
+    WaitSeconds(3*60)
+
+	ScenarioFramework.Dialogue(OpStrings.M2_P2_Cutscene_Dialogue, nil, true)
+	
+    ScenarioInfo.M2S1 = Objectives.CategoriesInArea(
+        'secondary',                      -- type
+        'incomplete',                   -- complete
+        'Destroy UEF Artillery Base',                 -- title
+        'Destroy the UEF Artillery Base to reduce pressure on the Cybran Commander.',  -- description
+        'kill',                         -- action
+        {                               -- target
+            MarkUnits = true,
+            Requirements = {
+                {   
+                    Area = 'M2_ArtySObj',
+                    Category = categories.FACTORY + categories.ENGINEER + categories.ueb2303,
+                    CompareOp = '<=',
+                    Value = 0,
+                    ArmyIndex = UEF,
+                },
+            },
+        }
+	)
+    ScenarioInfo.M2S1:AddResultCallback(
+        function(result)
+            if (result) then
+            end
+        end
+    )
+    table.insert(AssignedObjectives, ScenarioInfo.M2S1)
+
 end
 
 function M2SpawnUEFUnitsToAttackCybran()
@@ -646,10 +700,25 @@ function M2PlayerReinforcements()
 	if (not M2ReinforcementsIntro) then
 		ScenarioFramework.Dialogue(OpStrings.M2_IntroReinforcements, nil, true)
 		M2ReinforcementsIntro = true
+		ForkThread(M2UnlockT2Air)
 	end
 
 	ScenarioInfo.M2ReinforcementPing = PingGroups.AddPingGroup('Signal reinforcements', nil, 'move', 'Benson has prepared some prototype units to tackle the UEF. Signal them when you are ready.')
     ScenarioInfo.M2ReinforcementPing:AddCallback(M2SendPlayerReinforcements)
+end
+
+function M2UnlockT2Air()
+    
+	ScenarioFramework.PlayUnlockDialogue()
+    ScenarioFramework.RemoveRestrictionForAllHumans(categories.xna0202)
+	ScenarioFramework.RemoveRestrictionForAllHumans(categories.xna0203)
+	ScenarioFramework.RemoveRestrictionForAllHumans(categories.xna0201)
+	ScenarioFramework.RemoveRestrictionForAllHumans(categories.xnl0205)
+	ScenarioFramework.RemoveRestrictionForAllHumans(categories.xnb0202)
+	ScenarioFramework.RemoveRestrictionForAllHumans(categories.xnb0212)
+	ScenarioFramework.RemoveRestrictionForAllHumans(categories.xnb1201)
+	ScenarioFramework.RemoveRestrictionForAllHumans(categories.xnb1202)
+
 end
 
 function M2SendPlayerReinforcements()
@@ -675,7 +744,7 @@ function M2SendPlayerReinforcements()
 
         for k, v in units:GetPlatoonUnits() do
 			while (v:IsUnitState('Attached')) do
-				WaitSeconds(.1)
+				WaitSeconds(.5)
 			end
 
             if (v and not v:IsDead() and (v:GetAIBrain() == ArmyBrains[Nomads]) and not v:IsUnitState('Attached')) then
@@ -693,7 +762,13 @@ function M2SendUEFEngineersToPlataeu()
 	-- of M2P1 (Protect the town) being active.
 	if ScenarioInfo.M2P1 then
 		WaitSeconds(45)
+        
+		local Aunits = ScenarioUtils.CreateArmyGroupAsPlatoon('UEF', 'M2_UEF_Plateau_Air', 'GrowthFormation')
 
+	for k, v in Aunits:GetPlatoonUnits() do
+        ScenarioFramework.GroupPatrolRoute({v}, ScenarioPlatoonAI.GetRandomPatrolRoute(ScenarioUtils.ChainToPositions('M2_UEF_Plateau_Patrol_Chain')))
+    end
+		
 		local destination = ScenarioUtils.MarkerToPosition('M2_UEF_Engineer_Dropoff')
 
 		local transports = ScenarioUtils.CreateArmyGroup('UEF', 'M2_UEF_Engineer_Transports')
@@ -720,7 +795,227 @@ function M2CheckObjectiveProgress()
 
 		-- Start up some dialogue to say that the city is safe for now.
 		ScenarioFramework.Dialogue(OpStrings.M2_P2_Town_Safe, nil, true)
+		
+		ForkThread(M3NISIntro)
 	end
+end
+
+--M3 Functions
+
+function M3NISIntro()
+   
+	--let dialogue Finish 
+	WaitSeconds(5)
+	
+    -- Spawn M3 Units
+	ScenarioInfo.UEFCommander = ScenarioFramework.SpawnCommander('UEF', 'UEFCommander', false, 'Colonel Berry', true, false,
+	{'HeavyAntiMatterCannon', 'AdvancedEngineering', 'ShieldGeneratorField'})
+	
+	 local Aunits = ScenarioUtils.CreateArmyGroupAsPlatoon('UEF', 'M3_DefenceAir', 'GrowthFormation')
+
+	for k, v in Aunits:GetPlatoonUnits() do
+        ScenarioFramework.GroupPatrolRoute({v}, ScenarioPlatoonAI.GetRandomPatrolRoute(ScenarioUtils.ChainToPositions('M3_UEF_Base_AirDefence')))
+    end
+	
+	--Stops AI from using T3 engs as main build power
+	ScenarioFramework.AddRestriction(UEF, categories.uel0309)
+	
+	-- Call the AI
+	M3UEFMainBaseAI:UEFMainBaseAI()
+	M2CybranMainBaseAI:M3CybranAttacks()
+
+	-- Expand the necessary areas 
+	ScenarioFramework.SetPlayableArea('M3_Zone', true)
+	
+	ScenarioUtils.CreateArmyGroup('UEF', 'M3_OuterDefenses_D' .. Difficulty)
+	ScenarioUtils.CreateArmyGroup('UEF', 'M3_Firebase_D' .. Difficulty)
+	ScenarioUtils.CreateArmyGroup('UEF', 'M3_Walls')
+	ScenarioUtils.CreateArmyGroup('UEF', 'M3_Arty_Structures_D' .. Difficulty)
+	
+	--Secondary Obj structure
+	ScenarioInfo.MissileLancher = ScenarioUtils.CreateArmyUnit('UEF', 'Missile')
+    ScenarioInfo.MissileLancher:SetReclaimable(false)
+    ScenarioInfo.MissileLancher:SetCapturable(true)
+    ScenarioInfo.MissileLancher:SetCanTakeDamage(false)
+    ScenarioInfo.MissileLancher:SetCanBeKilled(false)
+	ScenarioInfo.MissileLancher:SetDoNotTarget(true)
+	 
+	 Cinematics.EnterNISMode()
+	WaitSeconds(1)
+	
+	local VisMarker3_1 = ScenarioFramework.CreateVisibleAreaLocation(50, 'M3_NIS_Vismarker_1', 0, ArmyBrains[Player1])
+	local VisMarker3_3 = ScenarioFramework.CreateVisibleAreaLocation(80, 'M3_NIS_Vismarker_2', 0, ArmyBrains[Player1])
+	local VisMarker3_2 = ScenarioFramework.CreateVisibleAreaLocation(50, 'M3_NIS_Vismarker_3', 0, ArmyBrains[Player1])
+	local VisMarker3_4 = ScenarioFramework.CreateVisibleAreaLocation(60, 'M3_NIS_Vismarker_4', 0, ArmyBrains[Player1])
+	Cinematics.CameraMoveToMarker(ScenarioUtils.GetMarker('M3_Intro_Cam_1'), 2)
+	ScenarioFramework.Dialogue(OpStrings.M3_Intro_Dialogue, nil, true)
+	WaitSeconds(3)
+	Cinematics.CameraMoveToMarker(ScenarioUtils.GetMarker('M3_Intro_Cam_2'), 2)
+	WaitSeconds(4)
+	Cinematics.CameraMoveToMarker(ScenarioUtils.GetMarker('M3_Intro_Cam_3'), 2)
+	WaitSeconds(2)
+	Cinematics.CameraMoveToMarker(ScenarioUtils.GetMarker('M3_Intro_Cam_4'), 2)
+	ScenarioFramework.Dialogue(OpStrings.M3_Intro_Dialogue2, nil, true)
+	WaitSeconds(4)
+	Cinematics.CameraMoveToMarker(ScenarioUtils.GetMarker('M3_Intro_Cam_5'), 2)
+	WaitSeconds(3)
+	Cinematics.CameraMoveToMarker(ScenarioUtils.GetMarker('M3_Intro_Cam_6'), 2)
+	WaitSeconds(2)
+	Cinematics.CameraMoveToMarker(ScenarioUtils.GetMarker('M3_Intro_Cam_7'), 2)
+    WaitSeconds(2)
+	Cinematics.CameraMoveToMarker(ScenarioUtils.GetMarker('M2_Cam_Final'), 5)
+	VisMarker3_1:Destroy()
+	VisMarker3_2:Destroy()
+	VisMarker3_3:Destroy()
+	VisMarker3_4:Destroy()
+	WaitSeconds(2)
+	Cinematics.ExitNISMode()
+	-- End Cutscene
+	
+	ForkThread(UEFNISattacks)
+	ForkThread(PrimaryObjective)
+	ForkThread(M3UnlockT2Land)
+
+end
+
+function SecondaryObjective()
+
+    ScenarioInfo.M3S1 = Objectives.Capture(
+        'secondary',
+        'incomplete',
+        'Capture UEF missile Silo',
+        'The Missile launcher can be used to clear out those T3 anti-air defences.',
+        {
+		    MarkUnits = true,
+            Units = {ScenarioInfo.MissileLancher}
+        }
+    )
+	ScenarioInfo.M3S1:AddResultCallback(
+        function(result)
+			if (result) then
+        ScenarioFramework.Dialogue(OpStrings.M3_Missile_Captured, nil, true)
+			end
+        end
+    )
+	table.insert(AssignedObjectives, ScenarioInfo.M3S1)
+
+    ScenarioInfo.M3S2 = Objectives.CategoriesInArea(
+        'secondary',                      -- type
+        'incomplete',                   -- complete
+        'Destroy UEF Artillery Positions',                 -- title
+        'Destroy the UEF Artillery located on the hill to assist the Cybrans assault.',  -- description
+        'kill',                         -- action
+        {                               -- target
+            MarkUnits = true,
+            Requirements = {
+                {   
+                    Area = 'M3_ArtySObj',
+                    Category = categories.ueb4202 + categories.ueb2301 + categories.ueb2303,
+                    CompareOp = '<=',
+                    Value = 0,
+                    ArmyIndex = UEF,
+                },
+            },
+        }
+	)
+    ScenarioInfo.M3S2:AddResultCallback(
+        function(result)
+            if (result) then
+			ScenarioFramework.Dialogue(OpStrings.M3_Arty_Destroyed, nil, true)
+            end
+        end
+    )
+    table.insert(AssignedObjectives, ScenarioInfo.M3S2)	
+ 
+end
+
+function PrimaryObjective()
+
+    ScenarioInfo.M3P1 = Objectives.KillOrCapture(
+        'primary',
+        'incomplete',
+        'Kill The UEF Commander',
+        'Kill the UEF Commander to secure this area.',
+        {
+		    MarkUnits = true,
+            Units = {ScenarioInfo.UEFCommander}
+        }
+    )
+	ScenarioInfo.M3P1:AddResultCallback(
+        function(result)
+			if (result) then
+        ForkThread(UEFCommanderKilled)
+			end
+        end
+    )
+	table.insert(AssignedObjectives, ScenarioInfo.M3P1) 
+
+    ForkThread(SecondaryObjective)
+	
+end
+
+function UEFNISattacks()
+   
+   --Spawn starting attacks and send at player base, to rough them up a bit
+   local Aunits = ScenarioUtils.CreateArmyGroupAsPlatoon('UEF', 'M3_UEF_Airattack1', 'GrowthFormation')
+
+	for k, v in Aunits:GetPlatoonUnits() do
+        ScenarioFramework.GroupPatrolRoute({v}, ScenarioPlatoonAI.GetRandomPatrolRoute(ScenarioUtils.ChainToPositions('M3_UEF_Intattack2')))
+    end
+	
+   Aunits = ScenarioUtils.CreateArmyGroupAsPlatoon('UEF', 'M3_UEF_Airattack2', 'GrowthFormation')
+
+	for k, v in Aunits:GetPlatoonUnits() do
+        ScenarioFramework.GroupPatrolRoute({v}, ScenarioPlatoonAI.GetRandomPatrolRoute(ScenarioUtils.ChainToPositions('M3_UEF_Intattack2')))
+    end
+    
+    local units = ScenarioUtils.CreateArmyGroupAsPlatoon('UEF', 'M3_UEF_Navalattack', 'AttackFormation')
+		ScenarioFramework.PlatoonPatrolChain(units, 'M3_UEF_Intattack1')	
+   
+end
+
+function M3UnlockT2Land()
+    
+	WaitSeconds(60)
+	ScenarioFramework.Dialogue(OpStrings.M3_TechIntel, nil, true)
+	
+	ScenarioFramework.PlayUnlockDialogue()
+    ScenarioFramework.RemoveRestrictionForAllHumans(categories.xnl0202)
+	ScenarioFramework.RemoveRestrictionForAllHumans(categories.xnl0203)
+	ScenarioFramework.RemoveRestrictionForAllHumans(categories.xnl0204)
+	ScenarioFramework.RemoveRestrictionForAllHumans(categories.xnl0205)
+	ScenarioFramework.RemoveRestrictionForAllHumans(categories.xnb2201)
+	ScenarioFramework.RemoveRestrictionForAllHumans(categories.xnb2202)
+	ScenarioFramework.RemoveRestrictionForAllHumans(categories.xnb2207)
+	ScenarioFramework.RemoveRestrictionForAllHumans(categories.xnb3201)
+	ScenarioFramework.RemoveRestrictionForAllHumans(categories.xnb3202)
+
+end
+
+function UEFCommanderKilled()
+
+    ScenarioFramework.Dialogue(OpStrings.M3_UEFDeath, nil, true)
+    ScenarioFramework.CDRDeathNISCamera(ScenarioInfo.UEFCommander, 3)
+    M3UEFMainBaseAI:DisableBase()
+	WaitSeconds(6)
+	ForkThread(EndNIS)
+	
+end
+
+function EndNIS()
+
+     Cinematics.EnterNISMode()
+	WaitSeconds(1)
+	ScenarioInfo.M2P3:ManualResult(true)
+	ScenarioFramework.Dialogue(OpStrings.M3_Outro_Dialogue, nil, true)
+	WaitSeconds(4)
+	Cinematics.CameraMoveToMarker(ScenarioUtils.GetMarker('M2_Cam_01'), 2)
+	WaitSeconds(10)
+	Cinematics.ExitNISMode()
+	
+	PlayerWin()
+	-- End Cutscene
+    
 end
 
 -- Utility Functions
@@ -754,6 +1049,18 @@ function CheatEconomy(army)
 	end
 end 
 
+function PlayerWin()
+     if(not ScenarioInfo.OpEnded) then
+        ScenarioInfo.OpComplete = true
+        KillGame()
+    end
+end
+
+function KillGame()
+    UnlockInput()
+    ScenarioFramework.EndOperation(ScenarioInfo.OpComplete, ScenarioInfo.OpComplete, true)
+end
+
 -- Taunts
 function UEFTaunts()
     UEFTM:AddUnitsKilledTaunt('TAUNT1', ArmyBrains[Player1], categories.MOBILE, 60)
@@ -761,5 +1068,8 @@ function UEFTaunts()
     UEFTM:AddDamageTaunt('TAUNT3', ScenarioInfo.PlayerACU[1], .50)
     UEFTM:AddUnitsKilledTaunt('TAUNT4', ArmyBrains[Player1], categories.MOBILE, 120)
     UEFTM:AddUnitsKilledTaunt('TAUNT5', ArmyBrains[Player1], categories.STRUCTURE, 8)
-    UEFTM:AddUnitsKilledTaunt('TAUNT6', ArmyBrains[Player1], categories.STRUCTURE, 16)   
+    UEFTM:AddUnitsKilledTaunt('TAUNT6', ArmyBrains[Player1], categories.STRUCTURE, 16)  
+    UEFTM:AddUnitsKilledTaunt('TAUNT4', ArmyBrains[Player1], categories.MOBILE, 180)
+    UEFTM:AddUnitsKilledTaunt('TAUNT1', ArmyBrains[Player1], categories.MOBILE, 200)
+    UEFTM:AddUnitsKilledTaunt('TAUNT5', ArmyBrains[Player1], categories.STRUCTURE, 26)	
 end
