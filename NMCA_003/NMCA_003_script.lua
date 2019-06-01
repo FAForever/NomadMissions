@@ -1,4 +1,4 @@
-------------------------------
+﻿------------------------------
 -- Nomads Campaign - Mission 3
 --
 -- Author: speed2
@@ -223,13 +223,13 @@ function OnStart(self)
     ScenarioFramework.AddRestrictionForAllHumans(
         categories.TECH3 +
         categories.EXPERIMENTAL +
-        categories.inu3008 + -- Nomads Field Engineer
-        categories.inb2208 + -- Nomads TML
-        categories.inb2303 + -- Nomads T2 Arty
-        categories.inb4204 + -- Nomads TMD
-        categories.inb4202 + -- Nomads T2 Shield
-        categories.ins2002 + -- Nomads Cruiser
-        categories.ins2003 + -- Nomads Railgun boat
+        categories.xnl0209 + -- Nomads Field Engineer
+        categories.xnb2208 + -- Nomads TML
+        categories.xnb2303 + -- Nomads T2 Arty
+        categories.xnb4204 + -- Nomads TMD
+        categories.xnb4202 + -- Nomads T2 Shield
+        categories.xns0202 + -- Nomads Cruiser
+        categories.xns0205 + -- Nomads Railgun boat
 
         categories.uab2108 + -- Aeon TML
         categories.uab2303 + -- Aeon T2 Arty
@@ -535,7 +535,7 @@ function StartMission1()
 
     -- Players see the dead UEF Base (make sure the orbital frigate wont trigger it)
     for _, player in ScenarioInfo.HumanPlayers do
-        ScenarioFramework.CreateAreaTrigger(M1UEFBaseDialogue, 'M1_UEF_Base_Area', categories.ALLUNITS - categories.ino0001, true, false, ArmyBrains[player])
+        ScenarioFramework.CreateAreaTrigger(M1UEFBaseDialogue, 'M1_UEF_Base_Area', categories.ALLUNITS - categories.xno0001, true, false, ArmyBrains[player])
     end
 
     -- Unlock T2 shiel
@@ -597,7 +597,7 @@ end
 
 function M1ShieldUnlock()
     local function Unlock()
-        ScenarioFramework.RemoveRestrictionForAllHumans(categories.inb4202 + categories.uab4202, true)
+        ScenarioFramework.RemoveRestrictionForAllHumans(categories.xnb4202 + categories.uab4202, true)
 
         -------------------------------------------------
         -- Bonus Objective - Build a shield over the ship
@@ -1124,7 +1124,7 @@ end
 
 function M2RailBoatUnlock()
     local function Unlock()
-        ScenarioFramework.RemoveRestrictionForAllHumans(categories.ins2003 + categories.xas0204, true)
+        ScenarioFramework.RemoveRestrictionForAllHumans(categories.xns0205 + categories.xas0204, true)
     end
 
     -- First play the dialogue, then unlock
@@ -1138,7 +1138,7 @@ end
 
 function M2T2ArtyUnlock()
     local function Unlock()
-        ScenarioFramework.RemoveRestrictionForAllHumans(categories.inb2303 + categories.uab2303, true)
+        ScenarioFramework.RemoveRestrictionForAllHumans(categories.xnb2303 + categories.uab2303, true)
     end
 
     -- First play the dialogue, then unlock
@@ -1455,7 +1455,7 @@ function M3CounterAttack()
     end
 
     -- sends swift winds if player has torpedo gunships, up to 10, 18, 26
-    local torpGunships = ScenarioFramework.GetListOfHumanUnits(categories.ina2003)
+    local torpGunships = ScenarioFramework.GetListOfHumanUnits(categories.xna0203)
     num = table.getn(torpGunships)
     quantity = {10, 18, 26}
     if num > 0 then
@@ -1813,8 +1813,8 @@ function M4TMLOutpost(location)
 
     -- Unlock TML/TMD
     ScenarioFramework.RemoveRestrictionForAllHumans(
-        categories.inb2208 + -- Nomads TML
-        categories.inb4204 + -- Nomads TMD
+        categories.xnb2208 + -- Nomads TML
+        categories.xnb4204 + -- Nomads TMD
         categories.uab2108 + -- Aeon TML
         categories.uab4201,  -- Aeon TMD
         true
@@ -1921,7 +1921,7 @@ end
 
 function M4UnlockFiendEngie()
     local function Unlock()
-        ScenarioFramework.RemoveRestrictionForAllHumans(categories.inu3008, true)
+        ScenarioFramework.RemoveRestrictionForAllHumans(categories.xnl0209, true)
     end
 
     -- First play the dialogue, then unlock
@@ -2422,4 +2422,5 @@ function OnShiftF4()
         v:Kill()
     end
 end
+
 

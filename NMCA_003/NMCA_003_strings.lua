@@ -1,4 +1,4 @@
---[[
+﻿--[[
 Mission Description:
     Briefing:
         In a nearby sector, one of your ships attempting to find safe territory is shot down, and the fleet commander instructs your commander to rescue the crew before they are killed off by the enemy (Aeon) forces on planet.
@@ -177,12 +177,12 @@ M1AeonBaseDestroyed = {
     {text = '[Nichols]: The Aeon base has been destroyed, good job.', vid = 'N03_M1AeonBaseDestroyed.sfd', bank = 'N03_VO', cue = 'M1AeonBaseDestroyed', faction = 'UEF'},
 }
 
--- Reminder #1 to kill Aeon base
+-- Reminder --1 to kill Aeon base
 M1AeonBaseReminder1 = {
     {text = '[Nichols]: The hostile\'s base is still a threat, destroy it.', vid = 'N03_M1AeonBaseReminder1.sfd', bank = 'N03_VO', cue = 'M1AeonBaseReminder1', faction = 'UEF'},
 }
 
--- Reminder #2 to kill Aeon base
+-- Reminder --2 to kill Aeon base
 M1AeonBaseReminder2 = {
     {text = '[Nichols]: The base won\'t kill itself, Commander.', vid = 'N03_M1AeonBaseReminder2.sfd', bank = 'N03_VO', cue = 'M1AeonBaseReminder2', faction = 'UEF'},
 }
@@ -761,4 +761,5 @@ TAUNT = {
     {text = '[Aeon]: Much taunt here.', vid = 'N03_TAUNT.sfd', bank = 'N03_VO', cue = 'TAUNT', faction = 'Aeon'},
 }
 --]]
+
 

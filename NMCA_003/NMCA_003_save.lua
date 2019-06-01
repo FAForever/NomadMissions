@@ -1,4 +1,4 @@
---[[                                                                           ]]--
+﻿--[[                                                                           ]]--
 --[[  Automatically generated code (do not edit)                               ]]--
 --[[                                                                           ]]--
 --[[                                                                           ]]--
@@ -3506,7 +3506,7 @@ Scenario = {
                 platoon = '',
                 Units = {
                     ['ACU'] = {
-                        type = 'inu0001',
+                        type = 'xnl0001',
                         orders = '',
                         platoon = '',
                         Position = { 577.500000, 62.476563, 566.500000 },
@@ -3545,7 +3545,7 @@ Scenario = {
                 platoon = '',
                 Units = {
                     ['ACU'] = {
-                        type = 'inu0001',
+                        type = 'xnl0001',
                         orders = '',
                         platoon = '',
                         Position = { 499.500000, 62.390625, 359.500000 },
@@ -3845,7 +3845,7 @@ Scenario = {
                 platoon = '',
                 Units = {
                     ['ACU'] = {
-                        type = 'inu0001',
+                        type = 'xnl0001',
                         orders = '',
                         platoon = '',
                         Position = { 553.500000, 62.494141, 542.500000 },
@@ -6882,21 +6882,21 @@ Scenario = {
                         platoon = '',
                         Units = {
                             ['Crashed_Ship'] = {
-                                type = 'inc0001',
+                                type = 'xnc0001',
                                 orders = '',
                                 platoon = '',
                                 Position = { 571.408081, 62.087460, 544.978760 },
                                 Orientation = { 0.000000, 4.764749, 0.000000 },
                             },
                             ['Orbital_Artillery_Gun'] = {
-                                type = 'ino2302',
+                                type = 'xno2302',
                                 orders = '',
                                 platoon = '',
                                 Position = { 555.500000, 62.480469, 533.500000 },
                                 Orientation = { 0.000000, -0.148353, 0.000000 },
                             },
                             ['Orbital_Artillery'] = {
-                                type = 'inb2302',
+                                type = 'xnb2302',
                                 orders = '',
                                 platoon = '',
                                 Position = { 4.500000, 62.476563, 1019.500000 },
@@ -6909,56 +6909,56 @@ Scenario = {
                         platoon = '',
                         Units = {
                             ['Engineer2'] = {
-                                type = 'inu1005',
+                                type = 'xnl0208',
                                 orders = '',
                                 platoon = '',
                                 Position = { 444.693604, 62.000000, 277.033081 },
                                 Orientation = { 0.000000, 0.000000, 0.000000 },
                             },
                             ['Engineer3'] = {
-                                type = 'inu1005',
+                                type = 'xnl0208',
                                 orders = '',
                                 platoon = '',
                                 Position = { 433.397400, 62.000000, 265.672119 },
                                 Orientation = { 0.000000, 0.000000, 0.000000 },
                             },
                             ['Transport3'] = {
-                                type = 'ina1005',
+                                type = 'xna0107',
                                 orders = '',
                                 platoon = '',
                                 Position = { 430.000000, 62.000000, 268.000000 },
                                 Orientation = { 0.000000, 0.000000, 0.000000 },
                             },
                             ['Transport4'] = {
-                                type = 'ina1005',
+                                type = 'xna0107',
                                 orders = '',
                                 platoon = '',
                                 Position = { 419.000000, 62.000000, 254.000000 },
                                 Orientation = { 0.000000, 0.000000, 0.000000 },
                             },
                             ['Engineer4'] = {
-                                type = 'inu1005',
+                                type = 'xnl0208',
                                 orders = '',
                                 platoon = '',
                                 Position = { 422.500000, 62.000000, 251.500000 },
                                 Orientation = { 0.000000, 0.000000, 0.000000 },
                             },
                             ['Engineer1'] = {
-                                type = 'inu1005',
+                                type = 'xnl0208',
                                 orders = '',
                                 platoon = '',
                                 Position = { 431.500000, 62.000000, 284.500000 },
                                 Orientation = { 0.000000, 0.000000, 0.000000 },
                             },
                             ['Transport2'] = {
-                                type = 'ina1005',
+                                type = 'xna0107',
                                 orders = '',
                                 platoon = '',
                                 Position = { 440.000000, 62.000000, 278.000000 },
                                 Orientation = { 0.000000, 0.000000, 0.000000 },
                             },
                             ['Transport1'] = {
-                                type = 'ina1005',
+                                type = 'xna0107',
                                 orders = '',
                                 platoon = '',
                                 Position = { 427.212982, 62.000000, 286.272369 },
@@ -23322,3 +23322,4 @@ Scenario = {
         },
     },
 }
+
