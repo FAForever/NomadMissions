@@ -1,4 +1,4 @@
-------------------------------
+﻿------------------------------
 -- Nomad Campaign - Mission 4 Blood Runs Cold
 --
 -- Author: Shadowlorda1
@@ -69,7 +69,7 @@ function OnStart(self)
         ScenarioFramework.AddRestriction(Player,
 	        categories.TECH3 +  
 			categories.EXPERIMENTAL	+
-			categories.inb4205 +
+			categories.xnb4205 +
 			categories.urb4203 
 			)
 	end
@@ -349,7 +349,7 @@ function M1SecondaryObjectiveComplete()
 	ScenarioFramework.Dialogue(OpStrings.SecondaryCompleteP1, nil, true)
 	
     local function Unlock()
-        ScenarioFramework.RemoveRestrictionForAllHumans(categories.inb4205 + categories.urb4203, true)
+        ScenarioFramework.RemoveRestrictionForAllHumans(categories.xnb4205 + categories.urb4203, true)
 
 		end
 		
