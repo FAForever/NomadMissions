@@ -1,4 +1,4 @@
---****************************************************************************
+﻿--****************************************************************************
 --**
 --**  File     :  /maps/NMCA_002/NMCA_002_script.lua
 --**  Author(s):  JJ173, speed2, Exotic_Retard, zesty_lime, biass, Shadowlorda1, and Wise Old Dog (AKA The 'Mad Men)
@@ -108,8 +108,8 @@ end
 
 function OnStart(self)
 	ScenarioFramework.AddRestrictionForAllHumans(categories.TECH2 + categories.TECH3 + categories.EXPERIMENTAL)
-    ScenarioFramework.AddRestrictionForAllHumans(categories.UEF) # UEF Engineer
-	ScenarioFramework.AddRestrictionForAllHumans(categories.NAVAL) # Navy
+    ScenarioFramework.AddRestrictionForAllHumans(categories.UEF) -- UEF Engineer
+	ScenarioFramework.AddRestrictionForAllHumans(categories.NAVAL) -- Navy
 
 	-- Restrict the ACU Upgrades.
 	ScenarioFramework.RestrictEnhancements({

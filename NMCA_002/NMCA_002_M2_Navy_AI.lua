@@ -1,4 +1,4 @@
-local BaseManager = import('/lua/ai/opai/basemanager.lua')
+﻿local BaseManager = import('/lua/ai/opai/basemanager.lua')
 local SPAIFileName = '/lua/scenarioplatoonai.lua'
 
 local UEF = 4
@@ -112,14 +112,14 @@ function UEFNavyBase_AirAttacks()
         {
             MasterPlatoonFunction = {'/lua/ScenarioPlatoonAI.lua', 'CategoryHunterPlatoonAI'},
             PlatoonData = {
-              CategoryList = { categories.inb2101 },
+              CategoryList = { categories.xnb2101 },
             },
             Priority = 1000,
         }
     )
     opai:SetChildQuantity('Bombers', quantity[Difficulty])
     opai:AddBuildCondition('/lua/editor/otherarmyunitcountbuildconditions.lua', 'BrainGreaterThanOrEqualNumCategory',
-    {'default_brain', 'Player', 1, categories.inb2101})
+    {'default_brain', 'Player', 1, categories.xnb2101})
 	opai:SetLockingStyle('DeathRatio', {Ratio = 0.5})
 
 	quantity = {4, 6, 8}
@@ -127,14 +127,14 @@ function UEFNavyBase_AirAttacks()
         {
             MasterPlatoonFunction = {'/lua/ScenarioPlatoonAI.lua', 'CategoryHunterPlatoonAI'},
             PlatoonData = {
-              CategoryList = { categories.inb2101 },
+              CategoryList = { categories.xnb2101 },
             },
             Priority = 975,
         }
     )
     opai:SetChildQuantity('Gunships', quantity[Difficulty])
     opai:AddBuildCondition('/lua/editor/otherarmyunitcountbuildconditions.lua', 'BrainGreaterThanOrEqualNumCategory',
-    {'default_brain', 'Player', 1, categories.inb2101})
+    {'default_brain', 'Player', 1, categories.xnb2101})
 	opai:SetLockingStyle('DeathRatio', {Ratio = 0.5})
 end
 

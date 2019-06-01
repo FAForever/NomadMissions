@@ -1,4 +1,4 @@
-local BaseManager = import('/lua/ai/opai/basemanager.lua')
+﻿local BaseManager = import('/lua/ai/opai/basemanager.lua')
 local SPAIFileName = '/lua/scenarioplatoonai.lua'
 
 local UEF = 4
