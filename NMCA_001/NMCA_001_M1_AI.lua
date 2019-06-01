@@ -1,4 +1,4 @@
-local BaseManager = import('/lua/ai/opai/basemanager.lua')
+﻿local BaseManager = import('/lua/ai/opai/basemanager.lua')
 local SPAIFileName = '/lua/scenarioplatoonai.lua'
 
 local UEF = 2
@@ -146,14 +146,14 @@ function M1LandAttacks()
         {
             MasterPlatoonFunction = {'/lua/ScenarioPlatoonAI.lua', 'CategoryHunterPlatoonAI'},
             PlatoonData = {
-              CategoryList = { categories.inb2101 },
+              CategoryList = { categories.xnb2101 },
             },
             Priority = 300,
         }
     )
     opai:SetChildQuantity('LightArtillery', quantity[Difficulty])
     opai:AddBuildCondition('/lua/editor/otherarmyunitcountbuildconditions.lua', 'BrainGreaterThanOrEqualNumCategory',
-    {'default_brain', 'Player', 1, categories.inb2101})
+    {'default_brain', 'Player', 1, categories.xnb2101})
 
     quantity = {12, 16, 20}
     opai = UEFOutpost:AddOpAI('BasicLandAttack', 'M1_OutpostLandAttack_10',
@@ -284,28 +284,28 @@ function M1AirAttacks()
         {
             MasterPlatoonFunction = {'/lua/ScenarioPlatoonAI.lua', 'CategoryHunterPlatoonAI'},
             PlatoonData = {
-              CategoryList = { categories.inb2101 },
+              CategoryList = { categories.xnb2101 },
             },
             Priority = 1000,
         }
     )
     opai:SetChildQuantity('Bombers', quantity[Difficulty])
     opai:AddBuildCondition('/lua/editor/otherarmyunitcountbuildconditions.lua', 'BrainGreaterThanOrEqualNumCategory',
-    {'default_brain', 'Player', 1, categories.inb2101})
+    {'default_brain', 'Player', 1, categories.xnb2101})
 
     quantity = {4, 6, 8}
     opai = UEFOutpost:AddOpAI('AirAttacks', 'M1_OutpostAirAttack_6',
         {
             MasterPlatoonFunction = {'/lua/ScenarioPlatoonAI.lua', 'CategoryHunterPlatoonAI'},
             PlatoonData = {
-              CategoryList = { categories.inb2101 },
+              CategoryList = { categories.xnb2101 },
             },
             Priority = 975,
         }
     )
     opai:SetChildQuantity('Bombers', quantity[Difficulty])
     opai:AddBuildCondition('/lua/editor/otherarmyunitcountbuildconditions.lua', 'BrainGreaterThanOrEqualNumCategory',
-    {'default_brain', 'Player', 3, categories.inb2101})
+    {'default_brain', 'Player', 3, categories.xnb2101})
 end
 
 function DisableBase()
@@ -313,3 +313,4 @@ function DisableBase()
         UEFOutpost:BaseActive(false)
     end
 end
+

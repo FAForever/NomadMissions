@@ -1,4 +1,4 @@
-local BaseManager = import('/lua/ai/opai/basemanager.lua')
+﻿local BaseManager = import('/lua/ai/opai/basemanager.lua')
 local SPAIFileName = '/lua/scenarioplatoonai.lua'
 local CustomAIOrders = '/maps/NMCA_001/CustomFunctions.lua'
 
@@ -154,7 +154,7 @@ function UEFBaseLandAttacks()
     opai:SetChildQuantity('LightArtillery', 6 * Difficulty)
     opai:SetLockingStyle('DeathRatio', {Ratio = 0.5})
     opai:AddBuildCondition('/lua/editor/otherarmyunitcountbuildconditions.lua', 'BrainGreaterThanOrEqualNumCategory',
-    {'default_brain', 'Player', 1, categories.inb2101})
+    {'default_brain', 'Player', 1, categories.xnb2101})
 
     -- Send some custom patrols
     Temp = {
@@ -330,14 +330,14 @@ function UEFBaseAirAttacks()
         {
             MasterPlatoonFunction = {'/lua/ScenarioPlatoonAI.lua', 'CategoryHunterPlatoonAI'},
             PlatoonData = {
-              CategoryList = { categories.inc0001 },
+              CategoryList = { categories.xnc0001 },
             },
             Priority = 500,
         }
     )
     opai:SetChildQuantity('Bombers', quantity[Difficulty])
     opai:AddBuildCondition('/lua/editor/otherarmyunitcountbuildconditions.lua', 'BrainGreaterThanOrEqualNumCategory',
-    {'default_brain', 'Player', 1, categories.inc0001})
+    {'default_brain', 'Player', 1, categories.xnc0001})
 
     -- Target Captured Factory
     quantity = {4, 5, 6}
@@ -359,14 +359,14 @@ function UEFBaseAirAttacks()
             {
                 MasterPlatoonFunction = {'/lua/ScenarioPlatoonAI.lua', 'CategoryHunterPlatoonAI'},
                 PlatoonData = {
-                  CategoryList = { categories.inb1102 },
+                  CategoryList = { categories.xnb1102 },
                 },
                 Priority = 400,
             }
         )
         opai:SetChildQuantity('Gunships', 8)
         opai:AddBuildCondition('/lua/editor/otherarmyunitcountbuildconditions.lua', 'BrainGreaterThanOrEqualNumCategory',
-        {'default_brain', 'Player', 1, categories.inb1102})
+        {'default_brain', 'Player', 1, categories.xnb1102})
 
         opai = UEFBase:AddOpAI('AirAttacks', 'M3_BaseAirAttack_9',
             {

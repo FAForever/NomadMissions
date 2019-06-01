@@ -1,4 +1,4 @@
---****************************************************************************
+﻿--****************************************************************************
 --**
 --**  File     :  /maps/NMCA_001/NMCA_001_script.lua
 --**  Author(s):  JJ173, Tokyto_, speed2, Exotic_Retard, zesty_lime, biass, and Wise Old Dog (AKA The 'Mad Men)
@@ -110,12 +110,12 @@ function OnStart(self)
     -- Restrictions
     ----------
     ScenarioFramework.AddRestrictionForAllHumans(categories.TECH2 + categories.TECH3 + categories.EXPERIMENTAL)
-    ScenarioFramework.AddRestrictionForAllHumans(categories.ina1003) # Attack Bomber
-    ScenarioFramework.AddRestrictionForAllHumans(categories.uel0105) # UEF Engineer
-    ScenarioFramework.AddRestrictionForAllHumans(categories.ina1005) # Transport Drone
-    ScenarioFramework.AddRestrictionForAllHumans(categories.inu1004) # Medium Tank
-    ScenarioFramework.AddRestrictionForAllHumans(categories.inu1008) # Tank Destroyer
-    ScenarioFramework.AddRestrictionForAllHumans(categories.NAVAL) # Navy
+    ScenarioFramework.AddRestrictionForAllHumans(categories.xna0103) -- Attack Bomber
+    ScenarioFramework.AddRestrictionForAllHumans(categories.uel0105) -- UEF Engineer
+    ScenarioFramework.AddRestrictionForAllHumans(categories.xna0107) -- Transport Drone
+    ScenarioFramework.AddRestrictionForAllHumans(categories.xnl0201) -- Medium Tank
+    ScenarioFramework.AddRestrictionForAllHumans(categories.xnl0107) -- Tank Destroyer
+    ScenarioFramework.AddRestrictionForAllHumans(categories.NAVAL) -- Navy
 
     ----------
     -- Spawn Things
@@ -396,8 +396,8 @@ end
 
 function M1UnlockAirTechForAllHumans()
     ScenarioFramework.PlayUnlockDialogue()
-    ScenarioFramework.RemoveRestrictionForAllHumans(categories.ina1003)
-    ScenarioFramework.RemoveRestrictionForAllHumans(categories.ina1005)
+    ScenarioFramework.RemoveRestrictionForAllHumans(categories.xna0103)
+    ScenarioFramework.RemoveRestrictionForAllHumans(categories.xna0107)
 end
 
 function M1Reinforcements()
@@ -620,7 +620,7 @@ function M2ObjectviesExtended()
     ScenarioInfo.M2S1:AddResultCallback(
         function(result, units)
             ScenarioFramework.PlayUnlockDialogue()
-            ScenarioFramework.RemoveRestrictionForAllHumans(categories.inu1004)
+            ScenarioFramework.RemoveRestrictionForAllHumans(categories.xnl0201)
 
             ScenarioInfo.NFactory = units[1]
             FactoryCaptured = true
@@ -717,8 +717,8 @@ function End_M3_Cutscene()
     -- Unlock T2 Air Factory
     ----------
     ScenarioFramework.PlayUnlockDialogue()
-    ScenarioFramework.RemoveRestrictionForAllHumans(categories.inb0202)
-    ScenarioFramework.RemoveRestrictionForAllHumans(categories.inb0212)
+    ScenarioFramework.RemoveRestrictionForAllHumans(categories.xnb0202)
+    ScenarioFramework.RemoveRestrictionForAllHumans(categories.xnb0212)
 
     ----------
     -- Objectives
@@ -786,7 +786,7 @@ function End_M3_Cutscene()
             StatName = 'Units_Active',
             CompareOp = '>=',
             Value = 1,
-            Category = categories.inb0202,
+            Category = categories.xnb0202,
         }
     )
     ScenarioInfo.M3S2:AddResultCallback(
@@ -855,7 +855,7 @@ end
 function FacDead()
     ScenarioInfo.M3S1:ManualResult(false)
     ScenarioFramework.Dialogue(OpStrings.M3FactoryDead, nil, true)
-    ScenarioFramework.AddRestrictionForAllHumans(categories.inu1004) # Medium Tank
+    ScenarioFramework.AddRestrictionForAllHumans(categories.xnl0201) -- Medium Tank
 end
 
 function GiveOrbitalBombardmentAbil()

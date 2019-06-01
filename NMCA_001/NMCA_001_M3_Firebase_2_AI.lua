@@ -1,4 +1,4 @@
-local BaseManager = import('/lua/ai/opai/basemanager.lua')
+﻿local BaseManager = import('/lua/ai/opai/basemanager.lua')
 local SPAIFileName = '/lua/scenarioplatoonai.lua'
 
 local UEF = 2
@@ -21,9 +21,9 @@ function BuildPatrols()
     Temp = {
          'TempPatrol1',
          'NoPlan',
-         { 'uel0201', 1, 6, 'Attack', 'GrowthFormation' },   # Tanks
-         { 'uel0104', 1, 2, 'Attack', 'GrowthFormation' },   # AA
-         { 'uel0103', 1, 2, 'Attack', 'GrowthFormation' },   # Artillery
+         { 'uel0201', 1, 6, 'Attack', 'GrowthFormation' },   -- Tanks
+         { 'uel0104', 1, 2, 'Attack', 'GrowthFormation' },   -- AA
+         { 'uel0103', 1, 2, 'Attack', 'GrowthFormation' },   -- Artillery
     }
      Builder = {
          BuilderName = 'PatrolBuilder1',
@@ -43,9 +43,9 @@ function BuildPatrols()
       Temp = {
          'TempPatrol2',
          'NoPlan',
-         { 'uel0201', 1, 6, 'Attack', 'GrowthFormation' },   # Tanks
-         { 'uel0104', 1, 2, 'Attack', 'GrowthFormation' },   # AA
-         { 'uel0103', 1, 2, 'Attack', 'GrowthFormation' },   # Artillery
+         { 'uel0201', 1, 6, 'Attack', 'GrowthFormation' },   -- Tanks
+         { 'uel0104', 1, 2, 'Attack', 'GrowthFormation' },   -- AA
+         { 'uel0103', 1, 2, 'Attack', 'GrowthFormation' },   -- Artillery
       }
      Builder = {
          BuilderName = 'PatrolBuilder2',
@@ -129,3 +129,4 @@ function DisableBase()
         UEFM3FireBase_2:BaseActive(false)
     end
 end
+
