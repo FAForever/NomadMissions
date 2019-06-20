@@ -39,6 +39,13 @@ M2_P2_Cutscene_Dialogue = {
 	{text = '[Jerrax]: The UEF Commander is sending the bulk of his forces to my main base. I will hold them off, while you deal with those bases. I will assist you where possible. Good luck.', vid = '', bank = '', cue = '', faction = 'Cybran'},
 }
 
+M2_P2_SecondaryObj = {
+
+{text = '[Jerrax]: The UEF Commander is constructing a small fire base on a ridge to my east, my forces are tied up holding off the UEF\'s attacks.', vid = '', bank = '', cue = '', faction = 'Cybran'},
+{text = '[Jerrax]: Destroying that artillery will help reduce the pressure on my base, Jerrax out.', vid = '', bank = '', cue = '', faction = 'Cybran'},
+
+}
+
 M2_P2_Town_Destroyed = {
 	{text = "[Nichols]: Captain, you failed to protect the town! It has been destroyed by the UEF!", vid = '', bank = '', cue = '', faction = 'UEF'},
 }
@@ -64,7 +71,7 @@ M3_Intro_Dialogue = {
 
 M3_Intro_Dialogue2 = {
 	{text = "[Nichols]: The Cybran is right that base is a fortress, im picking up advance Anti-air enplacements on the western cliffs.", vid = '', bank = '', cue = '', faction = 'UEF'},
-	{text = "[Nichols]: There is also a small firebase on a island of stratgic importance in the river.", vid = '', bank = '', cue = '', faction = 'UEF'},
+	{text = "[Nichols]: There is also a small firebase on a island of strategic importance in the river.", vid = '', bank = '', cue = '', faction = 'UEF'},
 	{text = "[Nichols]: Im also picking up a Missile Launcher that could provide a solution to our Anti-air problem.", vid = '', bank = '', cue = '', faction = 'UEF'},
 	{text = "[Nichols]: Either way do what you can to keep that Cybran alive, Command needs that intel. Nichols out.", vid = '', bank = '', cue = '', faction = 'UEF'},
 }
@@ -78,7 +85,7 @@ M3_Arty_Destroyed = {
 	}
 
 M3_TechIntel = {
-	{text = "[Benson]: Captain, those new units i been senting for yeah, are now avaible in your list of build options along with aditional defencive structures i have managed to come up with.", vid = '', bank = '', cue = '', faction = 'UEF'},
+	{text = "[Benson]: Captain, those new units i been senting for you, are now available in your list of build options along with additional defencive structures I have managed to come up with.", vid = '', bank = '', cue = '', faction = 'UEF'},
 }
 
 M3_UEFDeath = {

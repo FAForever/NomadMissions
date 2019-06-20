@@ -185,9 +185,9 @@ function M3CybranAttacks()
     local Temp = {
        'CybranLandM3AttackTemp0',
        'NoPlan',
-       { 'url0303', 1, 2, 'Attack', 'GrowthFormation' }, --Seige Bots
-       { 'url0202', 1, 7, 'Attack', 'GrowthFormation' }, --Heavy tanks  
-       { 'url0205', 1, 3, 'Attack', 'GrowthFormation' }, --Flak  	   
+       { 'url0303', 1, 3, 'Attack', 'GrowthFormation' }, --Seige Bots
+       { 'url0202', 1, 8, 'Attack', 'GrowthFormation' }, --Heavy tanks  
+       { 'url0205', 1, 4, 'Attack', 'GrowthFormation' }, --Flak  	   
     }
     local Builder = {
        BuilderName = 'CybranLandM3AttackBuilder0',
@@ -213,7 +213,7 @@ function M3CybranAttacks()
     Builder = {
        BuilderName = 'CybranLandM3AttackBuilder1',
        PlatoonTemplate = Temp,
-       InstanceCount = 2,
+       InstanceCount = 3,
        Priority = 300,
        PlatoonType = 'Land',
        RequiresConstruction = true,
@@ -228,8 +228,8 @@ function M3CybranAttacks()
 	Temp = {
        'CybranAirM3AttackTemp0',
        'NoPlan',
-       { 'ura0203', 1, 5, 'Attack', 'GrowthFormation' }, --Gunships
-       { 'ura0102', 1, 5, 'Attack', 'GrowthFormation' }, --Fighters    
+       { 'ura0203', 1, 6, 'Attack', 'GrowthFormation' }, --Gunships
+       { 'ura0102', 1, 6, 'Attack', 'GrowthFormation' }, --Fighters    
     }
     Builder = {
        BuilderName = 'CybranAirM3AttackBuilder0',
@@ -255,7 +255,7 @@ function M3CybranAttacks()
     Builder = {
        BuilderName = 'CybranNavalM3AttackBuilder0',
        PlatoonTemplate = Temp,
-       InstanceCount = 2,
+       InstanceCount = 3,
        Priority = 300,
        PlatoonType = 'Sea',
        RequiresConstruction = true,

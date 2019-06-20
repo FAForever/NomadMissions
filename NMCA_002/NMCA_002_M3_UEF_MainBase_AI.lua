@@ -1,4 +1,4 @@
-﻿local BaseManager = import('/lua/ai/opai/basemanager.lua')
+local BaseManager = import('/lua/ai/opai/basemanager.lua')
 local SPAIFileName = '/lua/scenarioplatoonai.lua'
 
 local UEF = 4
@@ -167,7 +167,7 @@ function UEFMainBase_LandAttacks()
     Builder = {
        BuilderName = 'UEFLandM3AttackBuilder1',
        PlatoonTemplate = Temp,
-       InstanceCount = 2,
+       InstanceCount = 3,
        Priority = 100,
        PlatoonType = 'Land',
        RequiresConstruction = true,
@@ -196,8 +196,6 @@ function UEFMainBase_TransportAttacks()
         },
         Priority = 1000,
     })
-    opai:SetChildActive('All', false)
-    opai:SetChildActive('T2Transports', true)
     opai:SetChildQuantity('T2Transports', 3)
     opai:AddBuildCondition('/lua/editor/unitcountbuildconditions.lua',
         'HaveLessThanUnitsWithCategory', {'default_brain', 3, categories.uea0104})
@@ -215,9 +213,7 @@ function UEFMainBase_TransportAttacks()
 			Priority = 104,
 		})
 		opai:SetChildQuantity('LightTanks', quantity[Difficulty])
-		opai:SetLockingStyle('BuildTimer', {LockTimer = 60})
-		opai:AddBuildCondition('/lua/editor/unitcountbuildconditions.lua',
-			'HaveGreaterThanUnitsWithCategory', {'default_brain', 1, categories.uea0104})
+		opai:SetLockingStyle('BuildTimer', {LockTimer = 120})
 	end
 
 	quantity = {6, 12, 18}
@@ -233,9 +229,7 @@ function UEFMainBase_TransportAttacks()
 			Priority = 105,
 		})
 		opai:SetChildQuantity('HeavyTanks', quantity[Difficulty])
-		opai:SetLockingStyle('BuildTimer', {LockTimer = 80})
-		opai:AddBuildCondition('/lua/editor/unitcountbuildconditions.lua',
-			'HaveGreaterThanUnitsWithCategory', {'default_brain', 1, categories.uea0104})
+		opai:SetLockingStyle('BuildTimer', {LockTimer = 150})
 	end
 
 	quantity = {14, 14, 24}
@@ -251,9 +245,7 @@ function UEFMainBase_TransportAttacks()
 			Priority = 100,
 		})
 		opai:SetChildQuantity('LightArtillery', quantity[Difficulty])
-		opai:SetLockingStyle('BuildTimer', {LockTimer = 70})
-		opai:AddBuildCondition('/lua/editor/unitcountbuildconditions.lua',
-			'HaveGreaterThanUnitsWithCategory', {'default_brain', 1, categories.uea0104})
+		opai:SetLockingStyle('BuildTimer', {LockTimer = 90})
 	end
 end
 

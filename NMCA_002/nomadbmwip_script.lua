@@ -1,4 +1,4 @@
-﻿--****************************************************************************
+--****************************************************************************
 --**
 --**  File     :  /maps/NMCA_002/NMCA_002_script.lua
 --**  Author(s):  JJ173, speed2, Exotic_Retard, zesty_lime, biass, Shadowlorda1, and Wise Old Dog (AKA The 'Mad Men)
@@ -7,6 +7,7 @@
 --**
 --****************************************************************************
 
+local Buff = import('/lua/sim/Buff.lua')
 local Behaviors = import('/lua/ai/opai/OpBehaviors.lua')
 local Objectives = import('/lua/SimObjectives.lua')
 local ScenarioFramework = import('/lua/ScenarioFramework.lua')
@@ -65,11 +66,11 @@ local M2UEFCybranAttackStage = 1
 
 local M1UEFScoutTimer = {3*60, 2*60, 60}
 local M1CybranPatrolTimer = {4*60, 3*60, 2*60}
-local M1UEFAirAttackTimer = {3*60, 2*60, 1.5*60}
+local M1UEFAirAttackTimer = {3*60, 2*60, 1.7*60}
 local M1UEFTransportAttackTimer = {4*60, 3*60, 2.5*60}
 local M1UEFACUSnipeTimer = {180, 160, 140}
 
-local M1ExpansionTime = {30, 30, 30}  --{19 * 60, 16 * 60, 13 * 60}
+local M1ExpansionTime = {35*60, 30*60, 25*60}  --{19 * 60, 16 * 60, 13 * 60}
 local M2ExpansionTime = {34 * 60, 31 * 60, 28 * 60}
 
 local M2ReinforcementCoolDown = {5 * 60, 7 * 60, 10 * 60} -- Easy Difficuly: 5 Minutes, Medium Difficulty: 7 Minutes, Hard Difficulty: 10 Minutes.
@@ -77,7 +78,7 @@ local M2ReinforcementCoolDown = {5 * 60, 7 * 60, 10 * 60} -- Easy Difficuly: 5 M
 -- Taunt Managers
 local UEFTM = TauntManager.CreateTauntManager('UEFTM', '/maps/NMCA_002/nomadbmwip_strings.lua')
 
-function OnPopulate()
+function OnPopulate(Scenario)
 	ScenarioUtils.InitializeScenarioArmies()
 	ScenarioFramework.SetPlayableArea('M1_Zone', false)
 
@@ -100,7 +101,7 @@ function OnPopulate()
         end
     end
 
-    ScenarioFramework.SetSharedUnitCap(1000)
+    ScenarioFramework.SetSharedUnitCap(2000)
 	SetArmyUnitCap(UEF, 1050)
 	SetArmyUnitCap(Cybran, 1050)
 	SetArmyUnitCap(CybranCivilian, 150)
@@ -108,8 +109,8 @@ end
 
 function OnStart(self)
 	ScenarioFramework.AddRestrictionForAllHumans(categories.TECH2 + categories.TECH3 + categories.EXPERIMENTAL)
-    ScenarioFramework.AddRestrictionForAllHumans(categories.UEF) -- UEF Engineer
-	ScenarioFramework.AddRestrictionForAllHumans(categories.NAVAL) -- Navy
+    ScenarioFramework.AddRestrictionForAllHumans(categories.UEF) # UEF Engineer
+	ScenarioFramework.AddRestrictionForAllHumans(categories.NAVAL) # Navy
 
 	-- Restrict the ACU Upgrades.
 	ScenarioFramework.RestrictEnhancements({
@@ -126,10 +127,6 @@ function OnStart(self)
 		'ResourceAllocation',
 		'T3Engineering'
 	})
-
-	-- Set the economy for the UEF and Cybran to maximum.
-	ForkThread(CheatEconomy, UEF)
-	ForkThread(CheatEconomy, Cybran)
 	
 	ScenarioInfo.Town = ScenarioUtils.CreateArmyGroup('CybranCivilian', 'M1_Civilian_Town')
 	ScenarioUtils.CreateArmyGroup('CybranCivilian', 'M1_Civilian_Town_Power')
@@ -154,6 +151,7 @@ function OnStart(self)
 end
 
 -- M1 Functions
+
 function M1IntroScene()
 	Cinematics.EnterNISMode()
 	WaitSeconds(1)
@@ -215,6 +213,16 @@ function M1IntroScene()
 
 	-- Trigger M1 Objectives
 	ForkThread(M1Objectives)
+	
+	buffDef = Buffs['CheatIncome']
+    buffAffects = buffDef.Affects
+    buffAffects.EnergyProduction.Mult = 1.5
+    buffAffects.MassProduction.Mult = 1.5
+
+       for _, u in GetArmyBrain(Cybran):GetPlatoonUniquelyNamed('ArmyPool'):GetPlatoonUnits() do
+               Buff.ApplyBuff(u, 'CheatIncome')
+       end
+	
 end
 
 function M1_Play_Berry_Dialogue()
@@ -299,8 +307,10 @@ end
 function M1SetNavalSecondaryObjective()
 	if not M1UEFNavySpotted then
 		M1UEFNavySpotted = true
-		ScenarioFramework.Dialogue(OpStrings.M2_Secure_River_Dialogue, M1UnlockNavalTech, true)
-
+		ScenarioFramework.Dialogue(OpStrings.M2_Secure_River_Dialogue, nil, true)
+        
+		ForkThread(M1UnlockNavalTech)
+		
 		ScenarioInfo.M1S2 = Objectives.CategoriesInArea(
 			'secondary',
 			'incomplete',
@@ -326,10 +336,12 @@ function M1SetNavalSecondaryObjective()
 end
 
 function M1UnlockNavalTech()
+
 	ScenarioFramework.PlayUnlockDialogue()
 	ScenarioFramework.RemoveRestrictionForAllHumans(categories.xnb0103)
-	ScenarioFramework.RemoveRestrictionForAllHumans(categories.xns0101)
-	ScenarioFramework.RemoveRestrictionForAllHumans(categories.xns0102)
+	ScenarioFramework.RemoveRestrictionForAllHumans(categories.xns0103)
+	ScenarioFramework.RemoveRestrictionForAllHumans(categories.xns0203)
+	
 end
 
 function M1UEFScoutHandler()
@@ -346,6 +358,8 @@ function M1UEFAirAttacks()
 		ForkThread(function()
 			local units = ScenarioUtils.CreateArmyGroupAsPlatoon('UEF', 'M1_AirAttacks_D' ..Difficulty, 'AttackFormation')
 			ScenarioFramework.PlatoonPatrolChain(units, 'M1_UEF_Air_Attack_Chain')
+			local units2 = ScenarioUtils.CreateArmyGroupAsPlatoon('UEF', 'M1_Airattack2', 'AttackFormation')
+			ScenarioFramework.PlatoonPatrolChain(units2, 'M1_UEF_Air_Attack_Chain2')
 			WaitSeconds(M1UEFAirAttackTimer[Difficulty])
 			ScenarioFramework.CreatePlatoonDeathTrigger(M1UEFAirAttacks, units)
 		end)
@@ -418,6 +432,7 @@ function M1CybranPatrols()
 end
 
 -- M2 Functions
+
 function M2NISIntro()
 	-- If this flag hasn't been marked as true, set it to true, that way we can exit the function straight away if this is true.
 	if not M1Complete then
@@ -515,6 +530,25 @@ function M2NISIntro()
 
 	-- Handle player reinforcements.
 	ScenarioFramework.CreateTimerTrigger(M2PlayerReinforcements, 15)
+	
+	buffDef = Buffs['CheatIncome']
+    buffAffects = buffDef.Affects
+    buffAffects.EnergyProduction.Mult = 1.5
+    buffAffects.MassProduction.Mult = 1.5
+
+       for _, u in GetArmyBrain(UEF):GetPlatoonUniquelyNamed('ArmyPool'):GetPlatoonUnits() do
+               Buff.ApplyBuff(u, 'CheatIncome')
+       end
+	   
+	buffDef = Buffs['CheatIncome']
+    buffAffects = buffDef.Affects
+    buffAffects.EnergyProduction.Mult = 1.5
+    buffAffects.MassProduction.Mult = 1.5
+
+       for _, u in GetArmyBrain(Cybran):GetPlatoonUniquelyNamed('ArmyPool'):GetPlatoonUnits() do
+               Buff.ApplyBuff(u, 'CheatIncome')
+       end
+	
 end
 
 function M2Objectives()
@@ -648,7 +682,7 @@ function M2SecondaryObjectives()
 
     WaitSeconds(3*60)
 
-	ScenarioFramework.Dialogue(OpStrings.M2_P2_Cutscene_Dialogue, nil, true)
+	ScenarioFramework.Dialogue(OpStrings.M2_P2_SecondaryObj, nil, true)
 	
     ScenarioInfo.M2S1 = Objectives.CategoriesInArea(
         'secondary',                      -- type
@@ -712,10 +746,10 @@ function M2UnlockT2Air()
 	ScenarioFramework.PlayUnlockDialogue()
     ScenarioFramework.RemoveRestrictionForAllHumans(categories.xna0202)
 	ScenarioFramework.RemoveRestrictionForAllHumans(categories.xna0203)
-	ScenarioFramework.RemoveRestrictionForAllHumans(categories.xna0201)
-	ScenarioFramework.RemoveRestrictionForAllHumans(categories.xnl0205)
+	ScenarioFramework.RemoveRestrictionForAllHumans(categories.xna0107)
+	ScenarioFramework.RemoveRestrictionForAllHumans(categories.xnl0208)
 	ScenarioFramework.RemoveRestrictionForAllHumans(categories.xnb0202)
-	ScenarioFramework.RemoveRestrictionForAllHumans(categories.xnb0212)
+	ScenarioFramework.RemoveRestrictionForAllHumans(categories.znb9502)
 	ScenarioFramework.RemoveRestrictionForAllHumans(categories.xnb1201)
 	ScenarioFramework.RemoveRestrictionForAllHumans(categories.xnb1202)
 
@@ -732,7 +766,7 @@ function M2SendPlayerReinforcements()
 
 		local transports = ScenarioUtils.CreateArmyGroup('Nomads', 'M2_Reinforcment_Transports_D' .. Difficulty)
 		local units = ScenarioUtils.CreateArmyGroupAsPlatoon('Nomads', 'M2_Reinforcments_D' .. Difficulty, 'AttackFormation')
-
+        WaitSeconds(2)
 		import('/lua/ai/aiutilities.lua').UseTransports(units:GetPlatoonUnits(), transports, destination)
 
 		for _, transport in transports do
@@ -749,6 +783,7 @@ function M2SendPlayerReinforcements()
 
             if (v and not v:IsDead() and (v:GetAIBrain() == ArmyBrains[Nomads]) and not v:IsUnitState('Attached')) then
                 ScenarioFramework.GiveUnitToArmy(v, Player1)
+			return
             end
         end
 
@@ -875,7 +910,16 @@ function M3NISIntro()
 	ForkThread(UEFNISattacks)
 	ForkThread(PrimaryObjective)
 	ForkThread(M3UnlockT2Land)
+    
+	buffDef = Buffs['CheatIncome']
+    buffAffects = buffDef.Affects
+    buffAffects.EnergyProduction.Mult = 1.5
+    buffAffects.MassProduction.Mult = 1.5
 
+       for _, u in GetArmyBrain(UEF):GetPlatoonUniquelyNamed('ArmyPool'):GetPlatoonUnits() do
+               Buff.ApplyBuff(u, 'CheatIncome')
+       end
+	
 end
 
 function SecondaryObjective()
@@ -984,6 +1028,8 @@ function M3UnlockT2Land()
 	ScenarioFramework.RemoveRestrictionForAllHumans(categories.xnl0203)
 	ScenarioFramework.RemoveRestrictionForAllHumans(categories.xnl0204)
 	ScenarioFramework.RemoveRestrictionForAllHumans(categories.xnl0205)
+	ScenarioFramework.RemoveRestrictionForAllHumans(categories.znb9501)
+	ScenarioFramework.RemoveRestrictionForAllHumans(categories.xnb0201)
 	ScenarioFramework.RemoveRestrictionForAllHumans(categories.xnb2201)
 	ScenarioFramework.RemoveRestrictionForAllHumans(categories.xnb2202)
 	ScenarioFramework.RemoveRestrictionForAllHumans(categories.xnb2207)
@@ -1038,16 +1084,6 @@ function CybranCommanderDeath()
         end
     end
 end
-
-function CheatEconomy(army)
-	ArmyBrains[army]:GiveStorage('MASS', 5000)
-	ArmyBrains[army]:GiveStorage('ENERGY', 5000)
-	while(true) do
-		ArmyBrains[army]:GiveResource('MASS', 5000)
-		ArmyBrains[army]:GiveResource('ENERGY', 5000)
-		WaitSeconds(1)
-	end
-end 
 
 function PlayerWin()
      if(not ScenarioInfo.OpEnded) then
