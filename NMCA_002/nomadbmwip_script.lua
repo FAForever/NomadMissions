@@ -266,18 +266,6 @@ function M1Objectives()
         end
 	)
 	table.insert(AssignedObjectives, ScenarioInfo.M1P1)
-	
-	ScenarioInfo.M1P2 = Objectives.Capture(
-        'primary',
-        'incomplete',
-        'Capture Civilian Town',
-        'The buildings in the Civilian Town have some interesting technical readings. Capture them so we can learn more.',
-        {
-			FlashVisible = true,
-            Units = ScenarioInfo.Town,
-        }
-    )
-	table.insert(AssignedObjectives, ScenarioInfo.M1P2)
 
 	ScenarioInfo.M1S1 = Objectives.UnitStatCompare(
 		'secondary',
@@ -357,9 +345,9 @@ function M1UEFAirAttacks()
 	if ScenarioInfo.M1P1.Active then
 		ForkThread(function()
 			local units = ScenarioUtils.CreateArmyGroupAsPlatoon('UEF', 'M1_AirAttacks_D' ..Difficulty, 'AttackFormation')
-			ScenarioFramework.PlatoonPatrolChain(units, 'M1_UEF_Air_Attack_Chain')
+			 ScenarioFramework.PlatoonPatrolChain(units, 'M1_UEF_Air_Attack_Chain' .. Random(1, 3))
 			local units2 = ScenarioUtils.CreateArmyGroupAsPlatoon('UEF', 'M1_Airattack2', 'AttackFormation')
-			ScenarioFramework.PlatoonPatrolChain(units2, 'M1_UEF_Air_Attack_Chain2')
+			ScenarioFramework.PlatoonPatrolChain(units2, 'M1_UEF_Air_Attack_Chain4')
 			WaitSeconds(M1UEFAirAttackTimer[Difficulty])
 			ScenarioFramework.CreatePlatoonDeathTrigger(M1UEFAirAttacks, units)
 		end)
@@ -369,7 +357,7 @@ end
 function M1UEFNavyAttacks()
 	if ScenarioInfo.M1P1.Active then
 		ForkThread(function()
-			WaitSeconds(45)
+			WaitSeconds(2.5*60)
 			local units = ScenarioUtils.CreateArmyGroupAsPlatoon('UEF', 'M1_NavyAttacks_D' ..Difficulty, 'AttackFormation')
 			ScenarioFramework.PlatoonPatrolChain(units, 'M1_UEF_Navy_Attack_Chain')
 			ScenarioFramework.CreatePlatoonDeathTrigger(M1UEFNavyAttacks, units)
@@ -531,6 +519,9 @@ function M2NISIntro()
 	-- Handle player reinforcements.
 	ScenarioFramework.CreateTimerTrigger(M2PlayerReinforcements, 15)
 	
+	ArmyBrains[UEF]:GiveResource('MASS', 10000)
+    ArmyBrains[UEF]:GiveResource('ENERGY', 6000)
+	
 	buffDef = Buffs['CheatIncome']
     buffAffects = buffDef.Affects
     buffAffects.EnergyProduction.Mult = 1.5
@@ -573,8 +564,6 @@ function M2Objectives()
 		
 		ScenarioFramework.PlatoonPatrolChain(units, 'M2_UEF_Town_Transport_Attacker_Chain')
 	end
-
-	ScenarioInfo.M1P2:ManualResult(true)
 
 	-- Set a new objective.
 	ScenarioInfo.M2P1 = Objectives.Protect(
@@ -779,11 +768,11 @@ function M2SendPlayerReinforcements()
         for k, v in units:GetPlatoonUnits() do
 			while (v:IsUnitState('Attached')) do
 				WaitSeconds(.5)
+		    return
 			end
 
             if (v and not v:IsDead() and (v:GetAIBrain() == ArmyBrains[Nomads]) and not v:IsUnitState('Attached')) then
                 ScenarioFramework.GiveUnitToArmy(v, Player1)
-			return
             end
         end
 

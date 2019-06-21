@@ -109,8 +109,8 @@ function UEFNavy_NavalAttacks()
 	local Temp = {
 		'NavalAttackTemp',
 		'NoPlan',
-		{ 'ues0103', 1, 6, 'Attack', 'GrowthFormation' },
-		{ 'ues0203', 1, 4, 'Attack', 'GrowthFormation' },
+		{ 'ues0103', 1, 4, 'Attack', 'GrowthFormation' },
+		{ 'ues0203', 1, 2, 'Attack', 'GrowthFormation' },
 	}
 	local Builder = {
 		BuilderName = 'NavyAttackBuilder',
@@ -130,7 +130,7 @@ function UEFNavy_NavalAttacks()
 	Temp = {
 		'NavalAttackTemp2',
 		'NoPlan',
-		{ 'ues0103', 1, 8, 'Attack', 'GrowthFormation' },
+		{ 'ues0103', 1, 6, 'Attack', 'GrowthFormation' },
 	}
 	Builder = {
 		BuilderName = 'NavyAttackBuilder2',
