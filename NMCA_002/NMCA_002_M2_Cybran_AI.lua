@@ -9,7 +9,7 @@ local CybranMainBase = BaseManager.CreateBaseManager()
 
 function CybranMainBaseAI()
     CybranMainBase:Initialize(ArmyBrains[Cybran], 'M2_MainBase', 'M2_Cybran_Main_Base_Marker', 200, {M2_MainBase = 100})
-    CybranMainBase:StartNonZeroBase({{14, 12, 10}, {10, 8, 6}})
+    CybranMainBase:StartNonZeroBase({{14, 12, 11}, {12, 10, 9}})
 
 	CybranMainBase:AddBuildGroup('M2_MainBase_Navy', 90, false)
 
@@ -94,28 +94,58 @@ function M2CybranLandAttacks()
 	)
 	opai:SetChildQuantity('MobileFlak', 6)
 	
-	opai = CybranMainBase:AddOpAI('BasicLandAttack', 'M2_Cybran_Land_Patrol_4', 
-		{
-	       MasterPlatoonFunction = {SPAIFileName, 'PatrolThread'},
-           PlatoonData = {
-               PatrolChain = 'M2_Cybran_Artillery_Attack_Chain'
-           },
-           Priority = 250,
-		}
-	)
-	opai:SetChildQuantity('HeavyTanks', 8)
-	
+	local Temp = {
+		'CybranlandP2AttackTemp1',
+		'NoPlan',
+		{ 'url0202', 1, 2, 'Attack', 'GrowthFormation' },
+		{ 'url0107', 1, 6, 'Attack', 'GrowthFormation' },
+	}
+	local Builder = {
+		BuilderName = 'CybranlandP2Builder1',
+		PlatoonTemplate = Temp,
+		InstanceCount = 2,
+		Priority = 100,
+		PlatoonType = 'Land',
+		RequiresConstruction = true,
+		LocationType = 'M2_MainBase',
+		PlatoonAIFunction = {SPAIFileName, 'PatrolChainPickerThread'},     
+		PlatoonData = {
+			PatrolChain = 'M2_Cybran_Artillery_Attack_Chain'
+		},
+	}
+	ArmyBrains[Cybran]:PBMAddPlatoon( Builder )
 end
 
 function M2CybranAirAttacks()
 	-- Send a couple of air attacks at the UEF, nothing major as we're not intending to do much damage.
 	local opai = nil
 	
+	local Temp = {
+       'CybranAirM2AttackTemp0',
+       'NoPlan',
+       { 'ura0203', 1, 6, 'Attack', 'GrowthFormation' }, --Gunships
+       { 'ura0102', 1, 9, 'Attack', 'GrowthFormation' }, --Fighters  	   
+    }
+    local Builder = {
+       BuilderName = 'CybranAirM2AttackBuilder0',
+       PlatoonTemplate = Temp,
+       InstanceCount = 2,
+       Priority = 300,
+       PlatoonType = 'Air',
+       RequiresConstruction = true,
+       LocationType = 'M2_MainBase',
+      PlatoonAIFunction = {SPAIFileName, 'RandomDefensePatrolThread'},     
+       PlatoonData = {
+           PatrolChain = 'M2_Cybran_Main_Base_Air_Patrol_Chain'
+       },
+    }
+    ArmyBrains[Cybran]:PBMAddPlatoon( Builder )
+	
 	opai = CybranMainBase:AddOpAI('AirAttacks', 'M2_Cybran_Air_Attack_1', 
 		{
 	       MasterPlatoonFunction = {SPAIFileName, 'PatrolThread'},
            PlatoonData = {
-               PatrolChain = 'M2_Cybran_UEF_Air_Attack_Chain'
+               PatrolChain = 'M2_Cybran_UEF_Air_Attack_Chain1'
            },
            Priority = 200,
 		}
@@ -126,7 +156,7 @@ function M2CybranAirAttacks()
 		{
 	       MasterPlatoonFunction = {SPAIFileName, 'PatrolThread'},
            PlatoonData = {
-               PatrolChain = 'M2_Cybran_UEF_Air_Attack_Chain'
+               PatrolChain = 'M2_Cybran_UEF_Air_Attack_Chain2'
            },
            Priority = 175,
 		}
@@ -137,7 +167,7 @@ function M2CybranAirAttacks()
 		{
 	       MasterPlatoonFunction = {SPAIFileName, 'PatrolThread'},
            PlatoonData = {
-               PatrolChain = 'M2_Cybran_UEF_Air_Attack_Chain'
+               PatrolChain = 'M2_Cybran_UEF_Air_Attack_Chain3'
            },
            Priority = 150,
 		}
@@ -181,13 +211,12 @@ function M2CybranAirAttacks()
 end
 
 function M3CybranAttacks()
-
+    --Cybran attacks on Main UEF base, will hit a wall without Player support
     local Temp = {
        'CybranLandM3AttackTemp0',
        'NoPlan',
        { 'url0303', 1, 3, 'Attack', 'GrowthFormation' }, --Seige Bots
-       { 'url0202', 1, 8, 'Attack', 'GrowthFormation' }, --Heavy tanks  
-       { 'url0205', 1, 4, 'Attack', 'GrowthFormation' }, --Flak  	   
+       { 'url0202', 1, 8, 'Attack', 'GrowthFormation' }, --Heavy tanks   	   
     }
     local Builder = {
        BuilderName = 'CybranLandM3AttackBuilder0',
@@ -207,8 +236,7 @@ function M3CybranAttacks()
 	Temp = {
        'CybranLandM3AttackTemp1',
        'NoPlan',
-       { 'url0303', 1, 2, 'Attack', 'GrowthFormation' }, --Seige Bots
-       { 'url0202', 1, 8, 'Attack', 'GrowthFormation' }, --Heavy tanks  	   
+       { 'url0202', 1, 12, 'Attack', 'GrowthFormation' }, --Heavy tanks  	   
     }
     Builder = {
        BuilderName = 'CybranLandM3AttackBuilder1',
@@ -234,7 +262,7 @@ function M3CybranAttacks()
     Builder = {
        BuilderName = 'CybranAirM3AttackBuilder0',
        PlatoonTemplate = Temp,
-       InstanceCount = 2,
+       InstanceCount = 4,
        Priority = 300,
        PlatoonType = 'Air',
        RequiresConstruction = true,

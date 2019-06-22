@@ -9,7 +9,7 @@ local UEFArtilleryBase = BaseManager.CreateBaseManager()
 
 function UEFArtilleryBaseFunction()
     UEFArtilleryBase:Initialize(ArmyBrains[UEF], 'M2_Arty_Base_Units', 'M2_UEF_Artillery_Base_Marker', 100, {M2_Arty_Base_Units = 100})
-    UEFArtilleryBase:StartNonZeroBase({{16, 12, 10}, {8, 6, 4}})
+    UEFArtilleryBase:StartNonZeroBase({{10, 12, 16}, {4, 6, 8}})
     UEFArtilleryBase.MaximumConstructionEngineers = 5
 	UEFArtilleryBase:SetActive('AirScouting', true)
 
@@ -26,7 +26,7 @@ function UEFArtilleryBase_AirAttacks()
 		'P2AirB2AttackTemp1',
 		'NoPlan',
 		{ 'dea0202', 1, 2, 'Attack', 'GrowthFormation' },
-		{ 'uea0103', 1, 4, 'Attack', 'GrowthFormation' },
+		{ 'uea0102', 1, 6, 'Attack', 'GrowthFormation' },
 	}
 	local Builder = {
 		BuilderName = 'P2AirB2AttackBuilder1',
@@ -47,12 +47,12 @@ function UEFArtilleryBase_AirAttacks()
 		'P2AirB2AttackTemp2',
 		'NoPlan',
 		{ 'uea0203', 1, 4, 'Attack', 'GrowthFormation' },
-		{ 'uea0103', 1, 6, 'Attack', 'GrowthFormation' },
+		{ 'uea0103', 1, 4, 'Attack', 'GrowthFormation' },
 	}
 	Builder = {
 		BuilderName = 'P2AirB2AttackBuilder2',
 		PlatoonTemplate = Temp,
-		InstanceCount = 2,
+		InstanceCount = 1,
 		Priority = 100,
 		PlatoonType = 'Air',
 		RequiresConstruction = true,
@@ -120,7 +120,7 @@ function UEFArtilleryBase_LandAttacks()
 		BuilderName = 'P2landB2AttackBuilder1',
 		PlatoonTemplate = Temp,
 		InstanceCount = 2,
-		Priority = 100,
+		Priority = 200,
 		PlatoonType = 'Land',
 		RequiresConstruction = true,
 		LocationType = 'M2_Arty_Base_Units',

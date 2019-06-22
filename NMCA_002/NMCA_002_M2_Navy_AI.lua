@@ -10,7 +10,7 @@ local UEFNavyBase = BaseManager.CreateBaseManager()
 
 function UEFNavyBaseFunction()
     UEFNavyBase:Initialize(ArmyBrains[UEF], 'M2_Naval_Base', 'M2_UEF_Naval_Base_Marker', 100, {M2_Naval_Base = 100})
-    UEFNavyBase:StartNonZeroBase({{18, 14, 12}, {10, 8, 6}})
+    UEFNavyBase:StartNonZeroBase({{12, 14, 18}, {6, 8, 10}})
 
 	UEFNavyBase:SetActive('AirScouting', true)
 
@@ -20,7 +20,10 @@ function UEFNavyBaseFunction()
 end
 
 function UEFNavyBase_AirAttacks()
-
+    
+	local opai = nil
+    local quantity = {}
+	
 	local Temp = {
 		'P2AirAttackTemp1',
 		'NoPlan',
@@ -45,7 +48,7 @@ function UEFNavyBase_AirAttacks()
 	Temp = {
 		'P2AirAttackTemp2',
 		'NoPlan',
-		{ 'uea0103', 1, 6, 'Attack', 'GrowthFormation' },
+		{ 'uea0102', 1, 7, 'Attack', 'GrowthFormation' },
 	}
 	Builder = {
 		BuilderName = 'P2AirAttackBuilder2',
@@ -65,7 +68,8 @@ function UEFNavyBase_AirAttacks()
 	Temp = {
 		'P2AirAttackTemp3',
 		'NoPlan',
-		{ 'uea0203', 1, 6, 'Attack', 'GrowthFormation' },
+		{ 'uea0203', 1, 4, 'Attack', 'GrowthFormation' },
+		{ 'uea0103', 1, 2, 'Attack', 'GrowthFormation' },
 	}
 	Builder = {
 		BuilderName = 'P2AirAttackBuilder3',
@@ -102,6 +106,21 @@ function UEFNavyBase_AirAttacks()
 	}
 	ArmyBrains[UEF]:PBMAddPlatoon( Builder )
 	
+	quantity = {6, 8, 10}
+    opai = UEFNavyBase:AddOpAI('AirAttacks', 'M2_UEF_Air_Attack_6',
+        {
+            MasterPlatoonFunction = {'/lua/ScenarioPlatoonAI.lua', 'CategoryHunterPlatoonAI'},
+            PlatoonData = {
+              CategoryList = { categories.NAVAL - categories.Cybran },
+            },
+            Priority = 125,
+        }
+    )
+    opai:SetChildQuantity('TorpedoBombers', quantity[Difficulty])
+	opai:SetLockingStyle('DeathRatio', {Ratio = 0.5})
+	opai:AddBuildCondition('/lua/editor/otherarmyunitcountbuildconditions.lua', 'BrainsCompareNumCategory',
+            {'default_brain', {'HumanPlayers'}, 20, categories.NAVAL * categories.MOBILE, '>='})
+	
 end
 
 function UEFNavy_NavalAttacks()
@@ -110,7 +129,7 @@ function UEFNavy_NavalAttacks()
 		'NavalAttackTemp',
 		'NoPlan',
 		{ 'ues0103', 1, 4, 'Attack', 'GrowthFormation' },
-		{ 'ues0203', 1, 2, 'Attack', 'GrowthFormation' },
+		{ 'ues0203', 1, 3, 'Attack', 'GrowthFormation' },
 	}
 	local Builder = {
 		BuilderName = 'NavyAttackBuilder',
@@ -130,7 +149,7 @@ function UEFNavy_NavalAttacks()
 	Temp = {
 		'NavalAttackTemp2',
 		'NoPlan',
-		{ 'ues0103', 1, 6, 'Attack', 'GrowthFormation' },
+		{ 'ues0103', 1, 5, 'Attack', 'GrowthFormation' },
 	}
 	Builder = {
 		BuilderName = 'NavyAttackBuilder2',
@@ -157,15 +176,11 @@ function UEFNavy_NavalAttacks()
 	Builder = {
 		BuilderName = 'NavyAttackBuilder3',
 		PlatoonTemplate = Temp,
-		InstanceCount = 1,
+		InstanceCount = 3,
 		Priority = 950,
 		PlatoonType = 'Sea',
 		RequiresConstruction = true,
 		LocationType = 'M2_Naval_Base',
-		BuildConditions = {
-			{ '/lua/editor/otherarmyunitcountbuildconditions.lua', 'BrainGreaterThanOrEqualNumCategory',
-			{'default_brain', {'HumanPlayers'}, 2, categories.NAVAL * categories.FACTORY}},
-		},
 		PlatoonAIFunction = {SPAIFileName, 'PatrolChainPickerThread'},     
 		PlatoonData = {
 			PatrolChains = {'M2_UEF_Player_Navy_Attack_Chain_1', 'M2_UEF_Player_Navy_Attack_Chain_2'}

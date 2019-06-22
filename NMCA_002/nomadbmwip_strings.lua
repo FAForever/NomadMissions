@@ -59,6 +59,10 @@ M2_IntroReinforcements = {
 	{text = "[Benson]: I have also managed to covert some of our stronger space drones into Atmopshere fighters and Gunships. Both of them have several functions and will make up the backbone of your T2 air force, test them out for me will yeah?", vid = '', bank = '', cue = '', faction = 'UEF'},
 }
 
+M2_Snipe_Attempt_Dialogue = {
+    {text = "[Nichols]: Captain, the UEF commander is sending a large air force after your ACU be careful!", vid = '', bank = '', cue = '', faction = 'UEF'},
+}
+
 M2_ReinforcementsCalled = {
 	{text = "[Benson]: Reinforcements are inbound.", vid = '', bank = '', cue = '', faction = 'UEF'},
 }

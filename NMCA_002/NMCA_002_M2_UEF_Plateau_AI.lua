@@ -63,8 +63,8 @@ function UEFArtilleryBase_Patrols()
     {
         MasterPlatoonFunction = {SPAIFileName, 'LandAssaultWithTransports'},
         PlatoonData = {
-            AttackChain = 'M1_UEF_Transport_Troops_Chain',
-            LandingChain = 'M2_UEF_Artillery_Drop_Chain',
+            AttackChain = 'M2_UEF_Plateau_Drop_Chainattack1',
+            LandingChain = 'M2_UEF_Plateau_Drop_Chain',
             TransportReturn = 'M2_UEF_Plateau_Base_Marker',
         },
         Priority = 1000,
@@ -81,7 +81,7 @@ function UEFArtilleryBase_Patrols()
 			PlatoonData = {
 				AttackChain = 'M2_UEF_Plateau_Drop_Chainattack1',
 				LandingChain = 'M2_UEF_Plateau_Drop_Chain',
-				TransportReturn = 'M2_UEF_Artillery_Base_Marker',
+				TransportReturn = 'M2_UEF_Plateau_Base_Marker',
 			},
 			Priority = 250,
 		})

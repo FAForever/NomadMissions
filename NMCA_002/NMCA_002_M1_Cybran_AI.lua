@@ -16,6 +16,7 @@ end
 
 function M1CybranAirAttacks()
 
+
     local quantity = {}
 
 	quantity = {3, 4, 5}
@@ -80,4 +81,58 @@ function M1CybranAirAttacks()
        },
     }
     ArmyBrains[Cybran]:PBMAddPlatoon( Builder )
+end
+
+function M1CybranAirAttacks2()
+
+    local quantity = {}
+
+	quantity = {3, 4, 5}
+	
+	local Temp = {
+       'CybranAirB1M2AttackTemp0',
+       'NoPlan',
+       { 'ura0102', 1, quantity[Difficulty], 'Attack', 'GrowthFormation' }, --Fighters  
+    }
+    local Builder = {
+       BuilderName = 'CybranAirB1M2AttackBuilder0',
+       PlatoonTemplate = Temp,
+       InstanceCount = 1,
+       Priority = 200,
+       PlatoonType = 'Air',
+       RequiresConstruction = true,
+       LocationType = 'M1_AirBase',
+       PlatoonAIFunction = {SPAIFileName, 'PatrolChainPickerThread'},     
+       PlatoonData = {
+           PatrolChains = {'M2_Cybran_UEF_Air_Attack_Chain1','M2_Cybran_UEF_Air_Attack_Chain2', 'M2_Cybran_UEF_Air_Attack_Chain3'}
+       },
+    }
+    ArmyBrains[Cybran]:PBMAddPlatoon( Builder )
+	
+	Temp = {
+       'CybranAirB1M2AttackTemp1',
+       'NoPlan',
+       { 'ura0103', 1, quantity[Difficulty], 'Attack', 'GrowthFormation' }, --Bombers  
+    }
+    Builder = {
+       BuilderName = 'CybranAirB1M2AttackBuilder1',
+       PlatoonTemplate = Temp,
+       InstanceCount = 3,
+       Priority = 200,
+       PlatoonType = 'Air',
+       RequiresConstruction = true,
+       LocationType = 'M1_AirBase',
+       PlatoonAIFunction = {SPAIFileName, 'PatrolChainPickerThread'},     
+       PlatoonData = {
+           PatrolChains = {'M2_Cybran_UEF_Air_Attack_Chain1','M2_Cybran_UEF_Air_Attack_Chain2', 'M2_Cybran_UEF_Air_Attack_Chain3'}
+       },
+    }
+    ArmyBrains[Cybran]:PBMAddPlatoon( Builder )
+	
+end
+
+function DisableBase()
+    if (CybranAirBase) then
+        CybranAirBase:BaseActive(false)
+    end
 end

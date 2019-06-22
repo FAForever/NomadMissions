@@ -25,7 +25,7 @@ function UEFMainBase_AirAttacks()
 	
 	local quantity = {}
 
-	quantity = {5, 8, 10}
+	quantity = {5, 10, 15}
 	local Temp = {
        'UEFAirM3AttackTemp0',
        'NoPlan',
@@ -46,7 +46,7 @@ function UEFMainBase_AirAttacks()
     }
     ArmyBrains[UEF]:PBMAddPlatoon( Builder )
 	
-	quantity = {5, 8, 10}
+	quantity = {5, 10, 15}
 	Temp = {
        'UEFAirM3AttackTemp1',
        'NoPlan',
@@ -67,7 +67,7 @@ function UEFMainBase_AirAttacks()
     }
     ArmyBrains[UEF]:PBMAddPlatoon( Builder )
 	
-	quantity = {4, 6, 8}
+	quantity = {5, 6, 7}
 	Temp = {
        'UEFAirM3AttackTemp2',
        'NoPlan',
@@ -146,7 +146,7 @@ function UEFMainBase_LandAttacks()
        BuilderName = 'UEFLandM3AttackBuilder0',
        PlatoonTemplate = Temp,
        InstanceCount = 2,
-       Priority = 102,
+       Priority = 105,
        PlatoonType = 'Land',
        RequiresConstruction = true,
        LocationType = 'UEFMainBaseM3',
@@ -226,10 +226,10 @@ function UEFMainBase_TransportAttacks()
 				LandingChain = 'M3_UEF_Drop_Chain2',
 				TransportReturn = 'M3_UEF_UEFMainBase_Base_Marker',
 			},
-			Priority = 105,
+			Priority = 106,
 		})
 		opai:SetChildQuantity('HeavyTanks', quantity[Difficulty])
-		opai:SetLockingStyle('BuildTimer', {LockTimer = 150})
+		opai:SetLockingStyle('BuildTimer', {LockTimer = 180})
 	end
 
 	quantity = {14, 14, 24}
@@ -245,7 +245,7 @@ function UEFMainBase_TransportAttacks()
 			Priority = 100,
 		})
 		opai:SetChildQuantity('LightArtillery', quantity[Difficulty])
-		opai:SetLockingStyle('BuildTimer', {LockTimer = 90})
+		opai:SetLockingStyle('BuildTimer', {LockTimer = 120})
 	end
 end
 
@@ -261,7 +261,7 @@ function M3UEFNavalBase_NavalAttacks()
        BuilderName = 'UEFNavalM3AttackBuilder0',
        PlatoonTemplate = Temp,
        InstanceCount = 2,
-       Priority = 100,
+       Priority = 104,
        PlatoonType = 'Sea',
        RequiresConstruction = true,
        LocationType = 'UEFMainBaseM3',
@@ -282,7 +282,7 @@ function M3UEFNavalBase_NavalAttacks()
        BuilderName = 'UEFNavalM3AttackBuilder1',
        PlatoonTemplate = Temp,
        InstanceCount = 2,
-       Priority = 100,
+       Priority = 103,
        PlatoonType = 'Sea',
        RequiresConstruction = true,
        LocationType = 'UEFMainBaseM3',
