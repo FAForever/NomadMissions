@@ -287,12 +287,6 @@ function M1NIS()
         ArmyBrains[Player4]:GiveResource('ENERGY', 5000)
         ArmyBrains[Player4]:GiveResource('MASS', 650)
     end
-
-    -- Remove Ships
-    for _, player in ScenarioInfo.HumanPlayers do
-        local ship = GetEntityById('INO0001')
-        ship:Destroy()
-    end
 end
 
 function M1_Objectives()
