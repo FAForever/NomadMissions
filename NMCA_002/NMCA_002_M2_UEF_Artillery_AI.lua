@@ -124,7 +124,7 @@ function UEFArtilleryBase_LandAttacks()
 		PlatoonType = 'Land',
 		RequiresConstruction = true,
 		LocationType = 'M2_Arty_Base_Units',
-		PlatoonAIFunction = {SPAIFileName, 'PatrolChainPickerThread'},     
+		PlatoonAIFunction = {SPAIFileName, 'PatrolThread'},     
 		PlatoonData = {
 			PatrolChain = 'M2_UEF_Air_Base_Patrol_Chain_1'
 		},
@@ -145,7 +145,7 @@ function UEFArtilleryBase_LandAttacks()
 		PlatoonType = 'Land',
 		RequiresConstruction = true,
 		LocationType = 'M2_Arty_Base_Units',
-		PlatoonAIFunction = {SPAIFileName, 'PatrolChainPickerThread'},     
+		PlatoonAIFunction = {SPAIFileName, 'PatrolThread'},     
 		PlatoonData = {
 			PatrolChain = 'M2_UEF_Artillery_Base_Land_Attack_1'
 		},
@@ -166,7 +166,7 @@ function UEFArtilleryBase_LandAttacks()
 		PlatoonType = 'Land',
 		RequiresConstruction = true,
 		LocationType = 'M2_Arty_Base_Units',
-		PlatoonAIFunction = {SPAIFileName, 'PatrolChainPickerThread'},     
+		PlatoonAIFunction = {SPAIFileName, 'PatrolThread'},     
 		PlatoonData = {
 			PatrolChain = 'M2_UEF_Artillery_Base_Cybran_Attack'
 		},
@@ -187,7 +187,7 @@ function UEFArtilleryBase_LandAttacks()
 		PlatoonType = 'Land',
 		RequiresConstruction = true,
 		LocationType = 'M2_Arty_Base_Units',
-		PlatoonAIFunction = {SPAIFileName, 'PatrolChainPickerThread'},     
+		PlatoonAIFunction = {SPAIFileName, 'PatrolThread'},     
 		PlatoonData = {
 			PatrolChain = 'M2_UEF_Artillery_Base_Land_Attack_1'
 		},
@@ -208,7 +208,7 @@ function UEFArtilleryBase_LandAttacks()
 		PlatoonType = 'Land',
 		RequiresConstruction = true,
 		LocationType = 'M2_Arty_Base_Units',
-		PlatoonAIFunction = {SPAIFileName, 'PatrolChainPickerThread'},     
+		PlatoonAIFunction = {SPAIFileName, 'PatrolThread'},     
 		PlatoonData = {
 			PatrolChain = 'M2_UEF_Artillery_Base_Cybran_Attack'
 		},
@@ -247,10 +247,10 @@ function UEFArtilleryBase_TransportAttacks()
 				LandingChain = 'M2_UEF_Artillery_Drop_Chain',
 				TransportReturn = 'M2_UEF_Artillery_Base_Marker',
 			},
-			Priority = 250,
+			Priority = 150,
 		})
 		opai:SetChildQuantity('LightArtillery', quantity[Difficulty])
-		opai:SetLockingStyle('BuildTimer', {LockTimer = 180})
+		opai:SetLockingStyle('DeathTimer', {LockTimer = 180})
 	
 	end
 	
@@ -264,10 +264,10 @@ function UEFArtilleryBase_TransportAttacks()
 				LandingChain = 'M2_UEF_Artillery_Drop_Chain',
 				TransportReturn = 'M2_UEF_Artillery_Base_Marker',
 			},
-			Priority = 250,
+			Priority = 150,
 		})
 		opai:SetChildQuantity('LightTanks', quantity[Difficulty])
-		opai:SetLockingStyle('BuildTimer', {LockTimer = 240})
+		opai:SetLockingStyle('DeathTimer', {LockTimer = 240})
 	
 	end
 

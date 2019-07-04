@@ -31,7 +31,7 @@ function UEFArtilleryBase_Patrols()
 		PlatoonType = 'Land',
 		RequiresConstruction = true,
 		LocationType = 'M2_UEF_Plateau_Base',
-		PlatoonAIFunction = {SPAIFileName, 'PatrolChainPickerThread'},     
+		PlatoonAIFunction = {SPAIFileName, 'PatrolThread'},     
 		PlatoonData = {
 			PatrolChain = 'M2_UEF_Plateau_Patrol_Chain'
 		},
@@ -59,7 +59,7 @@ function UEFArtilleryBase_Patrols()
 	}
 	ArmyBrains[UEF]:PBMAddPlatoon( Builder )
     
-	opai = UEFPlateauBase:AddOpAI('EngineerAttack', 'M2_Plateau_Base_Transport_Builder',
+	local opai = UEFPlateauBase:AddOpAI('EngineerAttack', 'M2_Plateau_Base_Transport_Builder',
     {
         MasterPlatoonFunction = {SPAIFileName, 'LandAssaultWithTransports'},
         PlatoonData = {

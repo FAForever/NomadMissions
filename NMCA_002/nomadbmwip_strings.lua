@@ -89,7 +89,7 @@ M3_Arty_Destroyed = {
 	}
 
 M3_TechIntel = {
-	{text = "[Benson]: Captain, those new units i been senting for you, are now available in your list of build options along with additional defencive structures I have managed to come up with.", vid = '', bank = '', cue = '', faction = 'UEF'},
+	{text = "[Benson]: Captain, those new units I  have been sending for you, are now available in your list of build options along with additional defencive structures I have managed to come up with.", vid = '', bank = '', cue = '', faction = 'UEF'},
 }
 
 M3_UEFDeath = {

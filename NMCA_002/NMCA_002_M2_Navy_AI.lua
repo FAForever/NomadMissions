@@ -111,7 +111,7 @@ function UEFNavyBase_AirAttacks()
         {
             MasterPlatoonFunction = {'/lua/ScenarioPlatoonAI.lua', 'CategoryHunterPlatoonAI'},
             PlatoonData = {
-              CategoryList = { categories.NAVAL - categories.Cybran },
+              CategoryList = { categories.NAVAL - categories.CYBRAN },
             },
             Priority = 125,
         }
@@ -149,7 +149,7 @@ function UEFNavy_NavalAttacks()
 	Temp = {
 		'NavalAttackTemp2',
 		'NoPlan',
-		{ 'ues0103', 1, 5, 'Attack', 'GrowthFormation' },
+		{ 'ues0203', 1, 5, 'Attack', 'GrowthFormation' },
 	}
 	Builder = {
 		BuilderName = 'NavyAttackBuilder2',
@@ -169,15 +169,36 @@ function UEFNavy_NavalAttacks()
 	Temp = {
 		'NavalAttackTemp3',
 		'NoPlan',
-		{ 'ues0201', 1, 2, 'Attack', 'GrowthFormation' },
-		{ 'ues0103', 1, 2, 'Attack', 'GrowthFormation' },
-		{ 'ues0203', 1, 2, 'Attack', 'GrowthFormation' },
+		{ 'ues0202', 1, 1, 'Attack', 'GrowthFormation' },
+		{ 'ues0203', 1, 3, 'Attack', 'GrowthFormation' },
 	}
 	Builder = {
 		BuilderName = 'NavyAttackBuilder3',
 		PlatoonTemplate = Temp,
-		InstanceCount = 3,
+		InstanceCount = 1,
 		Priority = 950,
+		PlatoonType = 'Sea',
+		RequiresConstruction = true,
+		LocationType = 'M2_Naval_Base',
+		PlatoonAIFunction = {SPAIFileName, 'PatrolChainPickerThread'},     
+		PlatoonData = {
+			PatrolChains = {'M2_UEF_Player_Navy_Attack_Chain_1', 'M2_UEF_Player_Navy_Attack_Chain_2'}
+		},
+	}
+	ArmyBrains[UEF]:PBMAddPlatoon( Builder )
+	
+	Temp = {
+		'NavalAttackTemp4',
+		'NoPlan',
+		{ 'ues0201', 1, 2, 'Attack', 'GrowthFormation' },
+		{ 'ues0103', 1, 2, 'Attack', 'GrowthFormation' },
+		{ 'ues0203', 1, 3, 'Attack', 'GrowthFormation' },
+	}
+	Builder = {
+		BuilderName = 'NavyAttackBuilder4',
+		PlatoonTemplate = Temp,
+		InstanceCount = 3,
+		Priority = 940,
 		PlatoonType = 'Sea',
 		RequiresConstruction = true,
 		LocationType = 'M2_Naval_Base',
@@ -199,8 +220,8 @@ function UEFNavy_TransportAttacks()
     {
         MasterPlatoonFunction = {SPAIFileName, 'LandAssaultWithTransports'},
         PlatoonData = {
-            AttackChain = 'M1_UEF_Transport_Troops_Chain',
-            LandingChain = 'M2_UEF_Transport_Player_Drop_Chain',
+            AttackChain = 'M2_UEF_Transport_Troops_Chain',
+            LandingChain = 'M2_UEF_Transport_Player_Drop_Chain2',
             TransportReturn = 'M2_UEF_Naval_Base_Marker',
         },
         Priority = 1000,
@@ -216,14 +237,14 @@ function UEFNavy_TransportAttacks()
 		{
 			MasterPlatoonFunction = {SPAIFileName, 'LandAssaultWithTransports'},
 			PlatoonData = {
-				AttackChain = 'M1_UEF_Transport_Troops_Chain',
-				LandingChain = 'M2_UEF_Transport_Player_Drop_Chain',
+				AttackChain = 'M2_UEF_Transport_Troops_Chain',
+				LandingChain = 'M2_UEF_Transport_Player_Drop_Chain2',
 				TransportReturn = 'M2_UEF_Naval_Base_Marker',
 			},
 			Priority = 250,
 		})
 		opai:SetChildQuantity('LightArtillery', quantity[Difficulty])
-		opai:SetLockingStyle('BuildTimer', {LockTimer = 120})
+		opai:SetLockingStyle('DeathTimer', {LockTimer = 120})
 	end
 	
 	quantity = {8, 12, 14}
@@ -239,7 +260,7 @@ function UEFNavy_TransportAttacks()
 			Priority = 250,
 		})
 		opai:SetChildQuantity('LightTanks', quantity[Difficulty])
-		opai:SetLockingStyle('BuildTimer', {LockTimer = 120})
+		opai:SetLockingStyle('DeathTimer', {LockTimer = 150})
 	end
 
 	quantity = {6, 9, 12}
@@ -255,7 +276,7 @@ function UEFNavy_TransportAttacks()
 			Priority = 225,
 		})
 		opai:SetChildQuantity('HeavyTanks', quantity[Difficulty])
-		opai:SetLockingStyle('BuildTimer', {LockTimer = 150})
+		opai:SetLockingStyle('DeathTimer', {LockTimer = 180})
 	end
 	
 	local Temp = {

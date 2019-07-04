@@ -6,7 +6,7 @@ local UEF = 4
 local Difficulty = ScenarioInfo.Options.Difficulty
 
 local UEFMainBase = BaseManager.CreateBaseManager()
-local UEFM3ExpansionBase1 = BaseManager.CreateBaseManager()
+local UEFNavalB = BaseManager.CreateBaseManager()
 
 function UEFMainBaseAI()
     UEFMainBase:Initialize(ArmyBrains[UEF], 'UEFMainBaseM3', 'M3_UEF_UEFMainBase_Base_Marker', 200, {M3_UEF_Base = 300})
@@ -17,7 +17,7 @@ function UEFMainBaseAI()
 	UEFMainBase_AirAttacks()
 	UEFMainBase_LandAttacks()
 	UEFMainBase_TransportAttacks()
-    M3UEFNavalBase_NavalAttacks()
+    UEFMainBase_NavalAttacks()
 	
 end
 
@@ -145,7 +145,7 @@ function UEFMainBase_LandAttacks()
     local Builder = {
        BuilderName = 'UEFLandM3AttackBuilder0',
        PlatoonTemplate = Temp,
-       InstanceCount = 2,
+       InstanceCount = 3,
        Priority = 105,
        PlatoonType = 'Land',
        RequiresConstruction = true,
@@ -167,7 +167,7 @@ function UEFMainBase_LandAttacks()
     Builder = {
        BuilderName = 'UEFLandM3AttackBuilder1',
        PlatoonTemplate = Temp,
-       InstanceCount = 3,
+       InstanceCount = 5,
        Priority = 100,
        PlatoonType = 'Land',
        RequiresConstruction = true,
@@ -186,7 +186,7 @@ function UEFMainBase_TransportAttacks()
     local quantity = {}
 
     -- Transport Builder
-    opai = UEFMainBase:AddOpAI('EngineerAttack', 'M3_MainBase_Transport_Builder',
+    opai = UEFMainBase:AddOpAI('EngineerAttack', 'M3_MainBase_Transport_Builder1',
     {
         MasterPlatoonFunction = {SPAIFileName, 'LandAssaultWithTransports'},
         PlatoonData = {
@@ -200,7 +200,7 @@ function UEFMainBase_TransportAttacks()
     opai:AddBuildCondition('/lua/editor/unitcountbuildconditions.lua',
         'HaveLessThanUnitsWithCategory', {'default_brain', 3, categories.uea0104})
 
-	quantity = {14, 26, 30}
+	quantity = {14, 21, 28}
 	for i = 1, Difficulty do
 		opai = UEFMainBase:AddOpAI('BasicLandAttack', 'M3_UEF_MainBase_Drop_' .. i,
 		{
@@ -213,11 +213,11 @@ function UEFMainBase_TransportAttacks()
 			Priority = 104,
 		})
 		opai:SetChildQuantity('LightTanks', quantity[Difficulty])
-		opai:SetLockingStyle('BuildTimer', {LockTimer = 120})
+		opai:SetLockingStyle('DeathTimer', {LockTimer = 120})
 	end
 
 	quantity = {6, 12, 18}
-	for i = 1, Difficulty do
+	for i = 2, Difficulty do
 		opai = UEFMainBase:AddOpAI('BasicLandAttack', 'M3_UEF_MainBase_Drop2_' .. i,
 		{
 			MasterPlatoonFunction = {SPAIFileName, 'LandAssaultWithTransports'},
@@ -229,7 +229,7 @@ function UEFMainBase_TransportAttacks()
 			Priority = 106,
 		})
 		opai:SetChildQuantity('HeavyTanks', quantity[Difficulty])
-		opai:SetLockingStyle('BuildTimer', {LockTimer = 180})
+		opai:SetLockingStyle('DeathTimer', {LockTimer = 180})
 	end
 
 	quantity = {14, 14, 24}
@@ -245,11 +245,11 @@ function UEFMainBase_TransportAttacks()
 			Priority = 100,
 		})
 		opai:SetChildQuantity('LightArtillery', quantity[Difficulty])
-		opai:SetLockingStyle('BuildTimer', {LockTimer = 120})
+		opai:SetLockingStyle('DeathTimer', {LockTimer = 160})
 	end
 end
 
-function M3UEFNavalBase_NavalAttacks()
+function UEFMainBase_NavalAttacks()
 	
 	local Temp = {
        'UEFNavalM3AttackTemp0',
@@ -310,6 +310,185 @@ function M3UEFNavalBase_NavalAttacks()
        PlatoonAIFunction = {SPAIFileName, 'PatrolChainPickerThread'},     
        PlatoonData = {
            PatrolChains = {'M3_UEF_Navalattack1','M3_UEF_Navalattack2'}
+       },
+    }
+    ArmyBrains[UEF]:PBMAddPlatoon( Builder )
+	
+end
+
+function UEFNavalBaseAI()
+    UEFNavalB:Initialize(ArmyBrains[UEF], 'UEFNavalBaseM3', 'M3NavalBaseMK', 80, {M3_UEF_NavalBase = 300})
+    UEFNavalB:StartNonZeroBase({{6, 8, 10}, {4, 6, 8}})
+
+	UEFNavalB:SetActive('AirScouting', true)
+	
+	M3UEFNavalBase_AirAttacks()
+    M3UEFNavalBase_NavalAttacks()
+	
+end
+
+function M3UEFNavalBase_AirAttacks()
+	
+	local quantity = {}
+     local opai = nil
+	 
+	quantity = {4, 6, 8}
+	local Temp = {
+       'UEFAirNBM3AttackTemp0',
+       'NoPlan',
+       { 'uea0204', 1, quantity[Difficulty], 'Attack', 'GrowthFormation' }, --Gunships  
+    }
+    local Builder = {
+       BuilderName = 'UEFAirNBM3AttackBuilder0',
+       PlatoonTemplate = Temp,
+       InstanceCount = 2,
+       Priority = 105,
+       PlatoonType = 'Air',
+       RequiresConstruction = true,
+       LocationType = 'UEFNavalBaseM3',
+       PlatoonAIFunction = {SPAIFileName, 'PatrolChainPickerThread'},     
+       PlatoonData = {
+           PatrolChains = {'M3_NB_Airattack1','M3_NB_Airattack2', 'M3_NB_Airattack3'}
+       },
+    }
+    ArmyBrains[UEF]:PBMAddPlatoon( Builder )
+	
+	quantity = {6, 8, 10}
+	Temp = {
+       'UEFAirNBM3AttackTemp1',
+       'NoPlan',
+       { 'uea0102', 1, quantity[Difficulty], 'Attack', 'GrowthFormation' }, --Gunships  
+    }
+    Builder = {
+       BuilderName = 'UEFAirNBM3AttackBuilder1',
+       PlatoonTemplate = Temp,
+       InstanceCount = 2,
+       Priority = 100,
+       PlatoonType = 'Air',
+       RequiresConstruction = true,
+       LocationType = 'UEFNavalBaseM3',
+       PlatoonAIFunction = {SPAIFileName, 'PatrolChainPickerThread'},     
+       PlatoonData = {
+           PatrolChains = {'M3_NB_Airattack1','M3_NB_Airattack2', 'M3_NB_Airattack3'}
+       },
+    }
+    ArmyBrains[UEF]:PBMAddPlatoon( Builder )
+	
+	quantity = {4, 4, 6}
+	Temp = {
+       'UEFAirNBM3AttackTemp2',
+       'NoPlan',
+       { 'uea0203', 1, quantity[Difficulty], 'Attack', 'GrowthFormation' }, --Gunships  
+    }
+    Builder = {
+       BuilderName = 'UEFAirNBM3AttackBuilder2',
+       PlatoonTemplate = Temp,
+       InstanceCount = 2,
+       Priority = 100,
+       PlatoonType = 'Air',
+       RequiresConstruction = true,
+       LocationType = 'UEFNavalBaseM3',
+       PlatoonAIFunction = {SPAIFileName, 'PatrolChainPickerThread'},     
+       PlatoonData = {
+           PatrolChains = {'M3_NB_Airattack1','M3_NB_Airattack2', 'M3_NB_Airattack3'}
+       },
+    }
+    ArmyBrains[UEF]:PBMAddPlatoon( Builder )
+
+      quantity = {6, 8, 10}
+    opai = UEFNavalB:AddOpAI('AirAttacks', 'M3_UEFNB_Air_Attack_1',
+        {
+            MasterPlatoonFunction = {'/lua/ScenarioPlatoonAI.lua', 'CategoryHunterPlatoonAI'},
+            PlatoonData = {
+              CategoryList = { categories.NAVAL - categories.CYBRAN },
+            },
+            Priority = 125,
+        }
+    )
+    opai:SetChildQuantity('TorpedoBombers', quantity[Difficulty])
+	opai:SetLockingStyle('DeathRatio', {Ratio = 0.5})
+	opai:AddBuildCondition('/lua/editor/otherarmyunitcountbuildconditions.lua', 'BrainsCompareNumCategory',
+            {'default_brain', {'HumanPlayers'}, 20, categories.NAVAL * categories.MOBILE, '>='})
+			
+		quantity = {6, 8, 10}
+    opai = UEFNavalB:AddOpAI('AirAttacks', 'M3_UEFNB_Air_Attack_2',
+        {
+            MasterPlatoonFunction = {'/lua/ScenarioPlatoonAI.lua', 'CategoryHunterPlatoonAI'},
+            PlatoonData = {
+              CategoryList = { categories.NAVAL - categories.CYBRAN },
+            },
+            Priority = 125,
+        }
+    )
+    opai:SetChildQuantity('TorpedoBombers', quantity[Difficulty])
+	opai:SetLockingStyle('DeathRatio', {Ratio = 0.5})
+	opai:AddBuildCondition('/lua/editor/otherarmyunitcountbuildconditions.lua', 'BrainsCompareNumCategory',
+            {'default_brain', {'HumanPlayers'}, 20, categories.NAVAL * categories.MOBILE, '>='})
+			
+	Temp = {
+       'UEFAirNBM3AttackTemp3',
+       'NoPlan',
+
+       { 'uea0102', 1, 8, 'Attack', 'GrowthFormation' }, --Fighters
+       { 'uea0204', 1, 6, 'Attack', 'GrowthFormation' }, --TorpedoBombers 	 	   
+    }
+    Builder = {
+       BuilderName = 'UEFAirNBM3AttackBuilder3',
+       PlatoonTemplate = Temp,
+       InstanceCount = 2,
+       Priority = 300,
+       PlatoonType = 'Air',
+       RequiresConstruction = true,
+       LocationType = 'UEFNavalBaseM3',
+      PlatoonAIFunction = {SPAIFileName, 'RandomDefensePatrolThread'},     
+       PlatoonData = {
+           PatrolChain = 'M3_NB_AirPatrol'
+       },
+    }
+    ArmyBrains[UEF]:PBMAddPlatoon( Builder )
+
+end
+
+function M3UEFNavalBase_NavalAttacks()
+	
+	local Temp = {
+       'UEFNavalBM3AttackTemp0',
+       'NoPlan',
+       { 'xes0102', 1, 2, 'Attack', 'GrowthFormation' }, --Frigates
+       { 'ues0203', 1, 4, 'Attack', 'GrowthFormation' }, --Subs  	   
+    }
+    local Builder = {
+       BuilderName = 'UEFNavalBM3AttackBuilder0',
+       PlatoonTemplate = Temp,
+       InstanceCount = 3,
+       Priority = 100,
+       PlatoonType = 'Sea',
+       RequiresConstruction = true,
+       LocationType = 'UEFNavalBaseM3',
+       PlatoonAIFunction = {SPAIFileName, 'PatrolChainPickerThread'},     
+       PlatoonData = {
+           PatrolChains = {'M3_NB_Navalattack1','M3_NB_Navalattack2'}
+       },
+    }
+    ArmyBrains[UEF]:PBMAddPlatoon( Builder )
+	
+	local Temp = {
+       'UEFNavalBM3AttackTemp1',
+       'NoPlan',
+       { 'ues0202', 1, 2, 'Attack', 'GrowthFormation' }, --Crusiers
+       { 'ues0203', 1, 4, 'Attack', 'GrowthFormation' }, --Subs  	   
+    }
+    local Builder = {
+       BuilderName = 'UEFNavalBM3AttackBuilder1',
+       PlatoonTemplate = Temp,
+       InstanceCount = 3,
+       Priority = 100,
+       PlatoonType = 'Sea',
+       RequiresConstruction = true,
+       LocationType = 'UEFNavalBaseM3',
+       PlatoonAIFunction = {SPAIFileName, 'PatrolChainPickerThread'},     
+       PlatoonData = {
+           PatrolChains = {'M3_NB_Navalattack1','M3_NB_Navalattack2'}
        },
     }
     ArmyBrains[UEF]:PBMAddPlatoon( Builder )

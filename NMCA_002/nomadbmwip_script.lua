@@ -73,14 +73,14 @@ local M1UEFACUSnipeTimer = {3*60, 2.5*60, 2.2*60}
 local M2UEFACUSnipeTimer = {8*60, 6*60, 4*60}
 
 local M1ExpansionTime = {30*60, 25*60, 20*60}  
-local M2ExpansionTime = {35*60, 30*60, 26*60}
+local M2ExpansionTime = {35*60, 30*60, 25*60}
 
 local M2ReinforcementCoolDown = {5*60, 7*60, 10*60} 
 
 -- Taunt Managers
 local UEFTM = TauntManager.CreateTauntManager('UEFTM', '/maps/NMCA_002/nomadbmwip_strings.lua')
 
-function OnPopulate(Scenario)
+function OnPopulate(self)
 	ScenarioUtils.InitializeScenarioArmies()
 	ScenarioFramework.SetPlayableArea('M1_Zone', false)
 
@@ -103,10 +103,11 @@ function OnPopulate(Scenario)
         end
     end
     
+	--- decreases time factories wait to produce next platoon
 	ArmyBrains[UEF]:PBMSetCheckInterval(10)
 	ArmyBrains[Cybran]:PBMSetCheckInterval(10)
 	
-    ScenarioFramework.SetSharedUnitCap(2400)
+    ScenarioFramework.SetSharedUnitCap(1000)
 	SetArmyUnitCap(UEF, 1000)
 	SetArmyUnitCap(Cybran, 1000)
 	SetArmyUnitCap(CybranCivilian, 300)
@@ -135,6 +136,7 @@ function OnStart(self)
 	
 	ScenarioInfo.Town = ScenarioUtils.CreateArmyGroup('CybranCivilian', 'M1_Civilian_Town')
 	ScenarioUtils.CreateArmyGroup('CybranCivilian', 'M1_Civilian_Town_Power')
+	ScenarioUtils.CreateArmyGroup('CybranCivilian', 'WreakP1', true)
     
 	M1CybranAirBaseAI:CybranAirBaseAI()
 	
@@ -177,7 +179,7 @@ function M1IntroScene()
 	local UEF_NIS_Units = ScenarioUtils.CreateArmyGroupAsPlatoon('UEF', 'M1_NIS_Units', 'AttackFormation')
 	ScenarioFramework.CreatePlatoonDeathTrigger(M1_Play_Berry_Dialogue, UEF_NIS_Units)
 
-	local VisMarker1_1 = ScenarioFramework.CreateVisibleAreaLocation(50, 'M1_NIS_Vismarker_1', 0, ArmyBrains[Player1])
+	local VisMarker1_1 = ScenarioFramework.CreateVisibleAreaLocation(30, 'M1_NIS_Vismarker_1', 0, ArmyBrains[Player1])
 
 	ScenarioInfo.Cybran_NIS_Units = ScenarioUtils.CreateArmyGroup('Cybran', 'M1_NIS_Units')
 	local transports = ScenarioUtils.CreateArmyGroup('UEF', 'M1_NIS_Transports')
@@ -210,6 +212,7 @@ function M1IntroScene()
         ScenarioFramework.SimAnnouncement(ScenarioInfo.name, "mission by The 'Mad Men")
     end
 
+    -- Establish Secondary Obj triggers
     ScenarioFramework.CreateTimerTrigger(MissionNameAnnouncement, 7)
 	ScenarioFramework.CreateArmyIntelTrigger(M1SetNavalSecondaryObjective, ArmyBrains[Player1], 'LOSNow', false, true,  categories.NAVAL, true, ArmyBrains[UEF] )
 	ScenarioFramework.CreateArmyIntelTrigger(M1SetAirBaseSecondaryObjective, ArmyBrains[Player1], 'LOSNow', false, true,  categories.FACTORY, true, ArmyBrains[Cybran] )
@@ -222,6 +225,7 @@ function M1IntroScene()
 	-- Trigger M1 Objectives
 	ForkThread(M1Objectives)
 	
+	--Set Cybran Eco buff
 	buffDef = Buffs['CheatIncome']
     buffAffects = buffDef.Affects
     buffAffects.EnergyProduction.Mult = 1.5
@@ -495,7 +499,10 @@ function M2NISIntro()
 		SetAlliance(CybranCivilian, player, 'Ally')
 		SetAlliance(player, CybranCivilian, 'Ally')
 	end
-
+	
+    -- Prevent AI Resource sharing with player
+	 GetArmyBrain(Cybran):SetResourceSharing(false)
+	
 	-- Create M2 Cybran Patrols
 	local CybranLandPatrol1 = ScenarioUtils.CreateArmyGroupAsPlatoon('Cybran', 'M2_Cybran_Land_Patrol_1', 'AttackFormation')
 	ScenarioFramework.PlatoonPatrolChain(CybranLandPatrol1, 'M2_Cybran_Main_Base_Land_Patrol_1_Chain')
@@ -516,11 +523,10 @@ function M2NISIntro()
 	M2UEFArtilleryBaseAI:UEFArtilleryBaseFunction()
 	M2UEFPlateauBaseAI:UEFPlateauBaseFunction()
 
-	WaitSeconds(1)
-
 	ScenarioUtils.CreateArmyGroup('UEF', 'M2_Arty_Base_Walls')
 	ScenarioUtils.CreateArmyGroup('UEF', 'M2_Naval_Base_Walls')
-
+    ScenarioUtils.CreateArmyGroup('CybranCivilian', 'WreakP2', true)
+	
 	-- Create UEF Support buildings
 	ScenarioUtils.CreateArmyGroup('UEF', 'M2_Naval_Base_Supports_D' .. Difficulty)
 	ScenarioUtils.CreateArmyGroup('UEF', 'M2_Arty_Base_Supports')
@@ -725,7 +731,7 @@ function M2Objectives()
 	
 	ForkThread(M2CybranAirbaseQuery)
 	
-	ScenarioFramework.CreateTimerTrigger(M2NISIntro, M1ExpansionTime[Difficulty])
+	ScenarioFramework.CreateTimerTrigger(M3NISIntro, M2ExpansionTime[Difficulty])
 	 
 end
 
@@ -779,7 +785,7 @@ end
 
 function M2CybranAirbaseQueryAttacks()
   --Sends off map attacks to "punish" player for allowing Airbase to survive, indangers colony more
-    if not M1CybranAirBaseDestroyed then
+    if not M1CybranAirBaseDestroyed and ScenarioInfo.M2P1.Active then
     
 	ForkThread(function()
 			WaitSeconds(2*60)
@@ -872,8 +878,8 @@ function M2SendPlayerReinforcements()
 
         for k, v in units:GetPlatoonUnits() do
 			while (v:IsUnitState('Attached')) do
-				WaitSeconds(.5)
-		    return
+				WaitSeconds(1)
+				
 			end
 
             if (v and not v:IsDead() and (v:GetAIBrain() == ArmyBrains[Nomads]) and not v:IsUnitState('Attached')) then
@@ -919,7 +925,7 @@ end
 
 function M2CheckObjectiveProgress()
 	-- We can safely assume that both primary objectives have been completed at this point, we should now complete the city objective by force and move on with the mission.
-	if (M2UEFLandBaseDestroyed and M2UEFNavyBaseDestroyed and ScenarioInfo.M2P1.Active) then
+	if (M2UEFLandBaseDestroyed and M2UEFNavyBaseDestroyed and ScenarioInfo.M2P1.Active and ScenarioInfo.MissionNumber == 2 ) then
 		ScenarioInfo.M2P1:ManualResult(true)
 
 		-- Start up some dialogue to say that the city is safe for now.
@@ -927,7 +933,17 @@ function M2CheckObjectiveProgress()
 		
 		ForkThread(M3NISIntro)
 		
+	else
+	  if (M2UEFLandBaseDestroyed and M2UEFNavyBaseDestroyed and ScenarioInfo.M2P1.Active) then
+	 	ScenarioInfo.M2P1:ManualResult(true)
+
+	 	-- Start up some dialogue to say that the city is safe for now.
+	 	ScenarioFramework.Dialogue(OpStrings.M2_P2_Town_Safe, nil, true)
+	 end
+		
 	end
+	
+
 	
 end
 
@@ -956,6 +972,7 @@ function M3NISIntro()
 	
 	-- Call the AI
 	M3UEFMainBaseAI:UEFMainBaseAI()
+	M3UEFMainBaseAI:UEFNavalBaseAI()
 	M2CybranMainBaseAI:M3CybranAttacks()
 
 	-- Expand the necessary areas 
@@ -1010,6 +1027,9 @@ function M3NISIntro()
 	ForkThread(PrimaryObjective)
 	ForkThread(M3UnlockT2Land)
     
+	ArmyBrains[UEF]:GiveResource('MASS', 10000)
+    ArmyBrains[UEF]:GiveResource('ENERGY', 6000)
+	
 	buffDef = Buffs['CheatIncome']
     buffAffects = buffDef.Affects
     buffAffects.EnergyProduction.Mult = 1.5
@@ -1118,13 +1138,13 @@ function UEFNISattacks()
         ScenarioFramework.GroupPatrolRoute({v}, ScenarioPlatoonAI.GetRandomPatrolRoute(ScenarioUtils.ChainToPositions('M3_UEF_Intattack2')))
     end
     
-    local units = ScenarioUtils.CreateArmyGroupAsPlatoon('UEF', 'M3_UEF_Navalattack', 'AttackFormation')
+    local units = ScenarioUtils.CreateArmyGroupAsPlatoon('UEF', 'M3_UEF_Navalattack', 'GrowthFormation')
 		ScenarioFramework.PlatoonPatrolChain(units, 'M3_UEF_Intattack1')
 
-    units = ScenarioUtils.CreateArmyGroupAsPlatoon('UEF', 'M3_NavalPatrol1', 'AttackFormation')
+    units = ScenarioUtils.CreateArmyGroupAsPlatoon('UEF', 'M3_NavalPatrol1', 'GrowthFormation')
 		ScenarioFramework.PlatoonPatrolChain(units, 'M3_UEF_NavalPatrol2')	
    
-    units = ScenarioUtils.CreateArmyGroupAsPlatoon('UEF', 'M3_NavalPatrol2', 'AttackFormation')
+    units = ScenarioUtils.CreateArmyGroupAsPlatoon('UEF', 'M3_NavalPatrol2', 'GrowthFormation')
 		ScenarioFramework.PlatoonPatrolChain(units, 'M3_UEF_NavalPatrol1')	
       
    
@@ -1138,7 +1158,6 @@ function M3UnlockT2Land()
 	ScenarioFramework.PlayUnlockDialogue()
     ScenarioFramework.RemoveRestrictionForAllHumans(categories.xnl0202)
 	ScenarioFramework.RemoveRestrictionForAllHumans(categories.xnl0203)
-	ScenarioFramework.RemoveRestrictionForAllHumans(categories.xnl0204)
 	ScenarioFramework.RemoveRestrictionForAllHumans(categories.xnl0205)
 	ScenarioFramework.RemoveRestrictionForAllHumans(categories.znb9501)
 	ScenarioFramework.RemoveRestrictionForAllHumans(categories.xnb0201)

@@ -24,17 +24,14 @@ ScenarioInfo = {
     norushoffsetY_Player3 = 0.000000,
     norushoffsetX_Player4 = 0.000000,
     norushoffsetY_Player4 = 0.000000,
-    norushoffsetX_NEUTRAL_CIVILIAN = 0.000000,
-    norushoffsetY_NEUTRAL_CIVILIAN = 0.000000,
     norushoffsetX_Nomads = 0.000000,
     norushoffsetY_Nomads = 0.000000,
     Configurations = {
         ['standard'] = {
             teams = {
-                { name = 'FFA', armies = {'Player1','Cybran','CybranCivilian','UEF','Player2','Player3','Player4','NEUTRAL_CIVILIAN','Nomads',} },
+                { name = 'FFA', armies = {'Player1','Cybran','CybranCivilian','UEF','Player2','Player3','Player4','Nomads',} },
             },
             customprops = {
-                ['ExtraArmies'] = STRING( 'ARMY_9 NEUTRAL_CIVILIAN' ),
             },
         },
     }}
