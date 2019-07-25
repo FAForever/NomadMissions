@@ -11,23 +11,22 @@ local Difficulty = ScenarioInfo.Options.Difficulty
 ----------------
 -- Base Managers
 ----------------
-local AeonM4OrbitalBaseNorth = BaseManager.CreateBaseManager()
-local AeonM4OrbitalBaseSouth = BaseManager.CreateBaseManager()
+local AeonM4ResearchBaseNorth = BaseManager.CreateBaseManager()
+local AeonM4ResearchBaseSouth = BaseManager.CreateBaseManager()
 
------------------------------
--- Aeon M4 Orbital Base North
------------------------------
-function AeonM4OrbitalBaseNorthAI()
-    AeonM4OrbitalBaseNorth:InitializeDifficultyTables(ArmyBrains[Aeon], 'M4_Aeon_Orbital_Base_North', 'M4_Aeon_Orbital_Base_North_Marker', 70, {M4_Aeon_Orbital_Base_North = 100})
-    AeonM4OrbitalBaseNorth:StartNonZeroBase({{3, 4, 5}, {3, 4, 5}})
-    AeonM4OrbitalBaseNorth:SetActive('AirScouting', true)
-    AeonM4OrbitalBaseNorth:AddBuildGroup('M4_Aeon_Orbital_Base_North_Support_Factories', 100, true)
+------------------------------
+-- Aeon M4 Research Base North
+------------------------------
+function AeonM4ResearchBaseNorthAI()
+    AeonM4ResearchBaseNorth:InitializeDifficultyTables(ArmyBrains[Aeon], 'M4_Aeon_Research_Base_North', 'M4_Aeon_Research_Base_North_Marker', 70, {M4_Aeon_Research_Base_North = 100})
+    AeonM4ResearchBaseNorth:StartNonZeroBase({{3, 4, 5}, {3, 4, 5}})
+    AeonM4ResearchBaseNorth:SetActive('AirScouting', true)
 
-    AeonM4OrbitalBaseNorthAirAttacks()
-    AeonM4OrbitalBaseNorthNavalAttacks()
+    AeonM4ResearchBaseNorthAirAttacks()
+    AeonM4ResearchBaseNorthNavalAttacks()
 end
 
-function AeonM4OrbitalBaseNorthAirAttacks()
+function AeonM4ResearchBaseNorthAirAttacks()
     local opai = nil
     local quantity = {}
     local trigger = {}
@@ -41,7 +40,7 @@ function AeonM4OrbitalBaseNorthAirAttacks()
     ----------
 end
 
-function AeonM4OrbitalBaseNorthNavalAttacks()
+function AeonM4ResearchBaseNorthNavalAttacks()
     local opai = nil
     local quantity = {}
     local trigger = {}
@@ -50,7 +49,7 @@ function AeonM4OrbitalBaseNorthNavalAttacks()
     -- Attack
     ---------
     quantity = {2, 3, 4}
-    opai = AeonM4OrbitalBaseNorth:AddOpAI('NavalAttacks', 'M4_Aeon_Orbital_Base_North_NavalAttack_1',
+    opai = AeonM4ResearchBaseNorth:AddOpAI('NavalAttacks', 'M4_Aeon_Research_Base_North_NavalAttack_1',
         {
             MasterPlatoonFunction = {SPAIFileName, 'PatrolThread'},
             PlatoonData = {
@@ -62,7 +61,7 @@ function AeonM4OrbitalBaseNorthNavalAttacks()
     opai:SetChildQuantity('Frigates', quantity[Difficulty])
 
     quantity = {4, 5, 6}
-    opai = AeonM4OrbitalBaseNorth:AddOpAI('NavalAttacks', 'M4_Aeon_Orbital_Base_North_NavalAttack_2',
+    opai = AeonM4ResearchBaseNorth:AddOpAI('NavalAttacks', 'M4_Aeon_Research_Base_North_NavalAttack_2',
         {
             MasterPlatoonFunction = {SPAIFileName, 'PatrolThread'},
             PlatoonData = {
@@ -74,7 +73,7 @@ function AeonM4OrbitalBaseNorthNavalAttacks()
     opai:SetChildQuantity('Submarines', quantity[Difficulty])
 
     trigger = {5, 4, 3}
-    opai = AeonM4OrbitalBaseNorth:AddOpAI('NavalAttacks', 'M4_Aeon_Orbital_Base_North_NavalAttack_3',
+    opai = AeonM4ResearchBaseNorth:AddOpAI('NavalAttacks', 'M4_Aeon_Research_Base_North_NavalAttack_3',
         {
             MasterPlatoonFunction = {SPAIFileName, 'PatrolThread'},
             PlatoonData = {
@@ -89,7 +88,7 @@ function AeonM4OrbitalBaseNorthNavalAttacks()
 
     quantity = {2, 3, 4}
     trigger = {8, 7, 6}
-    opai = AeonM4OrbitalBaseNorth:AddOpAI('NavalAttacks', 'M4_Aeon_Orbital_Base_North_NavalAttack_4',
+    opai = AeonM4ResearchBaseNorth:AddOpAI('NavalAttacks', 'M4_Aeon_Research_Base_North_NavalAttack_4',
         {
             MasterPlatoonFunction = {SPAIFileName, 'PatrolThread'},
             PlatoonData = {
@@ -107,7 +106,7 @@ function AeonM4OrbitalBaseNorthNavalAttacks()
     ----------
     -- Up to 2x Destroyer and T2Submarine patrolling around AI base
     for i = 1, 2 do
-        opai = AeonM4OrbitalBaseNorth:AddOpAI('NavalAttacks', 'M4_Aeon_North_Base_NavalDefense_1_' .. i,
+        opai = AeonM4ResearchBaseNorth:AddOpAI('NavalAttacks', 'M4_Aeon_North_Base_NavalDefense_1_' .. i,
             {
                 MasterPlatoonFunction = {SPAIFileName, 'PatrolThread'},
                 PlatoonData = {
@@ -122,7 +121,7 @@ function AeonM4OrbitalBaseNorthNavalAttacks()
 
     -- Patrols 2, 3, 4 AA Boats
     quantity = {1, 1, 2}
-    opai = AeonM4OrbitalBaseNorth:AddOpAI('NavalAttacks', 'M4_Aeon_North_Base_NavalDefense_2',
+    opai = AeonM4ResearchBaseNorth:AddOpAI('NavalAttacks', 'M4_Aeon_North_Base_NavalDefense_2',
         {
             MasterPlatoonFunction = {SPAIFileName, 'PatrolThread'},
             PlatoonData = {
@@ -137,27 +136,26 @@ function AeonM4OrbitalBaseNorthNavalAttacks()
     end
 end
 
------------------------------
--- Aeon M4 Orbital Base South
------------------------------
-function AeonM4OrbitalBaseSouthAI()
-    AeonM4OrbitalBaseSouth:InitializeDifficultyTables(ArmyBrains[Aeon], 'M4_Aeon_Orbital_Base_South', 'M4_Aeon_Orbital_Base_South_Marker', 65, {M4_Aeon_Orbital_Base_South = 100, M4_Aeon_Orbital_Base_South_Extended = 100})
-    AeonM4OrbitalBaseSouth:StartNonZeroBase({{2, 3, 4}, {2, 2, 2}})
-    AeonM4OrbitalBaseSouth:SetActive('LandScouting', true)
-    AeonM4OrbitalBaseSouth:AddBuildGroup('M4_Aeon_Orbital_Base_South_Support_Factories', 100, true)
+------------------------------
+-- Aeon M4 Research Base South
+------------------------------
+function AeonM4ResearchBaseSouthAI()
+    AeonM4ResearchBaseSouth:InitializeDifficultyTables(ArmyBrains[Aeon], 'M4_Aeon_Research_Base_South', 'M4_Aeon_Research_Base_South_Marker', 65, {M4_Aeon_Research_Base_South = 100, M4_Aeon_Research_Base_South_Extended = 100})
+    AeonM4ResearchBaseSouth:StartNonZeroBase({{2, 3, 4}, {2, 2, 2}})
+    AeonM4ResearchBaseSouth:SetActive('LandScouting', true)
 
-    AeonM4OrbitalBaseSouthLandAttacks()
-    AeonM4OrbitalBaseSouthNavalAttacks()
+    AeonM4ResearchBaseSouthLandAttacks()
+    AeonM4ResearchBaseSouthNavalAttacks()
 end
 
-function AeonM4OrbitalBaseSouthLandAttacks()
+function AeonM4ResearchBaseSouthLandAttacks()
     local opai = nil
     local quantity = {}
     local trigger = {}
 
     -- Engineer for reclaiming if there's less than 3000 Mass in the storage, starting after 5 minutes
     quantity = {3, 4, 6}
-    opai = AeonM4OrbitalBaseSouth:AddOpAI('EngineerAttack', 'M4_Aeon_South_Reclaim_Engineers',
+    opai = AeonM4ResearchBaseSouth:AddOpAI('EngineerAttack', 'M4_Aeon_South_Reclaim_Engineers',
         {
             MasterPlatoonFunction = {SPAIFileName, 'SplitPatrolThread'},
             PlatoonData = {
@@ -179,7 +177,7 @@ function AeonM4OrbitalBaseSouthLandAttacks()
     -- Attack
     ---------
     quantity = {6, 9, 12}
-    opai = AeonM4OrbitalBaseSouth:AddOpAI('BasicLandAttack', 'M4_Aeon_South_Base_AmphibiousAttack_1',
+    opai = AeonM4ResearchBaseSouth:AddOpAI('BasicLandAttack', 'M4_Aeon_South_Base_AmphibiousAttack_1',
         {
             MasterPlatoonFunction = {SPAIFileName, 'PatrolChainPickerThread'},
             PlatoonData = {
@@ -195,7 +193,7 @@ function AeonM4OrbitalBaseSouthLandAttacks()
     opai:SetChildQuantity('AmphibiousTanks', quantity[Difficulty])
 
     quantity = {{6, 2}, {8, 2}, {12, 3}}
-    opai = AeonM4OrbitalBaseSouth:AddOpAI('BasicLandAttack', 'M4_Aeon_South_Base_AmphibiousAttack_2',
+    opai = AeonM4ResearchBaseSouth:AddOpAI('BasicLandAttack', 'M4_Aeon_South_Base_AmphibiousAttack_2',
         {
             MasterPlatoonFunction = {SPAIFileName, 'PatrolChainPickerThread'},
             PlatoonData = {
@@ -211,7 +209,7 @@ function AeonM4OrbitalBaseSouthLandAttacks()
     opai:SetChildQuantity({'AmphibiousTanks', 'MobileFlak'}, quantity[Difficulty])
 
     quantity = {{5, 1}, {6, 2}, {10, 2}}
-    opai = AeonM4OrbitalBaseSouth:AddOpAI('BasicLandAttack', 'M4_Aeon_South_Base_AmphibiousAttack_3',
+    opai = AeonM4ResearchBaseSouth:AddOpAI('BasicLandAttack', 'M4_Aeon_South_Base_AmphibiousAttack_3',
         {
             MasterPlatoonFunction = {SPAIFileName, 'PatrolChainPickerThread'},
             PlatoonData = {
@@ -227,7 +225,7 @@ function AeonM4OrbitalBaseSouthLandAttacks()
     opai:SetChildQuantity({'AmphibiousTanks', 'MobileShields'}, quantity[Difficulty])
 
     quantity = {{6, 2, 1}, {8, 2, 2}, {10, 2, 3}}
-    opai = AeonM4OrbitalBaseSouth:AddOpAI('BasicLandAttack', 'M4_Aeon_South_Base_AmphibiousAttack_4',
+    opai = AeonM4ResearchBaseSouth:AddOpAI('BasicLandAttack', 'M4_Aeon_South_Base_AmphibiousAttack_4',
         {
             MasterPlatoonFunction = {SPAIFileName, 'PatrolChainPickerThread'},
             PlatoonData = {
@@ -246,7 +244,7 @@ function AeonM4OrbitalBaseSouthLandAttacks()
     ----------
 end
 
-function AeonM4OrbitalBaseSouthNavalAttacks()
+function AeonM4ResearchBaseSouthNavalAttacks()
     local opai = nil
     local quantity = {}
     local trigger = {}
@@ -255,7 +253,7 @@ function AeonM4OrbitalBaseSouthNavalAttacks()
     -- Attack
     ---------
     quantity = {2, 3, 4}
-    opai = AeonM4OrbitalBaseSouth:AddOpAI('NavalAttacks', 'M4_Aeon_Orbital_Base_South_NavalAttack_1',
+    opai = AeonM4ResearchBaseSouth:AddOpAI('NavalAttacks', 'M4_Aeon_Research_Base_South_NavalAttack_1',
         {
             MasterPlatoonFunction = {SPAIFileName, 'PatrolChainPickerThread'},
             PlatoonData = {
@@ -270,7 +268,7 @@ function AeonM4OrbitalBaseSouthNavalAttacks()
     opai:SetChildQuantity('Frigates', quantity[Difficulty])
 
     quantity = {4, 5, 6}
-    opai = AeonM4OrbitalBaseSouth:AddOpAI('NavalAttacks', 'M4_Aeon_Orbital_Base_South_NavalAttack_2',
+    opai = AeonM4ResearchBaseSouth:AddOpAI('NavalAttacks', 'M4_Aeon_Research_Base_South_NavalAttack_2',
         {
             MasterPlatoonFunction = {SPAIFileName, 'PatrolChainPickerThread'},
             PlatoonData = {
@@ -285,7 +283,7 @@ function AeonM4OrbitalBaseSouthNavalAttacks()
     opai:SetChildQuantity('Submarines', quantity[Difficulty])
 
     trigger = {4, 3, 2}
-    opai = AeonM4OrbitalBaseSouth:AddOpAI('NavalAttacks', 'M4_Aeon_Orbital_Base_South_NavalAttack_3',
+    opai = AeonM4ResearchBaseSouth:AddOpAI('NavalAttacks', 'M4_Aeon_Research_Base_South_NavalAttack_3',
         {
             MasterPlatoonFunction = {SPAIFileName, 'PatrolChainPickerThread'},
             PlatoonData = {
@@ -303,7 +301,7 @@ function AeonM4OrbitalBaseSouthNavalAttacks()
 
     quantity = {2, 3, 4}
     trigger = {6, 5, 4}
-    opai = AeonM4OrbitalBaseSouth:AddOpAI('NavalAttacks', 'M4_Aeon_Orbital_Base_South_NavalAttack_4',
+    opai = AeonM4ResearchBaseSouth:AddOpAI('NavalAttacks', 'M4_Aeon_Research_Base_South_NavalAttack_4',
         {
             MasterPlatoonFunction = {SPAIFileName, 'PatrolChainPickerThread'},
             PlatoonData = {
@@ -324,7 +322,7 @@ function AeonM4OrbitalBaseSouthNavalAttacks()
     ----------
     -- Up to 2x Destroyer and T2Submarine patrolling around AI base
     for i = 1, 2 do
-        opai = AeonM4OrbitalBaseSouth:AddOpAI('NavalAttacks', 'M4_Aeon_South_Base_NavalDefense_1_' .. i,
+        opai = AeonM4ResearchBaseSouth:AddOpAI('NavalAttacks', 'M4_Aeon_South_Base_NavalDefense_1_' .. i,
             {
                 MasterPlatoonFunction = {SPAIFileName, 'PatrolThread'},
                 PlatoonData = {
@@ -339,7 +337,7 @@ function AeonM4OrbitalBaseSouthNavalAttacks()
 
     -- Patrols 2, 3, 4 AA Boats
     quantity = {1, 1, 2}
-    opai = AeonM4OrbitalBaseSouth:AddOpAI('NavalAttacks', 'M4_Aeon_South_Base_NavalDefense_2',
+    opai = AeonM4ResearchBaseSouth:AddOpAI('NavalAttacks', 'M4_Aeon_South_Base_NavalDefense_2',
         {
             MasterPlatoonFunction = {SPAIFileName, 'PatrolThread'},
             PlatoonData = {
