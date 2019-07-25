@@ -748,7 +748,7 @@ function AeonM2SouthBaseEngineerDrop()
         {
             MasterPlatoonFunction = {'/lua/ScenarioPlatoonAI.lua', 'LandAssaultWithTransports'},
             PlatoonData = {
-                AttackChain = 'M4_Aeon_Orbital_Base_South_EngineerChain',
+                AttackChain = 'M4_Aeon_Research_Base_South_EngineerChain',
                 MovePath = 'M2_Aeon_EngieDrop_Move_Chain',
                 LandingList = {'M2_Aeon_Engineers_Drop_Marker'},
             },
