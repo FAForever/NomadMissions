@@ -38,6 +38,7 @@ function AeonM4ResearchBaseNorthAirAttacks()
     ----------
     -- Defense
     ----------
+    -- M4_Aeon_North_Base_Air_Defense_Chain
 end
 
 function AeonM4ResearchBaseNorthNavalAttacks()
@@ -110,7 +111,7 @@ function AeonM4ResearchBaseNorthNavalAttacks()
             {
                 MasterPlatoonFunction = {SPAIFileName, 'PatrolThread'},
                 PlatoonData = {
-                    PatrolChain = 'M4_Aeon_Nortth_Base_Naval_Defense_Chain',
+                    PatrolChain = 'M4_Aeon_North_Base_Naval_Defense_Chain',
                 },
                 Priority = 100,
             }

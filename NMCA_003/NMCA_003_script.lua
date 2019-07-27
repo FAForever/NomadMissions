@@ -1804,6 +1804,77 @@ function IntroMission4()
     -- Wreckages
     ScenarioUtils.CreateArmyGroup('Crystals', 'M4_Wrecks', true)
 
+    ----------
+    -- Patrols
+    ----------
+    local patrol = nil
+    -- East
+    -- Land patrol around the buildings
+    platoon = ScenarioUtils.CreateArmyGroupAsPlatoon('Aeon', 'M4_Aeon_East_Base_Land_Patrol_D' .. Difficulty, 'NoFormation')
+    for _, v in platoon:GetPlatoonUnits() do
+        ScenarioFramework.GroupPatrolChain({v}, 'M4_Aeon_East_Base_Land_Defense_Chain')
+    end
+
+    -- Destroyers and Cruisers
+    platoon = ScenarioUtils.CreateArmyGroupAsPlatoon('Aeon', 'M4_Aeon_East_Base_Naval_Patrol_Ships_D' .. Difficulty, 'GrowthFormation')
+    ScenarioFramework.PlatoonPatrolChain(platoon, 'M4_Aeon_East_Base_Naval_Patrol_Chain')
+
+    -- T2 subs
+    platoon = ScenarioUtils.CreateArmyGroupAsPlatoon('Aeon', 'M4_Aeon_East_Base_Naval_Patrol_Subs_D' .. Difficulty, 'AttackFormation')
+    ScenarioFramework.PlatoonPatrolChain(platoon, 'M4_Aeon_East_Base_Naval_Patrol_Chain')
+
+    -- North Base
+    -- Air base patrol
+    platoon = ScenarioUtils.CreateArmyGroupAsPlatoon('Aeon', 'M4_Aeon_North_Base_Air_Patrol_D' .. Difficulty, 'NoFormation')
+    for _, v in platoon:GetPlatoonUnits() do
+        ScenarioFramework.GroupPatrolRoute({v}, ScenarioPlatoonAI.GetRandomPatrolRoute(ScenarioUtils.ChainToPositions('M4_Aeon_North_Base_Air_Defense_Chain')))
+    end
+
+    -- Naval patrol
+    platoon = ScenarioUtils.CreateArmyGroupAsPlatoon('Aeon', 'M4_Aeon_North_Base_Naval_Patrol_D' .. Difficulty, 'NoFormation')
+    for _, v in platoon:GetPlatoonUnits() do
+        ScenarioFramework.GroupPatrolChain({v}, 'M4_Aeon_North_Base_Naval_Defense_Chain')
+    end
+
+    -- Tempest support, patrols around the base until the tempest is finished or killed
+    ScenarioInfo.M4TempestNavalSupportPlatoon = ScenarioUtils.CreateArmyGroupAsPlatoon('Aeon', 'M4_Aeon_Tempest_Support_D' .. Difficulty, 'AttackFormation')
+    for _, v in ScenarioInfo.M4TempestNavalSupportPlatoon:GetPlatoonUnits() do
+        ScenarioFramework.GroupPatrolChain({v}, 'M4_Aeon_North_Base_Naval_Defense_Chain')
+    end
+
+    -- North Island
+    if Difficulty >= 2 then
+        -- Cruisers
+        platoon = ScenarioUtils.CreateArmyGroupAsPlatoon('Aeon', 'M4_Aeon_North_Cruisers_D' .. Difficulty, 'GrowthFormation')
+    end
+
+    -- Submarines around the north island
+    platoon = ScenarioUtils.CreateArmyGroupAsPlatoon('Aeon', 'M4_Aeon_North_Sub_Patrol_D' .. Difficulty, 'AttackFormation')
+    ScenarioFramework.PlatoonPatrolChain(platoon, 'M4_Aeon_North_Island_Naval_Patrol_Chain')
+
+    -- South
+    -- If players didn't catch the transpor, set up some patrols around
+    if not ScenarioInfo.M2EngineersKilled then
+        -- Naval patrol
+        platoon = ScenarioUtils.CreateArmyGroupAsPlatoon('Aeon', 'M4_Aeon_South_Naval_Patrol_D' .. Difficulty, 'NoFormation')
+        for _, v in platoon:GetPlatoonUnits() do
+            ScenarioFramework.GroupPatrolChain({v}, 'M4_Aeon_South_Base_Naval_Defense_Chain')
+        end
+
+        -- Land patrol
+        platoon = ScenarioUtils.CreateArmyGroupAsPlatoon('Aeon', 'M4_Aeon_South_Land_Patrol_D' .. Difficulty, 'NoFormation')
+        for _, v in platoon:GetPlatoonUnits() do
+            ScenarioFramework.GroupPatrolRoute({v}, ScenarioPlatoonAI.GetRandomPatrolRoute(ScenarioUtils.ChainToPositions('M4_Aeon_South_Base_Land_Patrol_Chain')))
+        end
+    end
+
+    -- Overall
+    -- Air patrol over half of the map
+    platoon = ScenarioUtils.CreateArmyGroupAsPlatoon('Aeon', 'M4_Aeon_Air_Patrol_D' .. Difficulty, 'NoFormation')
+    for _, v in platoon:GetPlatoonUnits() do
+        ScenarioFramework.GroupPatrolChain({v}, 'M4_Aeon_Air_Patrol_Chain')
+    end
+
     ------------
     -- Objective
     ------------
@@ -2039,7 +2110,8 @@ function M4TempestStarted(unit)
             if result then
                 ScenarioInfo.M4TempestKilledUnfinished = true
 
-                ScenarioFramework.Dialogue(OpStrings.M4TempestKilledUnfinished)
+                -- Dialogue that the tempest is killed and launch the naval attack at the player
+                ScenarioFramework.Dialogue(OpStrings.M4TempestKilledUnfinished, M4LaunchTempestAttack)
             end
         end
     )
@@ -2101,8 +2173,8 @@ function M4SecondaryKillTempest()
     )
 end
 
-function M4TempestFinishBuild(unit)
-    if not unit or unit:IsDead() then
+function M4TempestFinishBuild(tempest)
+    if not tempest or tempest.Dead then
         return
     end
 
@@ -2117,14 +2189,41 @@ function M4TempestFinishBuild(unit)
 
     M4SecondaryKillTempest()
 
-    ForkThread(M4TempestAI, unit)
+    ForkThread(M4LaunchTempestAttack, tempest)
 end
 
-function M4TempestAI(unit)
-    local platoon = ArmyBrains[Aeon]:MakePlatoon('', '')
-    ArmyBrains[Aeon]:AssignUnitsToPlatoon(platoon, {unit}, 'Attack', 'None')
+function M4LaunchTempestAttack(tempest)
+    if ScenarioInfo.M4TempestAttackLaunched then
+        return
+    end
+    ScenarioInfo.M4TempestAttackLaunched = true
 
-    ScenarioFramework.PlatoonPatrolChain(platoon, 'M4_Aeon_North_Base_Naval_Attack_Chain')
+    if tempest and not tempest.Dead then
+        local platoon = ArmyBrains[Aeon]:MakePlatoon('', '')
+        ArmyBrains[Aeon]:AssignUnitsToPlatoon(platoon, {tempest}, 'Attack', 'None')
+
+        ScenarioFramework.PlatoonPatrolChain(platoon, 'M4_Aeon_North_Base_Naval_Attack_Chain')
+    end
+
+    -- Wait a bit before sending in the navy, since the tempest moves slowly.
+    WaitSeconds(30)
+
+    -- Check if the platoon wasn't killed yet
+    local allDead = true
+    for _, unit in ScenarioInfo.M4TempestNavalSupportPlatoon:GetPlatoonUnits() do
+        if not unit.Dead then
+            allDead = false
+            break
+        end
+    end
+
+    if allDead then
+        return
+    end
+
+    -- Guard the tempest and if it gets killed, continue the attack on players
+    ScenarioInfo.M4TempestNavalSupportPlatoon:Stop()
+    ScenarioInfo.M4TempestNavalSupportPlatoon:AggressiveMoveToLocation(ScenarioUtils.MarkerToPosition('M1_Aeon_Land_Atttack_3'))
 end
 
 ------------
