@@ -1951,7 +1951,7 @@ end
 
 function M4BuildTempest()
     -- Makes the Tempest take 24, 16, 8 minutes to build
-    local multiplier = {0.3, 0.5, 1}
+    local multiplier = {0.5, 1, 2}
 
     BuffBlueprint {
         Name = 'Op3M4EngBuildRate',
