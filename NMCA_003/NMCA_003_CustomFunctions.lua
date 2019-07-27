@@ -154,3 +154,11 @@ function LessMassStorageCurrent(aiBrain, mStorage)
     return false
 end
 
+--- Build condition
+function HaveGreaterThanUnitsWithCategoryInArea(aiBrain, numReq, category, area)
+    local numUnits = ScenarioFramework.NumCatUnitsInArea(category, ScenarioUtils.AreaToRect(area), aiBrain)
+    if numUnits < numReq then
+        return true
+    end
+    return false
+end
