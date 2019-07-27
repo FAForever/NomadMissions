@@ -2384,12 +2384,13 @@ function SpawnArtillery()
     ScenarioInfo.ArtilleryGun:SetCanBeKilled(false)
     ScenarioInfo.ArtilleryGun:SetDoNotTarget(true)
     ScenarioInfo.ArtilleryGun:SetIntelRadius('Vision', 0)
-    ScenarioInfo.ArtilleryGun:SetFireState('HoldFire')
 
     -- Wait for the satellite to spawn
     while not ScenarioInfo.ArtilleryGun.ArtilleryUnit do
         WaitSeconds(1)
     end
+
+    ScenarioInfo.ArtilleryGun.ArtilleryUnit:SetFireState('HoldFire')
 
     -- Teleport it to the crashed ship
     Warp(ScenarioInfo.ArtilleryGun.ArtilleryUnit, ScenarioUtils.MarkerToPosition('Artillery_Marker'))
@@ -2410,18 +2411,18 @@ end
 function ArtilleryAttackLocation(location)
     ForkThread(
         function(location)
-            ScenarioInfo.ArtilleryGun:SetFireState('ReturnFire')
+            ScenarioInfo.ArtilleryGun.ArtilleryUnit:SetFireState('ReturnFire')
 
-            IssueStop({ScenarioInfo.ArtilleryGun})
-            IssueClearCommands({ScenarioInfo.ArtilleryGun})
+            IssueStop({ScenarioInfo.ArtilleryGun.ArtilleryUnit})
+            IssueClearCommands({ScenarioInfo.ArtilleryGun.ArtilleryUnit})
 
-            IssueAttack({ScenarioInfo.ArtilleryGun}, location)
+            IssueAttack({ScenarioInfo.ArtilleryGun.ArtilleryUnit}, location)
 
             ScenarioInfo.AttackPing:Destroy()
 
-            WaitSeconds(40)
+            WaitSeconds(30)
 
-            ScenarioInfo.ArtilleryGun:SetFireState('HoldFire')
+            ScenarioInfo.ArtilleryGun.ArtilleryUnit:SetFireState('HoldFire')
 
             ScenarioFramework.CreateTimerTrigger(SetUpArtilleryPing, 5*60)
         end, location
