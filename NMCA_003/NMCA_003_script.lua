@@ -1635,22 +1635,22 @@ function StartMission3()
 
     -- Base Triggers
     -- Add Land factories to the main base
-    ScenarioFramework.CreateTimerTrigger(M3AeonAI.AddLandFactories, 4*60)
+    ScenarioFramework.CreateTimerTrigger(M3AeonAI.AddLandFactories, 3*60)
 
     -- Add Air factories to the main base
-    ScenarioFramework.CreateTimerTrigger(M3AeonAI.AddAirFactories, 8*60)
+    ScenarioFramework.CreateTimerTrigger(M3AeonAI.AddAirFactories, 6*60)
 
     -- Add defenses to the main base on medium and hard difficulty
     if Difficulty >= 2 then
-        ScenarioFramework.CreateTimerTrigger(M3AeonAI.AddDefenses, 12*60)
+        ScenarioFramework.CreateTimerTrigger(M3AeonAI.AddDefenses, 9*60)
     end
 
     -- Add Naval factories to the main base
-    ScenarioFramework.CreateTimerTrigger(M3AeonAI.AddNavalFactories, 16*60)
+    ScenarioFramework.CreateTimerTrigger(M3AeonAI.AddNavalFactories, 12*60)
 
     -- Add reesources to the main base on high difficulty
     if Difficulty >= 3 then
-        ScenarioFramework.CreateTimerTrigger(M3AeonAI.AddResources, 20*60)
+        ScenarioFramework.CreateTimerTrigger(M3AeonAI.AddResources, 15*60)
     end
 end
 
