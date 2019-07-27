@@ -755,7 +755,7 @@ function AeonM2SouthBaseEngineerDrop()
             Priority = 500,
         }
     )
-    opai:SetChildQuantity('T2Engineers', 4)
+    opai:SetChildQuantity('T2Engineers', {4, 0})
     opai:AddFormCallback('/maps/NMCA_003/NMCA_003_script.lua', 'M2DropEngineersPlatoonFormed')
 end
 
