@@ -1310,6 +1310,10 @@ function M2EnemyACUNIS()
         {'AdvancedEngineering', 'Shield', 'HeatSink'})
     ScenarioInfo.M3AeonACU:SetAutoOvercharge(true)
     ScenarioInfo.M3AeonACU:SetVeterancy(1 + Difficulty)
+
+    -- So mass for the AI to build the base faster
+    local num = {8000, 10000, 12000}
+    ArmyBrains[Aeon]:GiveResource('MASS', num[Difficulty])
 end
 
 function M2AttackWarning()
