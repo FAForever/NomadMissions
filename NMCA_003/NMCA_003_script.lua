@@ -1090,7 +1090,7 @@ function StartMission2()
     ---------------------------------
     -- Bonus Objective - Kill T2 Subs
     ---------------------------------
-    local num = {40, 50, 60}
+    local num = {40, 60, 80}
     ScenarioInfo.M2B1 = Objectives.ArmyStatCompare(
         'bonus',
         'incomplete',
