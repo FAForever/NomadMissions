@@ -95,7 +95,7 @@ function AeonM3MainBaseAirPatrols()
     ----------
     -- Defense
     ----------
-    -- Maintains 2x {4, 5, 6} CombatFighters, rebuild if half is destroyed
+    -- Maintains 2x {4, 5, 6} CombatFighters, Gunships and TorpedoBombers, rebuild if half is destroyed
     quantity = {4, 5, 6}
     for i = 1, 2 do
         opai = AeonM3MainBase:AddOpAI('AirAttacks', 'M3_Aeon_Main_Base_AirDefense_1_' .. i,
@@ -109,32 +109,43 @@ function AeonM3MainBaseAirPatrols()
         )
         opai:SetChildQuantity('CombatFighters', quantity[Difficulty])
         opai:SetLockingStyle('DeathRatio', {Ratio = 0.5})
+    
+        opai = AeonM3MainBase:AddOpAI('AirAttacks', 'M3_Aeon_Main_Base_AirDefense_2_' .. i,
+            {
+                MasterPlatoonFunction = {SPAIFileName, 'RandomDefensePatrolThread'},
+                PlatoonData = {
+                    PatrolChain = 'M3_Aeon_Main_Base_Air_Patrol_Chain',
+                },
+                Priority = 100,
+            }
+        )
+        opai:SetChildQuantity('Gunships', quantity[Difficulty])
+        opai:SetLockingStyle('DeathRatio', {Ratio = 0.5})
+
+        opai = AeonM3MainBase:AddOpAI('AirAttacks', 'M3_Aeon_Main_Base_AirDefense_3_' .. i,
+            {
+                MasterPlatoonFunction = {SPAIFileName, 'RandomDefensePatrolThread'},
+                PlatoonData = {
+                    PatrolChain = 'M3_Aeon_Main_Base_Air_Patrol_Chain',
+                },
+                Priority = 100,
+            }
+        )
+        opai:SetChildQuantity('TorpedoBombers', quantity[Difficulty])
+        opai:SetLockingStyle('DeathRatio', {Ratio = 0.5})
     end
 
-    -- Maintains {4, 5, 6} Gunships, rebuild if half is destroyed
-    opai = AeonM3MainBase:AddOpAI('AirAttacks', 'M3_Aeon_Main_Base_AirDefense_2',
+    -- Maintains {4, 5, 6} Bombers, rebuild if half is destroyed
+    opai = AeonM3MainBase:AddOpAI('AirAttacks', 'M3_Aeon_Main_Base_AirDefense_4',
         {
             MasterPlatoonFunction = {SPAIFileName, 'RandomDefensePatrolThread'},
             PlatoonData = {
                 PatrolChain = 'M3_Aeon_Main_Base_Air_Patrol_Chain',
             },
-            Priority = 100,
+            Priority = 90,
         }
     )
-    opai:SetChildQuantity('Gunships', quantity[Difficulty])
-    opai:SetLockingStyle('DeathRatio', {Ratio = 0.5})
-
-    -- Maintains {4, 5, 6} TorpedoBombers, rebuild if half is destroyed
-    opai = AeonM3MainBase:AddOpAI('AirAttacks', 'M3_Aeon_Main_Base_AirDefense_3',
-        {
-            MasterPlatoonFunction = {SPAIFileName, 'RandomDefensePatrolThread'},
-            PlatoonData = {
-                PatrolChain = 'M3_Aeon_Main_Base_Air_Patrol_Chain',
-            },
-            Priority = 100,
-        }
-    )
-    opai:SetChildQuantity('TorpedoBombers', quantity[Difficulty])
+    opai:SetChildQuantity('Bombers', quantity[Difficulty])
     opai:SetLockingStyle('DeathRatio', {Ratio = 0.5})
 end
 
@@ -143,9 +154,35 @@ function AeonM3MainBaseLandPatrols()
     local quantity = {}
     local trigger = {}
 
+    -- Engineer for reclaiming if there's less than 4000 Mass in the storage, starting after 5 minutes
+    quantity = {4, 6, 8}
+    opai = AeonM3MainBase:AddOpAI('EngineerAttack', 'M3_Aeon_Main_Reclaim_Engineers_1',
+        {
+            MasterPlatoonFunction = {SPAIFileName, 'RandomDefensePatrolThread'},
+            PlatoonData = {
+                PatrolChain = 'M3_Aeon_Main_Base_Land_Patrol_Chain',
+            },
+            Priority = 210,
+        }
+    )
+    opai:SetChildQuantity('T1Engineers', quantity[Difficulty])
+    opai:AddBuildCondition(CustomFunctions, 'LessMassStorageCurrent', {'default_brain', 1000})
+
     ----------
     -- Defense
     ----------
+    quantity = {{6, 4, 4}, {8, 5, 5}, {10, 6, 6}}
+    opai = AeonM3MainBase:AddOpAI('BasicLandAttack', 'M3_Aeon_Main_Base_Land_Patrol_1',
+        {
+            MasterPlatoonFunction = {SPAIFileName, 'RandomDefensePatrolThread'},
+            PlatoonData = {
+                PatrolChain = 'M3_Aeon_Main_Base_Land_Patrol_Chain',
+            },
+            Priority = 100,
+        }
+    )
+    opai:SetChildQuantity({'AmphibiousTanks', 'MobileFlak', 'MobileShields'}, quantity[Difficulty])
+    opai:SetLockingStyle('DeathRatio', {Ratio = 0.5})
 end
 
 function AeonM3MainBaseNavalPatrols()
@@ -319,7 +356,7 @@ function AeonM3MainBaseLandAttacks()
 
     -- Engineer for reclaiming if there's less than 4000 Mass in the storage, starting after 5 minutes
     quantity = {4, 6, 8}
-    opai = AeonM3MainBase:AddOpAI('EngineerAttack', 'M3_Aeon_Main_Reclaim_Engineers_1',
+    opai = AeonM3MainBase:AddOpAI('EngineerAttack', 'M3_Aeon_Main_Reclaim_Engineers_2',
         {
             MasterPlatoonFunction = {SPAIFileName, 'SplitPatrolThread'},
             PlatoonData = {
@@ -338,12 +375,12 @@ function AeonM3MainBaseLandAttacks()
             Priority = 190,
         }
     )
-    opai:SetChildQuantity('T2Engineers', quantity[Difficulty])
+    opai:SetChildQuantity('T1Engineers', quantity[Difficulty])
     opai:AddBuildCondition(CustomFunctions, 'LessMassStorageCurrent', {'default_brain', 4000})
 
     -- Engineer for reclaiming if there's less than 2000 Mass in the storage, starting after 5 minutes
     quantity = {6, 8, 10}
-    opai = AeonM3MainBase:AddOpAI('EngineerAttack', 'M3_Aeon_Main_Reclaim_Engineers_2',
+    opai = AeonM3MainBase:AddOpAI('EngineerAttack', 'M3_Aeon_Main_Reclaim_Engineers_3',
         {
             MasterPlatoonFunction = {SPAIFileName, 'SplitPatrolThread'},
             PlatoonData = {
@@ -362,7 +399,7 @@ function AeonM3MainBaseLandAttacks()
             Priority = 200,
         }
     )
-    opai:SetChildQuantity('T2Engineers', quantity[Difficulty])
+    opai:SetChildQuantity('T1Engineers', quantity[Difficulty])
     opai:AddBuildCondition(CustomFunctions, 'LessMassStorageCurrent', {'default_brain', 2000})
 
     ---------
