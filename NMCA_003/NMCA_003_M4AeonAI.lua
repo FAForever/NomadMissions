@@ -174,24 +174,6 @@ function AeonM4ResearchBaseSouthLandAttacks()
     opai:SetChildQuantity('T1Engineers', quantity[Difficulty])
     opai:AddBuildCondition(CustomFunctions, 'LessMassStorageCurrent', {'default_brain', 3000})
 
-    -- Extra engineers assisting T2 naval factories, all T2 factories has to be built
-    -- Count is {X, 0} since the platoon contains shields/stealth as well and we want just the engineers. And too lazy to make a new platoon rn.
-    quantity = {{2, 0}, {4, 0}, {6, 0}}
-    opai = AeonM4ResearchBaseSouth:AddOpAI('EngineerAttack', 'M4_Aeon_South_Assist_Engineers_1',
-        {
-            MasterPlatoonFunction = {CustomFunctions, 'AssistNavalFactories'},
-            PlatoonData = {
-                BaseName = 'M4_Aeon_Research_Base_South',
-                Factories = categories.TECH2 * categories.NAVAL * categories.FACTORY,
-            },
-            Priority = 170,
-        }
-    )
-    opai:SetChildQuantity('T2Engineers', quantity[Difficulty])
-    opai:SetLockingStyle('DeathRatio', {Ratio = 0.5})
-    opai:AddBuildCondition('/maps/NMCA_003/NMCA_003_CustomFunctions.lua',
-        'HaveGreaterThanUnitsWithCategoryInArea', {'default_brain', 1, categories.TECH2 * categories.NAVAL * categories.FACTORY, 'M4_Aeon_Research_Base_South_Area'})
-
     ---------
     -- Attack
     ---------
