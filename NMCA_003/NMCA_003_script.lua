@@ -372,7 +372,7 @@ function IntroMission1NIS()
             ScenarioInfo['Player' .. i .. 'CDR'] = ScenarioFramework.SpawnCommander('Player' .. i, 'ACU', 'Warp', true, true, PlayerDeath)
             table.insert(ScenarioInfo.PlayersACUs, ScenarioInfo['Player' .. i .. 'CDR'])
             WaitSeconds(1)
-            local ship = GetArmyBrain('Player' .. i).NomadsMothership
+            local ship = ScenarioInfo['Player' .. i .. 'CDR'].OrbitalUnit
             if ship then
                 IssueClearCommands({ship})
                 IssueMove({ship}, ScenarioUtils.MarkerToPosition('Player' .. i .. '_Frigate_Destination'))
