@@ -275,6 +275,9 @@ function OnStart(self)
     SetArmyColor('Crashed_Ship', 255, 191, 128)
     SetArmyColor('Aeon_Neutral', 16, 86, 16)
 
+    -- Bigger unit cap for Aeon if players decide to turtle too much
+    SetArmyUnitCap(Aeon, 1500)
+
     -- Set playable area
     ScenarioFramework.SetPlayableArea('M1_Area', false)
 
