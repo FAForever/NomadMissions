@@ -4044,6 +4044,16 @@ Scenario = {
                 "M1_Aeon_Naval_Atttack_2",
             },
         },
+        ['M3_Aeon_Main_Base_Base_Amphibious_Chain_4'] = {
+            Markers = {
+                "M3_Aeon_Main_Base_Base_Amphibious_4",
+                "M2_Aeon_North_Base_Engineer2",
+                "M2_Aeon_North_Base_Marker",
+                "M2_Aeon_SubHunter_Mid_4",
+                "M1_Aeon_Land_Atttack_2",
+                "M4_Aeon_North_Base_Air_Attack_04",
+            },
+        },
     },
     --[[                                                                           ]]--
     --[[  Orders                                                                   ]]--
