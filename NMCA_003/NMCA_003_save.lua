@@ -34,7 +34,7 @@ Scenario = {
             ['rectangle'] = RECTANGLE( 450.5, 320.5, 570.5, 400.5 ),
         },
         ['M4_Aeon_Research_Base_South_Area'] = {
-            ['rectangle'] = RECTANGLE( 794.5, 849.5, 927.5, 954.5 ),
+            ['rectangle'] = RECTANGLE( 907.5, 880.5, 930.5, 902.5 ),
         },
         ['M4_Aeon_Research_Base_East_Area'] = {
             ['rectangle'] = RECTANGLE( 848.5, 479.5, 889.5, 520.5 ),
@@ -3095,6 +3095,69 @@ Scenario = {
                     ['orientation'] = VECTOR3( 0, -0, 0 ),
                     ['position'] = VECTOR3( 637.5, 62, 901.5 ),
                 },
+                ['M4_Aeon_North_Base_Air_Attack_00'] = {
+                    ['color'] = STRING( 'ff800080' ),
+                    ['type'] = STRING( 'Blank Marker' ),
+                    ['prop'] = STRING( '/env/common/props/markers/M_Blank_prop.bp' ),
+                    ['orientation'] = VECTOR3( 0, -0, 0 ),
+                    ['position'] = VECTOR3( 937.5, 62, 139.5 ),
+                },
+                ['M4_Aeon_North_Base_Air_Attack_01'] = {
+                    ['color'] = STRING( 'ff800080' ),
+                    ['type'] = STRING( 'Blank Marker' ),
+                    ['prop'] = STRING( '/env/common/props/markers/M_Blank_prop.bp' ),
+                    ['orientation'] = VECTOR3( 0, -0, 0 ),
+                    ['position'] = VECTOR3( 868.5, 62.4219, 367.5 ),
+                },
+                ['M4_Aeon_North_Base_Air_Attack_05'] = {
+                    ['color'] = STRING( 'ff800080' ),
+                    ['type'] = STRING( 'Blank Marker' ),
+                    ['prop'] = STRING( '/env/common/props/markers/M_Blank_prop.bp' ),
+                    ['orientation'] = VECTOR3( 0, -0, 0 ),
+                    ['position'] = VECTOR3( 871.5, 62, 109.5 ),
+                },
+                ['M4_Aeon_North_Base_Air_Attack_06'] = {
+                    ['color'] = STRING( 'ff800080' ),
+                    ['type'] = STRING( 'Blank Marker' ),
+                    ['prop'] = STRING( '/env/common/props/markers/M_Blank_prop.bp' ),
+                    ['orientation'] = VECTOR3( 0, -0, 0 ),
+                    ['position'] = VECTOR3( 499.5, 62, 144.5 ),
+                },
+                ['M4_Aeon_North_Base_Air_Attack_02'] = {
+                    ['color'] = STRING( 'ff800080' ),
+                    ['type'] = STRING( 'Blank Marker' ),
+                    ['prop'] = STRING( '/env/common/props/markers/M_Blank_prop.bp' ),
+                    ['orientation'] = VECTOR3( 0, -0, 0 ),
+                    ['position'] = VECTOR3( 320.5, 62, 266.5 ),
+                },
+                ['M4_Aeon_North_Base_Air_Attack_03'] = {
+                    ['color'] = STRING( 'ff800080' ),
+                    ['type'] = STRING( 'Blank Marker' ),
+                    ['prop'] = STRING( '/env/common/props/markers/M_Blank_prop.bp' ),
+                    ['orientation'] = VECTOR3( 0, -0, 0 ),
+                    ['position'] = VECTOR3( 172.5, 62.4766, 447.5 ),
+                },
+                ['M4_Aeon_North_Base_Air_Attack_04'] = {
+                    ['color'] = STRING( 'ff800080' ),
+                    ['type'] = STRING( 'Blank Marker' ),
+                    ['prop'] = STRING( '/env/common/props/markers/M_Blank_prop.bp' ),
+                    ['orientation'] = VECTOR3( 0, -0, 0 ),
+                    ['position'] = VECTOR3( 574.5, 62, 492.5 ),
+                },
+                ['M4_Aeon_North_Base_Naval_Attack_3'] = {
+                    ['color'] = STRING( 'ff800080' ),
+                    ['type'] = STRING( 'Blank Marker' ),
+                    ['prop'] = STRING( '/env/common/props/markers/M_Blank_prop.bp' ),
+                    ['orientation'] = VECTOR3( 0, -0, 0 ),
+                    ['position'] = VECTOR3( 899.5, 62, 181.5 ),
+                },
+                ['M4_Aeon_North_Base_Naval_Attack_4'] = {
+                    ['color'] = STRING( 'ff800080' ),
+                    ['type'] = STRING( 'Blank Marker' ),
+                    ['prop'] = STRING( '/env/common/props/markers/M_Blank_prop.bp' ),
+                    ['orientation'] = VECTOR3( 0, -0, 0 ),
+                    ['position'] = VECTOR3( 805.5, 62, 372.5 ),
+                },
             },
         },
     },
@@ -3838,12 +3901,14 @@ Scenario = {
                 "M4_Aeon_North_Base_Air_Defense_5",
             },
         },
-        ['M4_Aeon_North_Base_Naval_Attack_Chain'] = {
+        ['M4_Aeon_North_Base_Naval_Attack_Chain_1'] = {
             Markers = {
                 "M4_Aeon_North_Base_Naval_Attack_0",
                 "M4_Aeon_North_Base_Naval_Attack_1",
                 "M3_Aeon_Main_Base_Naval_Attack_5",
                 "M1_Aeon_Naval_Atttack_4",
+                "M1_Aeon_Air_Attack_5",
+                "M1_Aeon_Naval_Atttack_2",
             },
         },
         ['M4_Aeon_North_Base_Naval_Defense_Chain'] = {
@@ -3940,6 +4005,43 @@ Scenario = {
                 "M4_Aeon_South_Base_Naval_Defense_0",
                 "M4_Aeon_South_Base_Naval_Defense_1",
                 "M4_Aeon_South_Base_Naval_Defense_2",
+            },
+        },
+        ['M4_Aeon_North_Base_Air_Attack_Chain_1'] = {
+            Markers = {
+                "M4_Aeon_North_Base_Naval_Attack_0",
+                "M4_Aeon_North_Base_Naval_Attack_1",
+                "M3_Aeon_Main_Base_Naval_Attack_5",
+                "M3_Aeon_Main_Base_Naval_Attack_1",
+                "M3_Aeon_CA_Landing_4",
+                "M4_Aeon_East_Base_Naval_Patrol_1",
+            },
+        },
+        ['M4_Aeon_North_Base_Air_Attack_Chain_2'] = {
+            Markers = {
+                "M4_Aeon_North_Base_Air_Attack_00",
+                "M4_Aeon_North_Base_Air_Attack_01",
+                "M4_Aeon_East_Base_Naval_Patrol_2",
+                "Drop_Marker_4",
+            },
+        },
+        ['M4_Aeon_North_Base_Air_Attack_Chain_3'] = {
+            Markers = {
+                "M4_Aeon_North_Base_Air_Attack_05",
+                "M3_Aeon_North_Island_Naval_Patrol_0",
+                "M4_Aeon_North_Base_Air_Attack_06",
+                "M4_Aeon_North_Base_Air_Attack_02",
+                "M4_Aeon_North_Base_Air_Attack_03",
+                "M2_Aeon_South_Base_Land_Attack_2",
+            },
+        },
+        ['M4_Aeon_North_Base_Naval_Attack_Chain_2'] = {
+            Markers = {
+                "M4_Aeon_North_Base_Naval_Attack_3",
+                "M4_Aeon_North_Base_Naval_Attack_4",
+                "M4_Aeon_East_Base_Naval_Patrol_2",
+                "M1_Aeon_Air_Attack_5",
+                "M1_Aeon_Naval_Atttack_2",
             },
         },
     },
