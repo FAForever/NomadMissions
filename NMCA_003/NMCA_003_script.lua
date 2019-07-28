@@ -1355,6 +1355,15 @@ function IntroMission3()
     ScenarioUtils.CreateArmyGroup('Aeon', 'M3_Walls')
 
     -- Patrols
+    -- North Island
+    if Difficulty >= 2 then
+        -- Cruisers
+        platoon = ScenarioUtils.CreateArmyGroupAsPlatoon('Aeon', 'M3_Aeon_North_Cruisers_D' .. Difficulty, 'GrowthFormation')
+    end
+
+    -- Submarines around the north island
+    platoon = ScenarioUtils.CreateArmyGroupAsPlatoon('Aeon', 'M3_Aeon_North_Sub_Patrol_D' .. Difficulty, 'AttackFormation')
+    ScenarioFramework.PlatoonPatrolChain(platoon, 'M3_Aeon_North_Island_Naval_Patrol_Chain')
 
     ------------
     -- Objective
@@ -1841,16 +1850,6 @@ function IntroMission4()
     for _, v in ScenarioInfo.M4TempestNavalSupportPlatoon:GetPlatoonUnits() do
         ScenarioFramework.GroupPatrolChain({v}, 'M4_Aeon_North_Base_Naval_Defense_Chain')
     end
-
-    -- North Island
-    if Difficulty >= 2 then
-        -- Cruisers
-        platoon = ScenarioUtils.CreateArmyGroupAsPlatoon('Aeon', 'M4_Aeon_North_Cruisers_D' .. Difficulty, 'GrowthFormation')
-    end
-
-    -- Submarines around the north island
-    platoon = ScenarioUtils.CreateArmyGroupAsPlatoon('Aeon', 'M4_Aeon_North_Sub_Patrol_D' .. Difficulty, 'AttackFormation')
-    ScenarioFramework.PlatoonPatrolChain(platoon, 'M4_Aeon_North_Island_Naval_Patrol_Chain')
 
     -- South
     -- If players didn't catch the transpor, set up some patrols around
