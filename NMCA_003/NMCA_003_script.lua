@@ -2204,7 +2204,7 @@ function M4LaunchTempestAttack(tempest)
         local platoon = ArmyBrains[Aeon]:MakePlatoon('', '')
         ArmyBrains[Aeon]:AssignUnitsToPlatoon(platoon, {tempest}, 'Attack', 'None')
 
-        ScenarioFramework.PlatoonPatrolChain(platoon, 'M4_Aeon_North_Base_Naval_Attack_Chain')
+        ScenarioFramework.PlatoonPatrolChain(platoon, 'M4_Aeon_North_Base_Naval_Attack_Chain_1')
     end
 
     -- Wait a bit before sending in the navy, since the tempest moves slowly.
