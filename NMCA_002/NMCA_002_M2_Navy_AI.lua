@@ -9,8 +9,8 @@ local Difficulty = ScenarioInfo.Options.Difficulty
 local UEFNavyBase = BaseManager.CreateBaseManager()
 
 function UEFNavyBaseFunction()
-    UEFNavyBase:Initialize(ArmyBrains[UEF], 'M2_Naval_Base', 'M2_UEF_Naval_Base_Marker', 100, {M2_Naval_Base = 100})
-    UEFNavyBase:StartNonZeroBase({{12, 14, 18}, {6, 8, 10}})
+    UEFNavyBase:Initialize(ArmyBrains[UEF], 'M2_Naval_Base', 'M2_UEF_Naval_Base_Marker', 100, {M2_Naval_Base = 300})
+    UEFNavyBase:StartNonZeroBase({{11, 15, 20}, {9, 13, 18}})
 
 	UEFNavyBase:SetActive('AirScouting', true)
 
@@ -40,7 +40,7 @@ function UEFNavyBase_AirAttacks()
 		LocationType = 'M2_Naval_Base',
 		PlatoonAIFunction = {SPAIFileName, 'PatrolChainPickerThread'},     
 		PlatoonData = {
-			PatrolChains = {'M2_UEF_Player_Air_Attack_Chain_1', 'M2_UEF_Player_Air_Attack_Chain_2'}
+			PatrolChains = {'M2_UEF_Player_Air_Attack_Chain_1', 'M2_UEF_Player_Air_Attack_Chain_2', 'M2_UEF_Player_Air_Attack_Chain_3'}
 		},
 	}
 	ArmyBrains[UEF]:PBMAddPlatoon( Builder )
@@ -60,7 +60,7 @@ function UEFNavyBase_AirAttacks()
 		LocationType = 'M2_Naval_Base',
 		PlatoonAIFunction = {SPAIFileName, 'PatrolChainPickerThread'},     
 		PlatoonData = {
-			PatrolChains = {'M2_UEF_Player_Air_Attack_Chain_1', 'M2_UEF_Player_Air_Attack_Chain_2'}
+			PatrolChains = {'M2_UEF_Player_Air_Attack_Chain_1', 'M2_UEF_Player_Air_Attack_Chain_2', 'M2_UEF_Player_Air_Attack_Chain_3'}
 		},
 	}
 	ArmyBrains[UEF]:PBMAddPlatoon( Builder )
@@ -81,7 +81,7 @@ function UEFNavyBase_AirAttacks()
 		LocationType = 'M2_Naval_Base',
 		PlatoonAIFunction = {SPAIFileName, 'PatrolChainPickerThread'},     
 		PlatoonData = {
-			PatrolChains = {'M2_UEF_Player_Air_Attack_Chain_1', 'M2_UEF_Player_Air_Attack_Chain_2'}
+			PatrolChains = {'M2_UEF_Player_Air_Attack_Chain_1', 'M2_UEF_Player_Air_Attack_Chain_2', 'M2_UEF_Player_Air_Attack_Chain_3'}
 		},
 	}
 	ArmyBrains[UEF]:PBMAddPlatoon( Builder )
@@ -89,7 +89,8 @@ function UEFNavyBase_AirAttacks()
 	Temp = {
 		'P2AirAttackTemp4',
 		'NoPlan',
-		{ 'dea0202', 1, 6, 'Attack', 'GrowthFormation' },
+		{ 'dea0202', 1, 4, 'Attack', 'GrowthFormation' },
+		{ 'uea0102', 1, 2, 'Attack', 'GrowthFormation' },
 	}
 	Builder = {
 		BuilderName = 'P2AirAttackBuilder4',
@@ -101,7 +102,7 @@ function UEFNavyBase_AirAttacks()
 		LocationType = 'M2_Naval_Base',
 		PlatoonAIFunction = {SPAIFileName, 'PatrolChainPickerThread'},     
 		PlatoonData = {
-			PatrolChains = {'M2_UEF_Player_Air_Attack_Chain_1', 'M2_UEF_Player_Air_Attack_Chain_2'}
+			PatrolChains = {'M2_UEF_Player_Air_Attack_Chain_1', 'M2_UEF_Player_Air_Attack_Chain_2', 'M2_UEF_Player_Air_Attack_Chain_3'}
 		},
 	}
 	ArmyBrains[UEF]:PBMAddPlatoon( Builder )
@@ -129,13 +130,13 @@ function UEFNavy_NavalAttacks()
 		'NavalAttackTemp',
 		'NoPlan',
 		{ 'ues0103', 1, 4, 'Attack', 'GrowthFormation' },
-		{ 'ues0203', 1, 3, 'Attack', 'GrowthFormation' },
+		{ 'ues0203', 1, 4, 'Attack', 'GrowthFormation' },
 	}
 	local Builder = {
 		BuilderName = 'NavyAttackBuilder',
 		PlatoonTemplate = Temp,
 		InstanceCount = 1,
-		Priority = 1000,
+		Priority = 200,
 		PlatoonType = 'Sea',
 		RequiresConstruction = true,
 		LocationType = 'M2_Naval_Base',
@@ -155,7 +156,7 @@ function UEFNavy_NavalAttacks()
 		BuilderName = 'NavyAttackBuilder2',
 		PlatoonTemplate = Temp,
 		InstanceCount = 1,
-		Priority = 975,
+		Priority = 150,
 		PlatoonType = 'Sea',
 		RequiresConstruction = true,
 		LocationType = 'M2_Naval_Base',
@@ -176,7 +177,7 @@ function UEFNavy_NavalAttacks()
 		BuilderName = 'NavyAttackBuilder3',
 		PlatoonTemplate = Temp,
 		InstanceCount = 1,
-		Priority = 950,
+		Priority = 175,
 		PlatoonType = 'Sea',
 		RequiresConstruction = true,
 		LocationType = 'M2_Naval_Base',
@@ -198,7 +199,7 @@ function UEFNavy_NavalAttacks()
 		BuilderName = 'NavyAttackBuilder4',
 		PlatoonTemplate = Temp,
 		InstanceCount = 3,
-		Priority = 940,
+		Priority = 125,
 		PlatoonType = 'Sea',
 		RequiresConstruction = true,
 		LocationType = 'M2_Naval_Base',
@@ -232,7 +233,7 @@ function UEFNavy_TransportAttacks()
 
     -- Drops
 	quantity = {8, 12, 14}
-	for i = 1, Difficulty do
+	for i = 2, Difficulty do
 		opai = UEFNavyBase:AddOpAI('BasicLandAttack', 'M2_UEF_NavalBase_Drop_' .. i,
 		{
 			MasterPlatoonFunction = {SPAIFileName, 'LandAssaultWithTransports'},
@@ -264,7 +265,7 @@ function UEFNavy_TransportAttacks()
 	end
 
 	quantity = {6, 9, 12}
-	for i = 1, Difficulty do
+	for i = 3, Difficulty do
 		opai = UEFNavyBase:AddOpAI('BasicLandAttack', 'M2_UEF_NavalBase_Drop3_' .. i,
 		{
 			MasterPlatoonFunction = {SPAIFileName, 'LandAssaultWithTransports'},

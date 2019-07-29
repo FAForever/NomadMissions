@@ -8,8 +8,8 @@ local Difficulty = ScenarioInfo.Options.Difficulty
 local UEFArtilleryBase = BaseManager.CreateBaseManager()
 
 function UEFArtilleryBaseFunction()
-    UEFArtilleryBase:Initialize(ArmyBrains[UEF], 'M2_Arty_Base_Units', 'M2_UEF_Artillery_Base_Marker', 100, {M2_Arty_Base_Units = 100})
-    UEFArtilleryBase:StartNonZeroBase({{10, 12, 16}, {4, 6, 8}})
+    UEFArtilleryBase:Initialize(ArmyBrains[UEF], 'M2_Arty_Base_Units', 'M2_UEF_Artillery_Base_Marker', 70, {M2_Arty_Base_Units = 300})
+    UEFArtilleryBase:StartNonZeroBase({{10, 12, 16}, {6, 9, 13}})
     UEFArtilleryBase.MaximumConstructionEngineers = 5
 	UEFArtilleryBase:SetActive('AirScouting', true)
 
@@ -140,14 +140,14 @@ function UEFArtilleryBase_LandAttacks()
 	Builder = {
 		BuilderName = 'P2landB2AttackBuilder2',
 		PlatoonTemplate = Temp,
-		InstanceCount = 2,
-		Priority = 100,
+		InstanceCount = 3,
+		Priority = 110,
 		PlatoonType = 'Land',
 		RequiresConstruction = true,
 		LocationType = 'M2_Arty_Base_Units',
-		PlatoonAIFunction = {SPAIFileName, 'PatrolThread'},     
+		PlatoonAIFunction = {SPAIFileName, 'PatrolChainPickerThread'},     
 		PlatoonData = {
-			PatrolChain = 'M2_UEF_Artillery_Base_Land_Attack_1'
+			PatrolChains = {'M2_UEF_Artillery_Base_Land_Attack_1', 'M2_UEF_Artillery_Base_Land_Attack_2'}
 		},
 	}
 	ArmyBrains[UEF]:PBMAddPlatoon( Builder )
@@ -155,14 +155,14 @@ function UEFArtilleryBase_LandAttacks()
 	Temp = {
 		'P2landB2AttackTemp3',
 		'NoPlan',
-		{ 'uel0201', 1, 6, 'Attack', 'GrowthFormation' },
-		{ 'uel0202', 1, 4, 'Attack', 'GrowthFormation' },
+		{ 'uel0103', 1, 4, 'Attack', 'GrowthFormation' },
+		{ 'uel0202', 1, 6, 'Attack', 'GrowthFormation' },
 	}
 	Builder = {
 		BuilderName = 'P2landB2AttackBuilder3',
 		PlatoonTemplate = Temp,
-		InstanceCount = 2,
-		Priority = 100,
+		InstanceCount = 1,
+		Priority = 110,
 		PlatoonType = 'Land',
 		RequiresConstruction = true,
 		LocationType = 'M2_Arty_Base_Units',
@@ -182,14 +182,14 @@ function UEFArtilleryBase_LandAttacks()
 	Builder = {
 		BuilderName = 'P2landB2AttackBuilder4',
 		PlatoonTemplate = Temp,
-		InstanceCount = 2,
-		Priority = 100,
+		InstanceCount = 3,
+		Priority = 110,
 		PlatoonType = 'Land',
 		RequiresConstruction = true,
 		LocationType = 'M2_Arty_Base_Units',
-		PlatoonAIFunction = {SPAIFileName, 'PatrolThread'},     
+		PlatoonAIFunction = {SPAIFileName, 'PatrolChainPickerThread'},     
 		PlatoonData = {
-			PatrolChain = 'M2_UEF_Artillery_Base_Land_Attack_1'
+			PatrolChains = {'M2_UEF_Artillery_Base_Land_Attack_1', 'M2_UEF_Artillery_Base_Land_Attack_2'}
 		},
 	}
 	ArmyBrains[UEF]:PBMAddPlatoon( Builder )
@@ -198,13 +198,13 @@ function UEFArtilleryBase_LandAttacks()
 		'P2landB2AttackTemp5',
 		'NoPlan',
 		{ 'uel0103', 1, 6, 'Attack', 'GrowthFormation' },
-		{ 'uel0202', 1, 4, 'Attack', 'GrowthFormation' },
+		{ 'uel0202', 1, 6, 'Attack', 'GrowthFormation' },
 	}
 	Builder = {
 		BuilderName = 'P2landB2AttackBuilder5',
 		PlatoonTemplate = Temp,
-		InstanceCount = 2,
-		Priority = 100,
+		InstanceCount = 4,
+		Priority = 90,
 		PlatoonType = 'Land',
 		RequiresConstruction = true,
 		LocationType = 'M2_Arty_Base_Units',
@@ -238,7 +238,7 @@ function UEFArtilleryBase_TransportAttacks()
         'HaveLessThanUnitsWithCategory', {'default_brain', 2, categories.uea0104})
 
 	quantity = {10, 12, 14}
-	for i = 1, Difficulty do
+	for i = 2, Difficulty do
 		opai = UEFArtilleryBase:AddOpAI('BasicLandAttack', 'M2_UEF_ArtilleryBase_Drop_' .. i,
 		{
 			MasterPlatoonFunction = {SPAIFileName, 'LandAssaultWithTransports'},
@@ -264,7 +264,7 @@ function UEFArtilleryBase_TransportAttacks()
 				LandingChain = 'M2_UEF_Artillery_Drop_Chain',
 				TransportReturn = 'M2_UEF_Artillery_Base_Marker',
 			},
-			Priority = 150,
+			Priority = 100,
 		})
 		opai:SetChildQuantity('LightTanks', quantity[Difficulty])
 		opai:SetLockingStyle('DeathTimer', {LockTimer = 240})

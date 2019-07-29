@@ -33,10 +33,10 @@ ScenarioInfo.Player1 = 1
 ScenarioInfo.Cybran = 2
 ScenarioInfo.CybranCivilian = 3
 ScenarioInfo.UEF = 4
-ScenarioInfo.Player2 = 5
-ScenarioInfo.Player3 = 6
-ScenarioInfo.Player4 = 7
-ScenarioInfo.Nomads = 8
+ScenarioInfo.Player2 = 6
+ScenarioInfo.Player3 = 7
+ScenarioInfo.Player4 = 8
+ScenarioInfo.Nomads = 5
 ScenarioInfo.PlayerACU = {}
 
 -- Local Variables
@@ -115,8 +115,9 @@ end
 
 function OnStart(self)
 	ScenarioFramework.AddRestrictionForAllHumans(categories.TECH2 + categories.TECH3 + categories.EXPERIMENTAL)
-    ScenarioFramework.AddRestrictionForAllHumans(categories.UEF) # UEF Engineer
-	ScenarioFramework.AddRestrictionForAllHumans(categories.NAVAL) # Navy
+    ScenarioFramework.AddRestrictionForAllHumans(categories.UEF) -- UEF Faction
+	ScenarioFramework.AddRestrictionForAllHumans(categories.CYBRAN) -- Cybran Faction
+	ScenarioFramework.AddRestrictionForAllHumans(categories.NAVAL) -- Navy
 
 	-- Restrict the ACU Upgrades.
 	ScenarioFramework.RestrictEnhancements({
@@ -258,7 +259,6 @@ function M1Objectives()
         'kill',                         -- action
         {                               -- target
             MarkUnits = true,
-			FlashVisible = true,
             Requirements = {
                 {   
                     Area = 'M1_OBJ',
@@ -295,6 +295,13 @@ function M1Objectives()
 			Value = 10,
 			ShowProgress = true,
 		}
+	)
+	ScenarioInfo.M1S3:AddResultCallback(
+        function(result)
+			if (result) then
+				ForkThread(M1GunUpgrade)
+            end
+        end
 	)
 	table.insert(AssignedObjectives, ScenarioInfo.M1S3)
 
@@ -348,7 +355,6 @@ function M1SetAirBaseSecondaryObjective()
         'kill',                         -- action
         {                               -- target
             MarkUnits = true,
-			FlashVisible = true,
             Requirements = {
                 {   
                     Area = 'M1_SOBJ',
@@ -380,6 +386,25 @@ function M1UnlockNavalTech()
 	ScenarioFramework.RemoveRestrictionForAllHumans(categories.xns0103)
 	ScenarioFramework.RemoveRestrictionForAllHumans(categories.xns0203)
 	
+end
+
+function M1GunUpgrade()
+   
+   ScenarioFramework.PlayUnlockDialogue()
+   ScenarioFramework.RestrictEnhancements({
+		'AdvancedEngineering',
+		'DoubleGuns',
+		'IntelProbe',
+		'IntelProbeAdv',
+		'MovementSpeedIncrease',
+		'Capacitor',
+		'OrbitalBombardment',
+		'PowerArmor',
+		'RapidRepair',
+		'ResourceAllocation',
+		'T3Engineering'
+	})
+
 end
 
 function M1UEFScoutHandler()
@@ -481,7 +506,7 @@ function M2NISIntro()
 
 	-- Spawn M2 Units
 	ScenarioInfo.CybranCommander = ScenarioFramework.SpawnCommander('Cybran', 'CybranCommander', false, 'Jerrax', false, false,
-	{'MicrowaveLaserGenerator', 'T3Engineering', 'ResourceAllocation'})
+	{'T3Engineering', 'ResourceAllocation'})
 	
 	ScenarioInfo.CybranCommander:AddBuildRestriction(categories.urb2205 + categories.urb2204 + categories.urb4201 + categories.urb0103 + categories.urb2303 + categories.urb1202 + categories.urb1103 + categories.urb1106 + categories.urb5101)
 	
@@ -788,7 +813,7 @@ function M2CybranAirbaseQueryAttacks()
     if not M1CybranAirBaseDestroyed and ScenarioInfo.M2P1.Active then
     
 	ForkThread(function()
-			WaitSeconds(2*60)
+			WaitSeconds(3*60)
 			local units = ScenarioUtils.CreateArmyGroupAsPlatoon('UEF', 'M2_Airbase_Assault' , 'AttackFormation')
 			ScenarioFramework.PlatoonPatrolChain(units, 'M2_Airbase_Assault_Chain')
 			ScenarioFramework.CreatePlatoonDeathTrigger(M2CybranAirbaseQueryAttacks, units)
@@ -852,6 +877,8 @@ function M2UnlockT2Air()
 	ScenarioFramework.RemoveRestrictionForAllHumans(categories.znb9502)
 	ScenarioFramework.RemoveRestrictionForAllHumans(categories.xnb1201)
 	ScenarioFramework.RemoveRestrictionForAllHumans(categories.xnb1202)
+	ScenarioFramework.RemoveRestrictionForAllHumans(categories.xnb5202)
+	ScenarioFramework.RemoveRestrictionForAllHumans(categories.xnb1104)
 
 end
 
@@ -876,17 +903,21 @@ function M2SendPlayerReinforcements()
 			IssueMove({transport}, ScenarioUtils.MarkerToPosition('M2_Remove_Nomads_Transports'))
 		end
 
-        for k, v in units:GetPlatoonUnits() do
-			while (v:IsUnitState('Attached')) do
-				WaitSeconds(1)
-				
-			end
-
-            if (v and not v:IsDead() and (v:GetAIBrain() == ArmyBrains[Nomads]) and not v:IsUnitState('Attached')) then
+         for k, v in units:GetPlatoonUnits() do
+            WARN('starting waiting loop')
+            while (v:IsUnitState('Attached')) do
+                WaitSeconds(1)
+                
+            end
+            WARN('reached the end of the  waiting loop, testing individual conditions on unit: ')
+            WARN(v:IsDead())
+            WARN((v:GetAIBrain() == ArmyBrains[Nomads]))
+            WARN(v:IsUnitState('Attached'))
+            if (v and not v:IsDead()) then
                 ScenarioFramework.GiveUnitToArmy(v, Player1)
             end
         end
-
+		
 		ScenarioFramework.CreateTimerTrigger(M2PlayerReinforcements, M2ReinforcementCoolDown[Difficulty])
 	end)
 end
@@ -1029,6 +1060,8 @@ function M3NISIntro()
     
 	ArmyBrains[UEF]:GiveResource('MASS', 10000)
     ArmyBrains[UEF]:GiveResource('ENERGY', 6000)
+	
+	ScenarioFramework.SetSharedUnitCap(1500)
 	
 	buffDef = Buffs['CheatIncome']
     buffAffects = buffDef.Affects

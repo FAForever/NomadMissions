@@ -10,7 +10,7 @@ local UEFNavalB = BaseManager.CreateBaseManager()
 
 function UEFMainBaseAI()
     UEFMainBase:Initialize(ArmyBrains[UEF], 'UEFMainBaseM3', 'M3_UEF_UEFMainBase_Base_Marker', 200, {M3_UEF_Base = 300})
-    UEFMainBase:StartNonZeroBase({{16, 18, 22}, {14, 16, 20}})
+    UEFMainBase:StartNonZeroBase({{16, 20, 24}, {14, 18, 22}})
 
 	UEFMainBase:SetActive('AirScouting', true)
 	
@@ -138,34 +138,56 @@ function UEFMainBase_LandAttacks()
 	local Temp = {
        'UEFLandM3AttackTemp0',
        'NoPlan',
-       { 'uel0303', 1, 3, 'Attack', 'GrowthFormation' }, --Seige Bots
-       { 'uel0202', 1, 8, 'Attack', 'GrowthFormation' }, --Heavy tanks  
+       { 'uel0303', 1, 5, 'Attack', 'GrowthFormation' }, --Seige Bots
+       { 'uel0202', 1, 9, 'Attack', 'GrowthFormation' }, --Heavy tanks  
        { 'uel0205', 1, 4, 'Attack', 'GrowthFormation' }, --Flak  	   
     }
     local Builder = {
        BuilderName = 'UEFLandM3AttackBuilder0',
        PlatoonTemplate = Temp,
-       InstanceCount = 3,
+       InstanceCount = 2,
        Priority = 105,
        PlatoonType = 'Land',
        RequiresConstruction = true,
        LocationType = 'UEFMainBaseM3',
-       PlatoonAIFunction = {SPAIFileName, 'PatrolChainPickerThread'},     
+       PlatoonAIFunction = {SPAIFileName, 'MoveToThread'},     
        PlatoonData = {
-           PatrolChains = {'M3_UEF_Landattack1','M3_UEF_Landattack2'}
+           MoveChain = 'M3_UEF_Landattack1'
+       },
+    }
+    ArmyBrains[UEF]:PBMAddPlatoon( Builder )
+	
+	local Temp = {
+       'UEFLandM3AttackTemp1',
+       'NoPlan',
+       { 'uel0303', 1, 5, 'Attack', 'GrowthFormation' }, --Seige Bots
+       { 'uel0202', 1, 9, 'Attack', 'GrowthFormation' }, --Heavy tanks  
+       { 'uel0205', 1, 4, 'Attack', 'GrowthFormation' }, --Flak  	   
+    }
+    local Builder = {
+       BuilderName = 'UEFLandM3AttackBuilder1',
+       PlatoonTemplate = Temp,
+       InstanceCount = 2,
+       Priority = 105,
+       PlatoonType = 'Land',
+       RequiresConstruction = true,
+       LocationType = 'UEFMainBaseM3',
+       PlatoonAIFunction = {SPAIFileName, 'MoveToThread'},     
+       PlatoonData = {
+           MoveChain = 'M3_UEF_Landattack2'
        },
     }
     ArmyBrains[UEF]:PBMAddPlatoon( Builder )
 	
 	Temp = {
-       'UEFLandM3AttackTemp1',
+       'UEFLandM3AttackTemp2',
        'NoPlan',
        { 'uel0307', 1, 2, 'Attack', 'GrowthFormation' }, --Mobile Shield
        { 'uel0202', 1, 12, 'Attack', 'GrowthFormation' }, --Heavy tanks  
        { 'uel0205', 1, 4, 'Attack', 'GrowthFormation' }, --Flak  	   
     }
     Builder = {
-       BuilderName = 'UEFLandM3AttackBuilder1',
+       BuilderName = 'UEFLandM3AttackBuilder2',
        PlatoonTemplate = Temp,
        InstanceCount = 5,
        Priority = 100,
@@ -217,7 +239,7 @@ function UEFMainBase_TransportAttacks()
 	end
 
 	quantity = {6, 12, 18}
-	for i = 2, Difficulty do
+	for i = 3, Difficulty do
 		opai = UEFMainBase:AddOpAI('BasicLandAttack', 'M3_UEF_MainBase_Drop2_' .. i,
 		{
 			MasterPlatoonFunction = {SPAIFileName, 'LandAssaultWithTransports'},
@@ -233,7 +255,7 @@ function UEFMainBase_TransportAttacks()
 	end
 
 	quantity = {14, 14, 24}
-	for i = 1, Difficulty do
+	for i = 2, Difficulty do
 		opai = UEFMainBase:AddOpAI('BasicLandAttack', 'M3_UEF_MainBase_Drop3_' .. i,
 		{
 			MasterPlatoonFunction = {SPAIFileName, 'LandAssaultWithTransports'},

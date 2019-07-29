@@ -8,10 +8,18 @@ local Difficulty = ScenarioInfo.Options.Difficulty
 local UEFPlateauBase = BaseManager.CreateBaseManager()
 
 function UEFPlateauBaseFunction()
-    UEFPlateauBase:Initialize(ArmyBrains[UEF], 'M2_UEF_Plateau_Base', 'M2_UEF_Plateau_Base_Marker', 20, {M2_UEF_Plateau_Base = 100})
+    UEFPlateauBase:Initialize(ArmyBrains[UEF], 'M2_UEF_Plateau_Base', 'M2_UEF_Plateau_Base_Marker', 25, {M2_UEF_Plateau_Base = 100})
     UEFPlateauBase:StartEmptyBase(8, 5)
     UEFPlateauBase.MaximumConstructionEngineers = 8
 	UEFArtilleryBase_Patrols()
+	
+	ForkThread(
+	function ()
+	WaitSeconds(10*60)
+	UEFPlateauBase:AddBuildGroup('M2_UEF_Plateau_BaseEXD', 200, false)
+	end
+	)
+	
 end
 
 function UEFArtilleryBase_Patrols()

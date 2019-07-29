@@ -9,7 +9,7 @@ local CybranMainBase = BaseManager.CreateBaseManager()
 
 function CybranMainBaseAI()
     CybranMainBase:Initialize(ArmyBrains[Cybran], 'M2_MainBase', 'M2_Cybran_Main_Base_Marker', 200, {M2_MainBase = 100})
-    CybranMainBase:StartNonZeroBase({{14, 12, 11}, {12, 10, 9}})
+    CybranMainBase:StartNonZeroBase({{14, 12, 10}, {12, 10, 8}})
 
 	CybranMainBase:AddBuildGroup('M2_MainBase_Navy', 90, false)
 
@@ -108,7 +108,7 @@ function M2CybranLandAttacks()
 		PlatoonType = 'Land',
 		RequiresConstruction = true,
 		LocationType = 'M2_MainBase',
-		PlatoonAIFunction = {SPAIFileName, 'PatrolChainPickerThread'},     
+		PlatoonAIFunction = {SPAIFileName, 'PatrolThread'},     
 		PlatoonData = {
 			PatrolChain = 'M2_Cybran_Artillery_Attack_Chain'
 		},
@@ -215,13 +215,13 @@ function M3CybranAttacks()
     local Temp = {
        'CybranLandM3AttackTemp0',
        'NoPlan',
-       { 'url0303', 1, 3, 'Attack', 'GrowthFormation' }, --Seige Bots
-       { 'url0202', 1, 8, 'Attack', 'GrowthFormation' }, --Heavy tanks   	   
+       { 'url0303', 1, 2, 'Attack', 'GrowthFormation' }, --Seige Bots
+       { 'url0202', 1, 6, 'Attack', 'GrowthFormation' }, --Heavy tanks   	   
     }
     local Builder = {
        BuilderName = 'CybranLandM3AttackBuilder0',
        PlatoonTemplate = Temp,
-       InstanceCount = 2,
+       InstanceCount = 3,
        Priority = 300,
        PlatoonType = 'Land',
        RequiresConstruction = true,
@@ -236,7 +236,8 @@ function M3CybranAttacks()
 	Temp = {
        'CybranLandM3AttackTemp1',
        'NoPlan',
-       { 'url0202', 1, 12, 'Attack', 'GrowthFormation' }, --Heavy tanks  	   
+       { 'url0202', 1, 5, 'Attack', 'GrowthFormation' }, --Heavy tanks
+       { 'url0111', 1, 5, 'Attack', 'GrowthFormation' }, --MML    	   
     }
     Builder = {
        BuilderName = 'CybranLandM3AttackBuilder1',

@@ -6,18 +6,18 @@ M2_Intro_CDR_Dropped_Dialogue = {
 
 M2_Intro_Fight_Dialogue = {
     {text = '<LOC C03_M01_020_010>[{i Berry}]: I\'m going to take that town, Cybran, and there\'s nothing you can do about it.', vid = 'C03_Berry_M01_0426.sfd', bank = 'C03_VO', cue = 'C03_Berry_M01_0426', faction = 'UEF'},
-    {text = '[Jerrax]: Get the hell off my planet, monster!', vid = 'A02_Leopard11_M01_00801.sfd', bank = 'A02_VO', cue = 'A02_Leopard11_M01_00801', faction = 'Cybran'},
+    {text = '[Jerrax]: Not over my rotting corpse will you take this town!', vid = '', bank = '', cue = '', faction = 'Cybran'},
 }
 
 M2_Intro_CDR_Dropped_Dialogue_2 = {
-    {text = "[Nichols]: It appears that local inhabitants are engaging with the UEF. Seems like a perfect time to attack the defencive structures guarding that town.", vid = '', bank = '', cue = '', faction = 'UEF'},
+    {text = "[Nichols]: It appears that these \"Cybrans\" are engaging with the UEF. Seems like a perfect time to attack the defencive structures guarding that town.", vid = '', bank = '', cue = '', faction = 'UEF'},
     {text = "[Benson]: That prototype is fitted with a weapons module, Captain. It should help you take care of lower tier vehicles, but don't go too crazy, you're not invincible in that thing.", vid = '', bank = '', cue = '', faction = 'UEF'},
     {text = "[Nichols]: Captain, attack and destroy the defencive structures guarding the town, but be careful not to get tangled up in the fight between the inhabitants and the UEF.", vid = '', bank = '', cue = '', faction = 'UEF'},
 }
 
 M2_Berry_Cybran_Interaction = {
     {text = '<LOC C03_M01_040_010>[{i Berry}]: I\'m not done with you, Cybran.', vid = 'C03_Berry_M01_0428.sfd', bank = 'C03_VO', cue = 'C03_Berry_M01_0428', faction = 'UEF'},
-	{text = '<LOC A02_T01_060_010>[Jerrax]: The civilians here are under my protection.', vid = 'A02_Leopard11_T01_00795.sfd', bank = 'A02_VO', cue = 'A02_Leopard11_T01_00795', faction = 'Cybran'},
+	{text = '[Jerrax]: Damn it another UEF commander? I\'ll take you both on!', vid = '', bank = '', cue = '', faction = 'Cybran'},
 }
 
 M2_Secure_River_Dialogue = {
@@ -25,23 +25,23 @@ M2_Secure_River_Dialogue = {
 }
 
 M2_P2_Cutscene_Intro = {
-	{text = '[Jerrax]: Wait, you\'re not UEF! Please - do not attack us, we mean you no harm.', vid = '', bank = '', cue = '', faction = 'Cybran'},
-	{text = '[Jerrax]: I have information on the UEF that will change everything! If you help us, I will give it to you.', vid = '', bank = '', cue = '', faction = 'Cybran'},
+	{text = '[Jerrax]: Wait, you\'re not UEF! Please - do not attack that town, they mean you no harm.', vid = '', bank = '', cue = '', faction = 'Cybran'},
+	{text = '[Jerrax]: I have vital information on the UEF that will change everything! If you help us, I will give it to you.', vid = '', bank = '', cue = '', faction = 'Cybran'},
 	{text = "[Nichols]: Ignore him Captain, focus on the mission at hand.", vid = '', bank = '', cue = '', faction = 'UEF'},
-	{text = '[Jerrax]: Don\'t you understand how important this is?! You must help us!', vid = '', bank = '', cue = '', faction = 'Cybran'},
-	{text = "[Nichols]: Wait...Hmm. New Orders from Command, Captain. Assist the Cybran where possible, and help him defeat the UEF. We need that information.", vid = '', bank = '', cue = '', faction = 'UEF'},
+	{text = '[Jerrax]: Don\'t you understand how important this is?! This could end the war! You must help us!', vid = '', bank = '', cue = '', faction = 'Cybran'},
+	{text = "[Nichols]: Wait...Hmm. New orders from Command, Captain. Assist the Cybran where possible, and help him defeat the UEF. We need that information.", vid = '', bank = '', cue = '', faction = 'UEF'},
 }
 
 M2_P2_Cutscene_Dialogue = {
-	{text = '[Jerrax]: Commander, that Civilian town is vulnerable, and I can\'t defend it alone. Make sure that no harm comes to that town.', vid = '', bank = '', cue = '', faction = 'Cybran'},
-	{text = '[Jerrax]: There is a UEF Naval Base to the East that has the river locked down. If you destroy it, we will regain control of the river.', vid = '', bank = '', cue = '', faction = 'Cybran'},
-	{text = '[Jerrax]: The UEF are contructing an Air Base to the south-east of the town, you must destroy it before the Engineers finish constructing it.', vid = '', bank = '', cue = '', faction = 'Cybran'},
+	{text = '[Jerrax]: Commander, that Civilian town is now vulnerable, and I can\'t defend it alone. Make sure that no harm comes to that town.', vid = '', bank = '', cue = '', faction = 'Cybran'},
+	{text = '[Jerrax]: There is a UEF Naval Base to the west that has the river locked down. If you destroy it, we will regain control of the river.', vid = '', bank = '', cue = '', faction = 'Cybran'},
+	{text = '[Jerrax]: The UEF are contructing an Air Base to the south-east of the town, you must destroy it before the engineers finish constructing it.', vid = '', bank = '', cue = '', faction = 'Cybran'},
 	{text = '[Jerrax]: The UEF Commander is sending the bulk of his forces to my main base. I will hold them off, while you deal with those bases. I will assist you where possible. Good luck.', vid = '', bank = '', cue = '', faction = 'Cybran'},
 }
 
 M2_P2_SecondaryObj = {
 
-{text = '[Jerrax]: The UEF Commander is constructing a small fire base on a ridge to my east, my forces are tied up holding off the UEF\'s attacks.', vid = '', bank = '', cue = '', faction = 'Cybran'},
+{text = '[Jerrax]: The UEF Commander is constructing a small fire base on a ridge to my direct east, my forces are tied up holding off the UEF\'s attacks.', vid = '', bank = '', cue = '', faction = 'Cybran'},
 {text = '[Jerrax]: Destroying that artillery will help reduce the pressure on my base, Jerrax out.', vid = '', bank = '', cue = '', faction = 'Cybran'},
 
 }
