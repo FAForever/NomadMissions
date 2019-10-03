@@ -904,17 +904,11 @@ function M2SendPlayerReinforcements()
 		end
 
          for k, v in units:GetPlatoonUnits() do
-            WARN('starting waiting loop')
             while (v:IsUnitState('Attached')) do
                 WaitSeconds(1)
-                
             end
-            WARN('reached the end of the  waiting loop, testing individual conditions on unit: ')
-            WARN(v:IsDead())
-            WARN((v:GetAIBrain() == ArmyBrains[Nomads]))
-            WARN(v:IsUnitState('Attached'))
             if (v and not v:IsDead()) then
-                ScenarioFramework.GiveUnitToArmy(v, Player1)
+                ScenarioFramework.GiveUnitToArmy(v, 'Player1')
             end
         end
 		
