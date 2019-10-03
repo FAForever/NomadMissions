@@ -2120,7 +2120,7 @@ Scenario = {
                                 Orientation = { 0.000000, 0.000000, 0.000000 },
                             },
                             ['UNIT_276'] = {
-                                type = 'xnb1102',
+                                type = 'xnb1103',
                                 orders = '',
                                 platoon = '',
                                 Position = { 917.500000, 57.953125, 888.500000 },
@@ -2197,7 +2197,7 @@ Scenario = {
                                 Orientation = { 0.000000, 0.000000, 0.000000 },
                             },
                             ['UNIT_275'] = {
-                                type = 'xnb1102',
+                                type = 'xnb1103',
                                 orders = '',
                                 platoon = '',
                                 Position = { 896.500000, 58.187500, 920.500000 },
@@ -2484,7 +2484,7 @@ Scenario = {
                                 Orientation = { 0.000000, 0.000000, 0.000000 },
                             },
                             ['UNIT_274'] = {
-                                type = 'xnb1102',
+                                type = 'xnb1103',
                                 orders = '',
                                 platoon = '',
                                 Position = { 865.500000, 58.234375, 866.500000 },
@@ -2757,7 +2757,7 @@ Scenario = {
                                 Orientation = { 0.000000, 0.000000, 0.000000 },
                             },
                             ['UNIT_1058'] = {
-                                type = 'xnb1107',
+                                type = 'xnb1102',
                                 orders = '',
                                 platoon = '',
                                 Position = { 861.500000, 57.859375, 888.500000 },

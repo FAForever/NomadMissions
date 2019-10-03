@@ -233,7 +233,7 @@ function OnStart(self)
         categories.xnb4204 + -- Nomads TMD
         categories.xnb4202 + -- Nomads T2 Shield
         categories.xns0202 + -- Nomads Cruiser
-        categories.xns0205 + -- Nomads Railgun boat
+        categories.xns0102 + -- Nomads Railgun boat
 
         categories.uab2108 + -- Aeon TML
         categories.uab2303 + -- Aeon T2 Arty
@@ -242,7 +242,6 @@ function OnStart(self)
         categories.ues0202 + -- Aeon Cruiser
         categories.xas0204   -- Aeon Sub Hunter
     )
-
     ScenarioFramework.RestrictEnhancements({
         -- Allowed: AdvancedEngineering, Capacitator, GunUpgrade, RapidRepair, MovementSpeedIncrease
         'IntelProbe',
@@ -252,7 +251,8 @@ function OnStart(self)
         'ResourceAllocation',
         'PowerArmor',
         'T3Engineering',
-        'OrbitalBombardment'
+        'OrbitalBombardment',
+        'OrbitalBombardmentHeavy'
     })
 
     -- Set Unit Cap
@@ -1143,7 +1143,7 @@ end
 
 function M2RailBoatUnlock()
     local function Unlock()
-        ScenarioFramework.RemoveRestrictionForAllHumans(categories.xns0205 + categories.xas0204, true)
+        ScenarioFramework.RemoveRestrictionForAllHumans(categories.xns0102 + categories.xas0204, true)
     end
 
     -- First play the dialogue, then unlock

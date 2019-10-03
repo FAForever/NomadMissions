@@ -2279,7 +2279,7 @@ Scenario = {
                                 Orientation = { 0.000000, 0.000000, 0.000000 },
                             },
                             ['Cutscene_Mex_1'] = {
-                                type = 'xnb1102',
+                                type = 'xnb1103',
                                 orders = '',
                                 platoon = '',
                                 Position = { 363.500000, 59.968750, 493.500000 },

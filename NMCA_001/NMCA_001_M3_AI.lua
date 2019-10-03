@@ -359,14 +359,14 @@ function UEFBaseAirAttacks()
             {
                 MasterPlatoonFunction = {'/lua/ScenarioPlatoonAI.lua', 'CategoryHunterPlatoonAI'},
                 PlatoonData = {
-                  CategoryList = { categories.xnb1102 },
+                  CategoryList = { categories.xnb1103 },
                 },
                 Priority = 400,
             }
         )
         opai:SetChildQuantity('Gunships', 8)
         opai:AddBuildCondition('/lua/editor/otherarmyunitcountbuildconditions.lua', 'BrainGreaterThanOrEqualNumCategory',
-        {'default_brain', 'Player', 1, categories.xnb1102})
+        {'default_brain', 'Player', 1, categories.xnb1103})
 
         opai = UEFBase:AddOpAI('AirAttacks', 'M3_BaseAirAttack_9',
             {
