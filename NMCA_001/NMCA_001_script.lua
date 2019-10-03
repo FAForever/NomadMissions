@@ -228,11 +228,15 @@ function KillGame()
 end
 
 function M1NIS()
-    ArmyBrains[Player1]:GiveResource('ENERGY', 5000)
-    ArmyBrains[Player1]:GiveResource('MASS', 650)
     ScenarioFramework.CreateUnitDamagedTrigger(PlayerLose, ScenarioInfo.Ship, .75)
 
     WaitSeconds(1)
+    for _, player in ScenarioInfo.HumanPlayers do
+        ArmyBrains[player]:GiveStorage('MASS', 650)
+        ArmyBrains[player]:GiveResource('MASS', 650)
+        ArmyBrains[player]:GiveStorage('ENERGY', 5000)
+        ArmyBrains[player]:GiveResource('ENERGY', 5000)
+    end
 
     Cinematics.EnterNISMode()
     ScenarioFramework.Dialogue(OpStrings.IntroNIS_Dialogue, M1_Objectives, true)
@@ -252,40 +256,13 @@ function M1NIS()
 
     if (table.getn(ScenarioInfo.HumanPlayers) == 2) then
         ScenarioUtils.CreateArmyGroup('Player2', 'Engineers')
-        ScenarioUtils.CreateArmyUnit('Player2', 'EStorage')
-        ScenarioUtils.CreateArmyUnit('Player2', 'MStorage')
-
-        ArmyBrains[Player2]:GiveResource('ENERGY', 5000)
-        ArmyBrains[Player2]:GiveResource('MASS', 650)
     elseif(table.getn(ScenarioInfo.HumanPlayers) == 3) then
         ScenarioUtils.CreateArmyGroup('Player2', 'Engineers')
-        ScenarioUtils.CreateArmyUnit('Player2', 'EStorage')
-        ScenarioUtils.CreateArmyUnit('Player2', 'MStorage')
         ScenarioUtils.CreateArmyGroup('Player3', 'Engineers')
-        ScenarioUtils.CreateArmyUnit('Player3', 'EStorage')
-        ScenarioUtils.CreateArmyUnit('Player3', 'MStorage')
-
-        ArmyBrains[Player2]:GiveResource('ENERGY', 5000)
-        ArmyBrains[Player2]:GiveResource('MASS', 650)
-        ArmyBrains[Player3]:GiveResource('ENERGY', 5000)
-        ArmyBrains[Player3]:GiveResource('MASS', 650)
     elseif(table.getn(ScenarioInfo.HumanPlayers) == 4) then
         ScenarioUtils.CreateArmyGroup('Player2', 'Engineers')
-        ScenarioUtils.CreateArmyUnit('Player2', 'EStorage')
-        ScenarioUtils.CreateArmyUnit('Player2', 'MStorage')
         ScenarioUtils.CreateArmyGroup('Player3', 'Engineers')
-        ScenarioUtils.CreateArmyUnit('Player3', 'EStorage')
-        ScenarioUtils.CreateArmyUnit('Player3', 'MStorage')
         ScenarioUtils.CreateArmyGroup('Player4', 'Engineers')
-        ScenarioUtils.CreateArmyUnit('Player4', 'EStorage')
-        ScenarioUtils.CreateArmyUnit('Player4', 'MStorage')
-
-        ArmyBrains[Player2]:GiveResource('ENERGY', 5000)
-        ArmyBrains[Player2]:GiveResource('MASS', 650)
-        ArmyBrains[Player3]:GiveResource('ENERGY', 5000)
-        ArmyBrains[Player3]:GiveResource('MASS', 650)
-        ArmyBrains[Player4]:GiveResource('ENERGY', 5000)
-        ArmyBrains[Player4]:GiveResource('MASS', 650)
     end
 end
 
