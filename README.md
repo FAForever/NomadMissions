@@ -27,6 +27,7 @@ You need to download all the files that the missions need to work, and then enab
 1. These missions have custom sounds and videos. You can grab them from this folder here: https://mega.nz/#F!YhBhlaiR!BsgJziQalzs5ZJtU6iqXfQ
   * Each mission has two files, sound and video. The sound files are `N0x_VO.nx2` while the video files have `Movies_UnPackMe` at the end of their name.
   * Place the ```N0x_VO.nx2``` file into ```C:\ProgramData\FAForever\gamedata\``` note: NOT program files, and do not unpack the file.
+     * Note: ProgramData is a hidden folder. if you cant see it, copy and paste the above url into the explorer address bar, or turn on hidden folder visibility in the control panel. Putting files into Program Files wont work.
   * Unpack the Movies file into: ```C:\ProgramData\FAForever\movies```  note: NOT program files, you must unpack the file, which will contain a set of `.sfd` files.
 
 You are all set to enable the missions! Follow either the official (downlords) client instructions, or the legacy client instructions to enable the missions.
