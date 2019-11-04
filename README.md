@@ -49,3 +49,23 @@ You are all set to enable the missions! Follow either the official (downlords) c
 1. Host a coop game through FAF on any map. If everything was done correctly, you _should_ get two errors when hosting the game saying that a file could not be patched. The nomads should appear as a faction choice in the lobby.
 1. Switch maps to a map from the Nomads campaign, and enjoy!
 1. It is important to note that you need to disable these changes if you want to play coop missions without nomads later! To do this, simply uncheck the read only option from your ```init_coop.lua``` or delete it and it will be patched next time you run coop. You are can play non-coop games normally without disabling these changes, so if you only play Nomads coop missions then you dont need to do anything. Additionally, running coop with Downlords client will not work while you have this file set to read-only!
+
+## How do i test the missions with the development version of Nomads?
+----------------------------
+You can also play these missions offline against the github repository of nomads, which lets you test them with future nomads patches. 
+1. To do this, you first must set up your nomads so you can launch that offline. Follow the instructions on the main repository [here](https://github.com/FAForever/nomads#how-do-i-start-contributing) and continue once you have successfully launched an offline game of nomads. The remaining steps are analogous to what you did with the main repository.
+1. Download the ```init_DevNomadsCoop.lua``` from this repository. Place it inside ```C:\ProgramData\FAForever\bin\```, which is a folder you should already be familiar with as it was a required step to set up Development Nomads.
+1. Open the ```init_DevNomadsCoop.lua``` and change your first two lines to correspond to your repository locations, just as you have done for the nomads init file previously.
+The lines are at the start of the file, so you can't miss them.
+   - *( Make sure you don't edit the original file, to avoid problems later )*
+   - Make sure you pay attention to the double slashes in the file paths, and put them into the paths or they will not work!
+   - `dev_path = 'E:\\GITS\\fa'` corresponds to the path to the FA repository
+   - `dev_pathnomads = 'E:\\GITS\\nomads'` corresponds to the path to the Nomads repository
+
+1. Inside the same folder, ```C:\ProgramData\FAForever\bin\```, you'll find `ForgedAlliance.exe`
+1. As before for Nomads, make a shortcut for it either by right clicking on the file and putting it in an easily accessable place or right clicking in the folder you want the shortcut to be in and making a new shortcut there. *(For example your desktop)*
+1. As before, go into its properties (right click) and change the target:
+```
+C:\ProgramData\FAForever\bin\ForgedAlliance.exe /init init_DevNomadsCoop.lua /EnableDiskWatch /showlog /log C:\ProgramData\FAForever\logs\speed2coop.log
+```
+1. Launch the game. If you did everything correctly you should be able to switch to a coop map in the skirmish menu.
