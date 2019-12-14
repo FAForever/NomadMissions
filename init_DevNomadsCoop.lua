@@ -1,3 +1,5 @@
+--This file is for the development version of Nomads. if you just want to play the missions on FAF, this is the wrong file. Use init_NomadsCoop.lua for that
+
 --make sure to change these two lines to correspond to your repositories!
 --also triple-check that you have put slashes in as \\ not as \ !
 dev_path = 'G:\\GITS\\fa'
@@ -27,7 +29,7 @@ local function clear_cache()
     local dir = SHGetFolderPath('LOCAL_APPDATA') .. 'Gas Powered Games\\Supreme Commander Forged Alliance\\cache\\'
     LOG('Clearing cached shader files in: ' .. dir)
     for _,file in io.dir(dir .. '**') do
-        if string.find(file, 'mesh') then
+        if string.find(file, 'mesh') or string.find(file, 'particle') then
             os.remove(dir .. file)
         end
     end

@@ -42,10 +42,10 @@ You are all set to enable the missions! Follow either the official (downlords) c
 1. It is important to note that you need to disable these changes if you want to play _any_ game without nomads later! To do this, replace the entire contents of the field with `"%s"` (including the quotation marks), reversing step 5. The file can stay in your folder and wont be active unless you do step 5 again.
 
 ### Legacy client instructions:
-1. If you haven't already during the file installation, download the ```init_coop.lua``` from this repository. You will be replacing another file with this one.
+1. If you haven't already during the file installation, download the ```init_NomadsCoop.lua``` from this repository. You will be replacing another file with this one.
 1. Open ```C:\ProgramData\FAForever\bin\```. There you will find a file called ```init_coop.lua```. If it is not there, host a game of coop on FAF to download the files.
-1. Place the ```init_coop.lua``` that you have just downloaded into the folder, replacing the file already there.
-1. Set the file to read only. To do this, right-click on it, and select 'properties'. Then check the read-only box.
+1. Rename the ```init_NomadsCoop.lua.lua``` that you have just downloaded to ```init_coop.lua``` and place it into the folder, replacing the file already there.
+1. Set the file to read only. To do this, right-click on it, and select 'properties'. Then check the read-only box. This will prevent FAF from resetting your modified file.
 1. Host a coop game through FAF on any map. If everything was done correctly, you _should_ get two errors when hosting the game saying that a file could not be patched. The nomads should appear as a faction choice in the lobby.
 1. Switch maps to a map from the Nomads campaign, and enjoy!
 1. It is important to note that you need to disable these changes if you want to play coop missions without nomads later! To do this, simply uncheck the read only option from your ```init_coop.lua``` or delete it and it will be patched next time you run coop. You are can play non-coop games normally without disabling these changes, so if you only play Nomads coop missions then you dont need to do anything. Additionally, running coop with Downlords client will not work while you have this file set to read-only!
