@@ -322,7 +322,7 @@ function AeonM4ResearchBaseNorthNavalAttacks()
     )
     opai:SetChildQuantity('Submarines', quantity[Difficulty])
     opai:AddBuildCondition('/lua/editor/otherarmyunitcountbuildconditions.lua',
-        'BrainsCompareNumCategory', {'default_brain', {'HumanPlayers'}, trigger[Difficulty], categories.T1SUBMARINE + categories.T2SUBMARINE + categories.xns0205, '>='})
+        'BrainsCompareNumCategory', {'default_brain', {'HumanPlayers'}, trigger[Difficulty], categories.T1SUBMARINE + categories.T2SUBMARINE + categories.xns0102, '>='})
 
     -- Send 2 Destroyers if players have more than {8, 6, 4} T2 ships.
     trigger = {9, 7, 5}
@@ -621,7 +621,7 @@ function AeonM4ResearchBaseSouthNavalAttacks()
     )
     opai:SetChildQuantity('Submarines', quantity[Difficulty])
     opai:AddBuildCondition('/lua/editor/otherarmyunitcountbuildconditions.lua',
-        'BrainsCompareNumCategory', {'default_brain', {'HumanPlayers'}, trigger[Difficulty], categories.T1SUBMARINE + categories.T2SUBMARINE + categories.xns0205, '>='})
+        'BrainsCompareNumCategory', {'default_brain', {'HumanPlayers'}, trigger[Difficulty], categories.T1SUBMARINE + categories.T2SUBMARINE + categories.xns0102, '>='})
 
     -- Send 2 Destroyers if players have more than {0, 8, 6} T2 ships.
     trigger = {10, 8, 6}

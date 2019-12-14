@@ -239,9 +239,10 @@ function OnStart(self)
         categories.uab2303 + -- Aeon T2 Arty
         categories.uab4201 + -- Aeon TMD
         categories.uab4202 + -- Aeon T2 Shield
-        categories.ues0202 + -- Aeon Cruiser
+        categories.uas0202 + -- Aeon Cruiser
         categories.xas0204   -- Aeon Sub Hunter
     )
+
     ScenarioFramework.RestrictEnhancements({
         -- Allowed: AdvancedEngineering, Capacitator, GunUpgrade, RapidRepair, MovementSpeedIncrease
         'IntelProbe',
