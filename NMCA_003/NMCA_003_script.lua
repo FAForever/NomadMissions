@@ -1704,7 +1704,8 @@ function M3RASUnlock()
         'RapidRepair',
         'PowerArmor',
         'T3Engineering',
-        'OrbitalBombardment'
+        'OrbitalBombardment',
+        'OrbitalBombardmentHeavy'
     })
 end
 
