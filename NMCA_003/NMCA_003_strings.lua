@@ -672,10 +672,31 @@ M2EngieDropKilled = {
 
 
 -- Artillery gun ready again
-ArtilleryGunReady = {
+BombardmentReady = {
     {
         text = '[Nichols]: The artillery is online again, and ready to fire.',
-        vid = 'N03_ArtilleryGunReady.sfd', bank = 'N03_VO', cue = 'ArtilleryGunReady', faction = 'Nomads'
+        vid = 'N03_BombardmentReady.sfd', bank = 'N03_VO', cue = 'BombardmentReady', faction = 'Nomads'
+    },
+}
+
+BombardmentCalled1 = {
+    {
+        text = '[Nichols]: The missiles are on the way.',
+        vid = 'N03_BombardmentCalled1.sfd', bank = 'N03_VO', cue = 'BombardmentCalled1', faction = 'Nomads'
+    },
+}
+
+BombardmentCalled2 = {
+    {
+        text = '[Nichols]: Target confirmed.',
+        vid = 'N03_BombardmentCalled2.sfd', bank = 'N03_VO', cue = 'BombardmentCalled2', faction = 'Nomads'
+    },
+}
+
+BombardmentCalled3 = {
+    {
+        text = '[Nichols]: Sending a volley to the target location.',
+        vid = 'N03_BombardmentCalled3.sfd', bank = 'N03_VO', cue = 'BombardmentCalled3', faction = 'Nomads'
     },
 }
 
@@ -704,8 +725,8 @@ M2B2Title = 'Supreme attention'
 M2B2Description = 'You shot down a transport drop of enemy engineers before they could establish a base.'
 
 -- Artillery Gun
-ArtilleryGunTitle = 'Artillery strike'
-ArtilleryGunDescription = 'Mark an area on the map for the orbital artillery strike. The strike will be available again after a short cooldown.'
+BombardmentTitle = 'Artillery strike'
+BombardmentDescription = 'Mark an area on the map for the orbital artillery strike. The strike will be available again after a short cooldown.'
 
 
 
