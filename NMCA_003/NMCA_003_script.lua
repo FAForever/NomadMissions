@@ -750,8 +750,8 @@ function M1CrystalsObjective()
             elseif current == 3 then
                 ScenarioFramework.Dialogue(OpStrings.ThirdCrystalReclaimed, nil, true)
             elseif current == 4 then
-                -- Atry satellite
-                ForkThread(SpawnArtillery)
+                -- Orbital Frigate Bombardment
+                ForkThread(SetUpBombardmentPing, true)
 
                 ScenarioFramework.Dialogue(OpStrings.FourthCrystalReclaimed, nil, true)
             end
@@ -2377,60 +2377,25 @@ function ShipHPThread()
     end
 end
 
-function SpawnArtillery()
-    -- More storage for arty reload
-    ArmyBrains[Crashed_Ship]:GiveStorage('ENERGY', 100000)
-    ArmyBrains[Crashed_Ship]:GiveResource('ENERGY', 100000)
-
-    -- Spawn arty
-    ScenarioInfo.ArtilleryGun = ScenarioUtils.CreateArmyUnit('Crashed_Ship', 'Orbital_Artillery')
-    ScenarioInfo.ArtilleryGun:SetCanTakeDamage(false)
-    ScenarioInfo.ArtilleryGun:SetCanBeKilled(false)
-    ScenarioInfo.ArtilleryGun:SetDoNotTarget(true)
-    ScenarioInfo.ArtilleryGun:SetIntelRadius('Vision', 0)
-
-    -- Wait for the satellite to spawn
-    while not ScenarioInfo.ArtilleryGun.ArtilleryUnit do
-        WaitSeconds(1)
+function SetUpBombardmentPing(skipDialogue)
+    if not skipDialogue then
+        ScenarioFramework.Dialogue(OpStrings.BombardmentReady)
     end
-
-    ScenarioInfo.ArtilleryGun.ArtilleryUnit:SetFireState('HoldFire')
-
-    -- Teleport it to the crashed ship
-    Warp(ScenarioInfo.ArtilleryGun.ArtilleryUnit, ScenarioUtils.MarkerToPosition('Artillery_Marker'))
 
     -- Set up attack ping for players
-    SetUpArtilleryPing(true)
+    ScenarioInfo.AttackPing = PingGroups.AddPingGroup(OpStrings.BombardmentTitle, nil, 'attack', OpStrings.BombardmentDescription)
+    ScenarioInfo.AttackPing:AddCallback(CallBombardement)
 end
 
-function SetUpArtilleryPing(skipDialogue)
-    if not skipDialogue then
-        ScenarioFramework.Dialogue(OpStrings.ArtilleryGunReady)
-    end
+function CallBombardement(location)
+    -- Random dialogue to confirm the target
+    ScenarioFramework.Dialogue(OpStrings['BombardmentCalled' .. Random(1, 3)])
 
-    ScenarioInfo.AttackPing = PingGroups.AddPingGroup(OpStrings.ArtilleryGunTitle, nil, 'attack', OpStrings.ArtilleryGunDescription)
-    ScenarioInfo.AttackPing:AddCallback(ArtilleryAttackLocation)
-end
+    ScenarioInfo['Player1CDR'].OrbitalUnit:LaunchOrbitalStrike(location, true)
 
-function ArtilleryAttackLocation(location)
-    ForkThread(
-        function(location)
-            ScenarioInfo.ArtilleryGun.ArtilleryUnit:SetFireState('ReturnFire')
+    ScenarioInfo.AttackPing:Destroy()
 
-            IssueStop({ScenarioInfo.ArtilleryGun.ArtilleryUnit})
-            IssueClearCommands({ScenarioInfo.ArtilleryGun.ArtilleryUnit})
-
-            IssueAttack({ScenarioInfo.ArtilleryGun.ArtilleryUnit}, location)
-
-            ScenarioInfo.AttackPing:Destroy()
-
-            WaitSeconds(30)
-
-            ScenarioInfo.ArtilleryGun.ArtilleryUnit:SetFireState('HoldFire')
-
-            ScenarioFramework.CreateTimerTrigger(SetUpArtilleryPing, 5*60)
-        end, location
-    )
+    ScenarioFramework.CreateTimerTrigger(SetUpBombardmentPing, 5*60)
 end
 
 -- Functions for randomly picking scenarios
@@ -2534,7 +2499,8 @@ function OnCtrlF4()
 end
 
 function OnShiftF3()
-    ForkThread(SpawnArtillery)
+    ScenarioFramework.SetPlayableArea('M2_Area', true)
+    ForkThread(SetUpBombardmentPing, true)
 end
 
 function OnShiftF4()
