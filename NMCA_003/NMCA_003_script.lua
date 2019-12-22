@@ -130,7 +130,7 @@ local CrystalBonuses = {
 }
 
 -- How long should we wait at the beginning of the NIS to allow slower machines to catch up?
-local NIS1InitialDelay = 3
+local NIS1InitialDelay = 2
 
 -----------------
 -- Taunt Managers
@@ -284,7 +284,7 @@ function OnStart(self)
 
     -- Initialize camera
     if not SkipNIS1 then
-        Cinematics.CameraMoveToMarker('Cam_Intro_1')
+        Cinematics.CameraMoveToMarker('Cam_M1_Intro_1')
     end
 
     ForkThread(IntroMission1NIS)
@@ -390,8 +390,7 @@ function IntroMission1NIS()
         local strCameraPlayer = tostring(tblArmy[GetFocusArmy()])
         local CameraMarker = strCameraPlayer .. '_Cam'
 
-        -- Vision for NIS location
-        local VisMarker1 = ScenarioFramework.CreateVisibleAreaLocation(30, 'VizMarker_1', 0, ArmyBrains[Player1])
+        -- Vision over the crashed ship
         local VisMarker2 = ScenarioFramework.CreateVisibleAreaLocation(36, 'VizMarker_2', 0, ArmyBrains[Player1])
         
         --Intro Cinematic
@@ -399,21 +398,49 @@ function IntroMission1NIS()
 
         WaitSeconds(NIS1InitialDelay)
 
-        -- Look at the Aeon base
-        ScenarioFramework.Dialogue(OpStrings.M1Intro1, nil, true)
-        WaitSeconds(1)
-        Cinematics.CameraMoveToMarker('Cam_Intro_2', 4)
+        local Scouts = ScenarioUtils.CreateArmyGroup('Player1', 'Scouts_1')
+        -- The scout we're gonna follow with the cam, it will die when WE want it to die! ... so making it invincible for now
+        -- It can take damage and all the pain, but can't die just yet. Cruel world full of suffering ("maniacal laugh")
+        ScenarioInfo.Scout1 = Scouts[1]
+        ScenarioInfo.Scout1:SetCanBeKilled(false)
+        IssueMove(Scouts, ScenarioUtils.MarkerToPosition('M1_Aeon_Base_Marker'))
+
+        WaitSeconds(0.5)
+
+        Cinematics.CameraThirdPerson(ScenarioInfo.Scout1, 0.5, 60, 5, 2)
+
+        -- Aproaching this marker of doom will murder the scout, creating new vision radius before the scout dies to see what's going on as it crashes down
+        ScenarioFramework.CreateUnitToMarkerDistanceTrigger(
+            function()
+                ScenarioInfo.VizMarker1 = ScenarioFramework.CreateVisibleAreaLocation(42, ScenarioInfo.Scout1:GetPosition(), 0, ArmyBrains[Player1])
+                ScenarioInfo.Scout1:SetCanBeKilled(true)
+                ScenarioInfo.Scout1:Kill() 
+            end,
+            ScenarioInfo.Scout1,
+            'M1_Aeon_Base_Marker',
+            20
+        )
+
+        while not ScenarioInfo.Scout1.Dead do
+            WaitSeconds(0.1)
+        end
+        
+        Cinematics.CameraMoveToMarker('Cam_M1_Intro_2', 5)
+
+        -- Other two scouts that will find the crashed ship, then patrol aroud it
+        local Scouts2 = ScenarioUtils.CreateArmyGroup('Player1', 'Scouts_2')
+        IssueMove(Scouts2, ScenarioUtils.MarkerToPosition('Scout_Move_1'))
+        IssueMove(Scouts2, ScenarioUtils.MarkerToPosition('Scout_Move_2'))
+        ScenarioFramework.GroupPatrolChain(Scouts2, 'M1_Player1_Scout_Patrol_Chain')
+
+        WaitSeconds(3)
+
+        Cinematics.CameraTrackEntities(Scouts2, 60, 1)
+        WaitSeconds(8)
+
+        -- Cam on the crashed ship
+        Cinematics.CameraMoveToMarker('Cam_M1_Intro_3', 2)
         WaitSeconds(2)
-
-        -- Move cam to the crashed ship
-        ScenarioFramework.Dialogue(OpStrings.M1Intro2, nil, true)
-        WaitSeconds(1)
-        Cinematics.CameraMoveToMarker('Crashed_Ship_Camera', 4)
-        WaitSeconds(1)
-
-        -- "Sending you in"
-        ScenarioFramework.Dialogue(OpStrings.M1Intro3, nil, true)
-        WaitSeconds(4)
 
         -- Spawn Players
         ForkThread(SpawnPlayers, tblArmy)
@@ -421,13 +448,8 @@ function IntroMission1NIS()
         Cinematics.CameraMoveToMarker(CameraMarker, 2)
         WaitSeconds(3)
 
-        VisMarker1:Destroy()
-        --VisMarker2:Destroy()
-
-        -- Remove intel on the Aeon base on high difficulty
-        if Difficulty == 3 then
-            ScenarioFramework.ClearIntel(ScenarioUtils.MarkerToPosition('VizMarker_1'), 40)
-        end
+        -- No more vision over the enemy base
+        ScenarioInfo.VizMarker1:Destroy()
 
         Cinematics.ExitNISMode()
     else
