@@ -405,6 +405,15 @@ function IntroMission1NIS()
         ScenarioInfo.Scout1:SetCanBeKilled(false)
         IssueMove(Scouts, ScenarioUtils.MarkerToPosition('M1_Aeon_Base_Marker'))
 
+        -- "We're under fire" dialogue, trigger by one scout dying
+        ScenarioFramework.CreateUnitDestroyedTrigger(
+            function()
+                ScenarioFramework.Dialogue(OpStrings.M1Intro2, nil, true)
+            end,
+            Scouts[2]
+        )
+
+        ScenarioFramework.Dialogue(OpStrings.M1Intro1, nil, true)
         WaitSeconds(0.5)
 
         Cinematics.CameraThirdPerson(ScenarioInfo.Scout1, 0.5, 60, 5, 2)
@@ -427,6 +436,7 @@ function IntroMission1NIS()
         
         Cinematics.CameraMoveToMarker('Cam_M1_Intro_2', 5)
 
+
         -- Other two scouts that will find the crashed ship, then patrol aroud it
         local Scouts2 = ScenarioUtils.CreateArmyGroup('Player1', 'Scouts_2')
         IssueMove(Scouts2, ScenarioUtils.MarkerToPosition('Scout_Move_1'))
@@ -435,8 +445,12 @@ function IntroMission1NIS()
 
         WaitSeconds(3)
 
+        ScenarioFramework.Dialogue(OpStrings.M1Intro3, nil, true)
+
         Cinematics.CameraTrackEntities(Scouts2, 60, 1)
         WaitSeconds(8)
+
+        ScenarioFramework.Dialogue(OpStrings.M1Intro4, nil, true)
 
         -- Cam on the crashed ship
         Cinematics.CameraMoveToMarker('Cam_M1_Intro_3', 2)

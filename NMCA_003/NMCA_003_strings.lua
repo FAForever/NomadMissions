@@ -173,27 +173,35 @@ PlayerWin1 = {
 ------------
 -- Mission 1
 ------------
--- Look at the Aeon base
+-- Follow the first pair of scouts
 M1Intro1 = {
     {
-        text = '[Nichols]: We\'re entering the planet\'s atmosphere and beginning our scans for the ship\'s transmitter now, Captain. They picked one hell of a place to set up that beacon - this place looks like a frozen wasteland.',
+        text = '[Nichols]: Our scouts are already searching for the crashed ship, Captain. Wing three has detected something - sending them there now.',
         vid = 'N03_M1Intro1.sfd', bank = 'N03_VO', cue = 'M1Intro1', faction = 'Nomads'
     },
 }
 
--- Move cam to the crashed ship
+-- Scout wingman gets shot down, and then main scout is shot down
 M1Intro2 = {
     {
-        text = '[Benson]: Got a lock on the emergency transmitter. It\'s close! Relaying the coordinates now.',
+        text = '[Nichols]: Wing three is under fire! Theres a hostile base right on top of one of the transponders! Looks like the transmission is from a detached part of the ship.',
         vid = 'N03_M1Intro2.sfd', bank = 'N03_VO', cue = 'M1Intro2', faction = 'Nomads'
     },
 }
 
--- Spawn ACU and move cam to it
+-- Pan camera to second pair of scouts
 M1Intro3 = {
     {
-        text = '[Nichols]: There it is, Captain! No time to waste - get out there and assess the damage to that ship. We need to get it repaired and get the hell off this block of ice.',
+        text = '[Nichols]: Thats just what we need. A frozen wasteland thats swarming with enemies. There are more beacons to the North, lets hope the ship is one of them.',
         vid = 'N03_M1Intro3.sfd', bank = 'N03_VO', cue = 'M1Intro3', faction = 'Nomads'
+    },
+}
+
+-- Move cam to crashed ship, and then to the landing ACU
+M1Intro4 = {
+    {
+        text = '[Nichols]: There it is, Captain! No time to waste - get out there and assess the damage to that ship. We need clean up this whole mess and get the hell off this block of ice.',
+        vid = 'N03_M1Intro4.sfd', bank = 'N03_VO', cue = 'M1Intro4', faction = 'Nomads'
     },
 }
 
@@ -202,7 +210,7 @@ M1Intro3 = {
 -- Assign primary objectives, protect ship, kill aeon base
 M1PostIntro = {
     {
-        text = '[Nichols]: It doesn\'t look like we\'re alone here, Captain. We\'re picking up scrambled communications from multiple sources. They\'re originating from a number of unidentified units closing in on your position. Secure the area, and defend that ship!',
+        text = '[Nichols]: It looks like the enemy is searching for our location, Captain. We\'re picking up scrambled communications from multiple sources. They\'re originating from a number of unidentified units closing in on your position. Secure the area, and defend that ship!',
         vid = 'N03_M1PostIntro_1.sfd', bank = 'N03_VO', cue = 'M1PostIntro_1', faction = 'Nomads'
     },
     {
