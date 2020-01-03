@@ -254,12 +254,12 @@ function M1NIS()
     WaitSeconds(3)
     Cinematics.ExitNISMode()
 
-    if (table.getn(ScenarioInfo.HumanPlayers) == 2) then
+    if (table.getsize(ScenarioInfo.HumanPlayers) == 2) then
         ScenarioUtils.CreateArmyGroup('Player2', 'Engineers')
-    elseif(table.getn(ScenarioInfo.HumanPlayers) == 3) then
+    elseif(table.getsize(ScenarioInfo.HumanPlayers) == 3) then
         ScenarioUtils.CreateArmyGroup('Player2', 'Engineers')
         ScenarioUtils.CreateArmyGroup('Player3', 'Engineers')
-    elseif(table.getn(ScenarioInfo.HumanPlayers) == 4) then
+    elseif(table.getsize(ScenarioInfo.HumanPlayers) == 4) then
         ScenarioUtils.CreateArmyGroup('Player2', 'Engineers')
         ScenarioUtils.CreateArmyGroup('Player3', 'Engineers')
         ScenarioUtils.CreateArmyGroup('Player4', 'Engineers')
@@ -378,7 +378,7 @@ function M1Reinforcements()
         ----------
         local allUnits = {}
 
-        for i = 1, 2 * table.getn(ScenarioInfo.HumanPlayers) do
+        for i = 1, 2 * table.getsize(ScenarioInfo.HumanPlayers) do
             local transport = ScenarioUtils.CreateArmyUnit('UEF', 'M2_Transport')
             local units = ScenarioUtils.CreateArmyGroupAsPlatoon('UEF', 'M2_Reinforcements_Attack', 'AttackFormation')
 
@@ -393,7 +393,7 @@ function M1Reinforcements()
             ScenarioFramework.PlatoonPatrolChain(units, 'M2_Transport_Attack_Route')
         end
 
-        for i = 1, 2 * table.getn(ScenarioInfo.HumanPlayers) do
+        for i = 1, 2 * table.getsize(ScenarioInfo.HumanPlayers) do
             local transport = ScenarioUtils.CreateArmyUnit('UEF', 'M2_Transport')
             local units = ScenarioUtils.CreateArmyGroupAsPlatoon('UEF', 'M2_Reinforcements','AttackFormation')
 
