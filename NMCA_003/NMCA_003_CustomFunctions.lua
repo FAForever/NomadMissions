@@ -1,5 +1,6 @@
 local AIUtils = import('/lua/ai/aiutilities.lua')
 local Objectives = import('/lua/SimObjectives.lua')
+local ScenarioUtils = import('/lua/sim/ScenarioUtilities.lua')
 local SPAIFileName = '/lua/ScenarioPlatoonAI.lua'
 
 function Reclaim(Type, Complete, Title, Description, Target)

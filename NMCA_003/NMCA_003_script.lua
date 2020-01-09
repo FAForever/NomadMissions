@@ -130,7 +130,7 @@ local CrystalBonuses = {
 }
 
 -- How long should we wait at the beginning of the NIS to allow slower machines to catch up?
-local NIS1InitialDelay = 3
+local NIS1InitialDelay = 2
 
 -----------------
 -- Taunt Managers
@@ -284,7 +284,7 @@ function OnStart(self)
 
     -- Initialize camera
     if not SkipNIS1 then
-        Cinematics.CameraMoveToMarker('Cam_Intro_1')
+        Cinematics.CameraMoveToMarker('Cam_M1_Intro_1')
     end
 
     ForkThread(IntroMission1NIS)
@@ -390,8 +390,7 @@ function IntroMission1NIS()
         local strCameraPlayer = tostring(tblArmy[GetFocusArmy()])
         local CameraMarker = strCameraPlayer .. '_Cam'
 
-        -- Vision for NIS location
-        local VisMarker1 = ScenarioFramework.CreateVisibleAreaLocation(30, 'VizMarker_1', 0, ArmyBrains[Player1])
+        -- Vision over the crashed ship
         local VisMarker2 = ScenarioFramework.CreateVisibleAreaLocation(36, 'VizMarker_2', 0, ArmyBrains[Player1])
         
         --Intro Cinematic
@@ -399,21 +398,63 @@ function IntroMission1NIS()
 
         WaitSeconds(NIS1InitialDelay)
 
-        -- Look at the Aeon base
+        local Scouts = ScenarioUtils.CreateArmyGroup('Player1', 'Scouts_1')
+        -- The scout we're gonna follow with the cam, it will die when WE want it to die! ... so making it invincible for now
+        -- It can take damage and all the pain, but can't die just yet. Cruel world full of suffering ("maniacal laugh")
+        ScenarioInfo.Scout1 = Scouts[1]
+        ScenarioInfo.Scout1:SetCanBeKilled(false)
+        IssueMove(Scouts, ScenarioUtils.MarkerToPosition('M1_Aeon_Base_Marker'))
+
+        -- "We're under fire" dialogue, trigger by one scout dying
+        ScenarioFramework.CreateUnitDestroyedTrigger(
+            function()
+                ScenarioFramework.Dialogue(OpStrings.M1Intro2, nil, true)
+            end,
+            Scouts[2]
+        )
+
         ScenarioFramework.Dialogue(OpStrings.M1Intro1, nil, true)
-        WaitSeconds(1)
-        Cinematics.CameraMoveToMarker('Cam_Intro_2', 4)
-        WaitSeconds(2)
+        WaitSeconds(0.5)
 
-        -- Move cam to the crashed ship
-        ScenarioFramework.Dialogue(OpStrings.M1Intro2, nil, true)
-        WaitSeconds(1)
-        Cinematics.CameraMoveToMarker('Crashed_Ship_Camera', 4)
-        WaitSeconds(1)
+        Cinematics.CameraThirdPerson(ScenarioInfo.Scout1, 0.5, 60, 5, 2)
 
-        -- "Sending you in"
+        -- Aproaching this marker of doom will murder the scout, creating new vision radius before the scout dies to see what's going on as it crashes down
+        ScenarioFramework.CreateUnitToMarkerDistanceTrigger(
+            function()
+                ScenarioInfo.VizMarker1 = ScenarioFramework.CreateVisibleAreaLocation(42, ScenarioInfo.Scout1:GetPosition(), 0, ArmyBrains[Player1])
+                ScenarioInfo.Scout1:SetCanBeKilled(true)
+                ScenarioInfo.Scout1:Kill() 
+            end,
+            ScenarioInfo.Scout1,
+            'M1_Aeon_Base_Marker',
+            20
+        )
+
+        while not ScenarioInfo.Scout1.Dead do
+            WaitSeconds(0.1)
+        end
+        
+        Cinematics.CameraMoveToMarker('Cam_M1_Intro_2', 5)
+
+
+        -- Other two scouts that will find the crashed ship, then patrol aroud it
+        local Scouts2 = ScenarioUtils.CreateArmyGroup('Player1', 'Scouts_2')
+        IssueMove(Scouts2, ScenarioUtils.MarkerToPosition('Scout_Move_1'))
+        IssueMove(Scouts2, ScenarioUtils.MarkerToPosition('Scout_Move_2'))
+        ScenarioFramework.GroupPatrolChain(Scouts2, 'M1_Player1_Scout_Patrol_Chain')
+
+        WaitSeconds(3)
+
         ScenarioFramework.Dialogue(OpStrings.M1Intro3, nil, true)
-        WaitSeconds(4)
+
+        Cinematics.CameraTrackEntities(Scouts2, 60, 1)
+        WaitSeconds(8)
+
+        ScenarioFramework.Dialogue(OpStrings.M1Intro4, nil, true)
+
+        -- Cam on the crashed ship
+        Cinematics.CameraMoveToMarker('Cam_M1_Intro_3', 2)
+        WaitSeconds(2)
 
         -- Spawn Players
         ForkThread(SpawnPlayers, tblArmy)
@@ -421,13 +462,8 @@ function IntroMission1NIS()
         Cinematics.CameraMoveToMarker(CameraMarker, 2)
         WaitSeconds(3)
 
-        VisMarker1:Destroy()
-        --VisMarker2:Destroy()
-
-        -- Remove intel on the Aeon base on high difficulty
-        if Difficulty == 3 then
-            ScenarioFramework.ClearIntel(ScenarioUtils.MarkerToPosition('VizMarker_1'), 40)
-        end
+        -- No more vision over the enemy base
+        ScenarioInfo.VizMarker1:Destroy()
 
         Cinematics.ExitNISMode()
     else
@@ -750,8 +786,8 @@ function M1CrystalsObjective()
             elseif current == 3 then
                 ScenarioFramework.Dialogue(OpStrings.ThirdCrystalReclaimed, nil, true)
             elseif current == 4 then
-                -- Atry satellite
-                ForkThread(SpawnArtillery)
+                -- Orbital Frigate Bombardment
+                ForkThread(SetUpBombardmentPing, true)
 
                 ScenarioFramework.Dialogue(OpStrings.FourthCrystalReclaimed, nil, true)
             end
@@ -1704,7 +1740,8 @@ function M3RASUnlock()
         'RapidRepair',
         'PowerArmor',
         'T3Engineering',
-        'OrbitalBombardment'
+        'OrbitalBombardment',
+        'OrbitalBombardmentHeavy'
     })
 end
 
@@ -2376,60 +2413,25 @@ function ShipHPThread()
     end
 end
 
-function SpawnArtillery()
-    -- More storage for arty reload
-    ArmyBrains[Crashed_Ship]:GiveStorage('ENERGY', 100000)
-    ArmyBrains[Crashed_Ship]:GiveResource('ENERGY', 100000)
-
-    -- Spawn arty
-    ScenarioInfo.ArtilleryGun = ScenarioUtils.CreateArmyUnit('Crashed_Ship', 'Orbital_Artillery')
-    ScenarioInfo.ArtilleryGun:SetCanTakeDamage(false)
-    ScenarioInfo.ArtilleryGun:SetCanBeKilled(false)
-    ScenarioInfo.ArtilleryGun:SetDoNotTarget(true)
-    ScenarioInfo.ArtilleryGun:SetIntelRadius('Vision', 0)
-
-    -- Wait for the satellite to spawn
-    while not ScenarioInfo.ArtilleryGun.ArtilleryUnit do
-        WaitSeconds(1)
+function SetUpBombardmentPing(skipDialogue)
+    if not skipDialogue then
+        ScenarioFramework.Dialogue(OpStrings.BombardmentReady)
     end
-
-    ScenarioInfo.ArtilleryGun.ArtilleryUnit:SetFireState('HoldFire')
-
-    -- Teleport it to the crashed ship
-    Warp(ScenarioInfo.ArtilleryGun.ArtilleryUnit, ScenarioUtils.MarkerToPosition('Artillery_Marker'))
 
     -- Set up attack ping for players
-    SetUpArtilleryPing(true)
+    ScenarioInfo.AttackPing = PingGroups.AddPingGroup(OpStrings.BombardmentTitle, nil, 'attack', OpStrings.BombardmentDescription)
+    ScenarioInfo.AttackPing:AddCallback(CallBombardement)
 end
 
-function SetUpArtilleryPing(skipDialogue)
-    if not skipDialogue then
-        ScenarioFramework.Dialogue(OpStrings.ArtilleryGunReady)
-    end
+function CallBombardement(location)
+    -- Random dialogue to confirm the target
+    ScenarioFramework.Dialogue(OpStrings['BombardmentCalled' .. Random(1, 3)])
 
-    ScenarioInfo.AttackPing = PingGroups.AddPingGroup(OpStrings.ArtilleryGunTitle, nil, 'attack', OpStrings.ArtilleryGunDescription)
-    ScenarioInfo.AttackPing:AddCallback(ArtilleryAttackLocation)
-end
+    ScenarioInfo['Player1CDR'].OrbitalUnit:LaunchOrbitalStrike(location, true)
 
-function ArtilleryAttackLocation(location)
-    ForkThread(
-        function(location)
-            ScenarioInfo.ArtilleryGun.ArtilleryUnit:SetFireState('ReturnFire')
+    ScenarioInfo.AttackPing:Destroy()
 
-            IssueStop({ScenarioInfo.ArtilleryGun.ArtilleryUnit})
-            IssueClearCommands({ScenarioInfo.ArtilleryGun.ArtilleryUnit})
-
-            IssueAttack({ScenarioInfo.ArtilleryGun.ArtilleryUnit}, location)
-
-            ScenarioInfo.AttackPing:Destroy()
-
-            WaitSeconds(30)
-
-            ScenarioInfo.ArtilleryGun.ArtilleryUnit:SetFireState('HoldFire')
-
-            ScenarioFramework.CreateTimerTrigger(SetUpArtilleryPing, 5*60)
-        end, location
-    )
+    ScenarioFramework.CreateTimerTrigger(SetUpBombardmentPing, 5*60)
 end
 
 -- Functions for randomly picking scenarios
@@ -2533,7 +2535,8 @@ function OnCtrlF4()
 end
 
 function OnShiftF3()
-    ForkThread(SpawnArtillery)
+    ScenarioFramework.SetPlayableArea('M2_Area', true)
+    ForkThread(SetUpBombardmentPing, true)
 end
 
 function OnShiftF4()

@@ -172,6 +172,7 @@ function AeonM1BaseAirAttacks()
         'BrainsCompareNumCategory', {'default_brain', {'HumanPlayers'}, trigger[Difficulty], categories.TECH2, '>='})
 
     -- Mercy snipe on medium and hard difficulty
+    --[[ Disabled for now as some retads just keep dying
     if Difficulty >= 2 then
         quantity = {0, 3, 6}
         opai = AeonM1Base:AddOpAI('AirAttacks', 'M1_Aeon_AirAttack_8',
@@ -188,6 +189,7 @@ function AeonM1BaseAirAttacks()
         opai:SetChildQuantity('GuidedMissiles', quantity[Difficulty])
         opai:AddBuildCondition(CustomFunctions, 'PlayersACUsNearBase', {'default_brain', 'M1_Aeon_Base', 100})
     end
+    --]]
 
     ----------
     -- Defense
