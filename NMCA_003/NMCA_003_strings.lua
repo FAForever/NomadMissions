@@ -155,7 +155,7 @@ PlayerDies1 = {
 -- 
 PlayerWin1 = {
     {
-        text = '[Nichols]: Excellent job, sir. The area has been secured, and all orbital cannons are reading as offline.',
+        text = '[Nichols]: Excellent job, sir. The area has been secured, and all data centres are reading as offline.',
         vid = 'N03_PlayerWin1.sfd', bank = 'N03_VO', cue = 'PlayerWin1', faction = 'Nomads'
     },
     {
@@ -219,6 +219,35 @@ M1PostIntro = {
     },
 }
 
+
+-- Aeon Researcher
+M1AeonIntroduction = {
+    {
+        text = '[Aeon Technician]: It\'s the Cybrans! They\'re coming! Call for reinforcements!',
+        vid = 'N03_M1AeonIntroduction_1.sfd', bank = 'N03_VO', cue = 'M1AeonIntroduction_1', faction = 'Aeon'
+    },
+    {
+        text = '[Nichols]: Looks like our disguised signature is working so far; no need to correct their mistake.',
+        vid = 'N03_M1AeonIntroduction_2.sfd', bank = 'N03_VO', cue = 'M1AeonIntroduction_2', faction = 'Nomads'
+    },
+}
+
+-- Aeon Researcher when sending an attack a few minutes later.
+M1AeonMessage1 = {
+    {
+        text = '[Aeon Technician]: The automated defenses should hold them off until help arrives, we have to find out what they were doing with that ship!',
+        vid = 'N03_M1AeonMessage1.sfd', bank = 'N03_VO', cue = 'M1AeonMessage1', faction = 'Aeon'
+    },
+}
+
+-- Aeon Researcher when you destroy the outer defenses of the first base
+M1AeonMessage1 = {
+    {
+        text = '[Aeon Technician]: Stay back! Cybran monsters!',
+        vid = 'N03_M1AeonMessage1.sfd', bank = 'N03_VO', cue = 'M1AeonMessage1', faction = 'Aeon'
+    },
+}
+
 -- Player kills the first Aeon base
 M1AeonBaseDestroyed = {
     {
@@ -275,10 +304,13 @@ M1ShipAlmostDead = {
 M1AeonUnitCaptured = {
     {
         text = '[Benson]: We\'re accessing the data from the captured unit. Looks like we\'ve managed to get some good intel on the technology they\'re using.',
-        vid = 'N03_M1AeonUnitCaptured.sfd', bank = 'N03_VO', cue = 'M1AeonUnitCaptured', faction = 'Nomads'
+        vid = 'N03_M1AeonUnitCaptured_1.sfd', bank = 'N03_VO', cue = 'M1AeonUnitCaptured_1', faction = 'Nomads'
+    },
+    {
+        text = '[]: Theyre dirtying our technology with their blasphemy! Destroy that engineer!',
+        vid = 'N03_M1AeonUnitCaptured_2.sfd', bank = 'N03_VO', cue = 'M1AeonUnitCaptured_2', faction = 'Aeon'
     },
 }
-
 
 
 -- First Aeon units close the the player
@@ -294,7 +326,7 @@ M1AeonAttackWarning = {
 -- Player sees the dead UEF Base
 M1UEFBaseDialogue = {
     {
-        text = '[Nichols]: It seems like we\'re not the first ones to have encountered those hostiles; those structures are definitely UEF, and itlooks like one hell of a fight took place here. Be careful, sir, they must have a sizeable base in operation if they\'re responsible for this.',
+        text = '[Nichols]: It seems like we\'re not the first ones to have encountered those hostiles; those structures are definitely UEF, and it looks like one hell of a fight took place here. Be careful, sir, they must have a sizeable base in operation if they\'re responsible for this.',
         vid = 'N03_M1UEFBaseDialogue.sfd', bank = 'N03_VO', cue = 'M1UEFBaseDialogue', faction = 'Nomads'
     },
 }
@@ -342,7 +374,7 @@ M1SecondaryReminder = {
 -- Unlock T2 static shield
 M1ShieldUnlock = {
     {
-        text = '[Benson]: Captain, Tech 2 Shield Generator schematic is ready. Uploading  to your ACU now.',
+        text = '[Benson]: Captain, Tech 2 Shield Generator schematic is ready. Uploading it to your ACU now.',
         vid = 'N03_M1ShieldUnlock.sfd', bank = 'N03_VO', cue = 'M1ShieldUnlock', faction = 'Nomads'
     },
 }
@@ -376,7 +408,7 @@ M1Enginners2 = {
 -- Engineers start repairing the ship
 M1Enginners3 = {
     {
-        text = '[Benson]: Engineers are assessing the damage now. We can\'t say for certain, but the initial analysis is that it was shot down.',
+        text = '[Benson]: Engineers are assessing the damage now. Looks like Aeon aircraft shot it down just as it was taking off.',
         vid = 'N03_M1Enginners3.sfd', bank = 'N03_VO', cue = 'M1Enginners3', faction = 'Nomads'
     },
 }
@@ -384,12 +416,20 @@ M1Enginners3 = {
 -- Few seconds after, assign objective to reclaim crystal
 M1CrystalsObjective = {
     {
-        text = '[Benson]: The damage is extensive, sir. It looks like several sections were either torn, or blown off when it was brought down. We don\'t have the materials onboard to make the necessary repairs, but scans of the area indicate that there are sections of the ship close by. I\'m sending you the coordinates now. Reclaim the marked sections.',
+        text = '[Benson]: The damage is extensive, sir. It looks like several sections were either torn, or blown off when it was brought down. Scans of the area indicate that there are large sections of the ship close by.',
+        vid = 'N03_M1CrystalsObjective.sfd', bank = 'N03_VO', cue = 'M1CrystalsObjective', faction = 'Nomads'
+    },
+    {
+        text = '[Nichols]: This is bad. Counter-Intel Branch is at our necks for this information leak. All of the ship parts have to be retrieved, or the Aeon might reverse engineer things we\'d rather keep secret.',
+        vid = 'N03_CrystalsReminder1.sfd', bank = 'N03_VO', cue = 'CrystalsReminder1', faction = 'Nomads'
+    },
+    {
+        text = '[Benson]: Additionally, we can use the materials from them to restore the ships functions. I\'m sending you the coordinates now. Reclaim the marked sections.',
         vid = 'N03_M1CrystalsObjective.sfd', bank = 'N03_VO', cue = 'M1CrystalsObjective', faction = 'Nomads'
     },
 }
 
--- Remind player to reclaim the crystals
+-- Remind player to reclaim the sections
 CrystalsReminder1 = {
     {
         text = '[Nichols]: Sir, I don\'t mean to interrupt your little holiday, but our engineers are still waiting for you to reclaim those sections.',
@@ -397,7 +437,7 @@ CrystalsReminder1 = {
     },
 }
 
--- Remind player to reclaim the crystals
+-- Remind player to reclaim the sections
 CrystalsReminder2 = {
     {
         text = '[Nichols]: Captain, a sense of urgency would be quite appropriate roundabout now. We need the materials for the repairs ASAP.',
@@ -405,7 +445,7 @@ CrystalsReminder2 = {
     },
 }
 
--- Remind player to reclaim the crystals
+-- Remind player to reclaim the sections
 CrystalsReminder3 = {
     {
         text = '[Nichols]: You are cutting it very fine here, Captain. Reclaim those ship sections now!',
@@ -413,26 +453,26 @@ CrystalsReminder3 = {
     },
 }
 
--- When the first crystal is reclaimed
+-- When the first section is reclaimed
 FirstCrystalReclaimed = {
     {
-        text = '[Nichols]: Excellent, sir. The first section of the ship has been reclaimed.',
+        text = '[Nichols]: Excellent, sir. The first part of the ship has been reclaimed.',
         vid = 'N03_FirstCrystalReclaimed_1.sfd', bank = 'N03_VO', cue = 'FirstCrystalReclaimed_1', faction = 'Nomads'
     },
     {
-        text = '[Benson]: The engineers are  incorporating the materials now. Repairs to the ship are moving along nicely.',
+        text = '[Benson]: The engineers are incorporating the materials now. Repairs to the ship are moving along nicely.',
         vid = 'N03_FirstCrystalReclaimed_2.sfd', bank = 'N03_VO', cue = 'FirstCrystalReclaimed_2', faction = 'Nomads'
     },
 }
 
--- Second crystal reclaimed, resource bonus, map expands to the second part
+-- Second section reclaimed, resource bonus, map expands to the second part
 SecondCrystalReclaimed1 = {
     {
         text = '[Benson]: Captain, fabrication systems on the crashed ship are coming online. We can divert their resource generation to you now.',
         vid = 'N03_SecondCrystalReclaimed1_1.sfd', bank = 'N03_VO', cue = 'SecondCrystalReclaimed1_1', faction = 'Nomads'
     },
     {
-        text = '[Benson]: Our engineers are reporting that they\'ll  need more materials  to fully repair the ship. I\'m scanning the area for more sections now, sir.',
+        text = '[Benson]: Our engineers are reporting that there are more ship parts still out there. I\'m scanning the area for more sections now, sir.',
         vid = 'N03_SecondCrystalReclaimed1_2.sfd', bank = 'N03_VO', cue = 'SecondCrystalReclaimed1_2', faction = 'Nomads', delay = 5},
 }
 
@@ -473,7 +513,7 @@ M1NavalAttack = {
 -- Map expands by the timer, this dialogue is followed by cinematics intro of M2
 M1MapExpansion = {
     {
-        text = '[Benson]: Sir, my calculations are showing that we will need more materials to fully repair the ship. I\'m scanning the area for more ship sections now.',
+        text = '[Benson]: Sir, my calculations are showing that there should be more sections out there. I\'m scanning the area for more crashed parts now.',
         vid = 'N03_M1MapExpansion.sfd', bank = 'N03_VO', cue = 'M1MapExpansion', faction = 'Nomads', delay = 5},
 }
 
@@ -541,7 +581,7 @@ M2Intro3 = {
 -- Some extra talk, assign objective
 M2PostIntro = {
     {
-        text = '[Benson]: Sir, don\'t forget that the ship sections are the priority here. The faster we can get to them and reclaim the materials we need, the faster we can repair the ship and remove any evidence of Nomads activity.',
+        text = '[Benson]: Sir, don\'t forget that the ship sections are the priority here. The faster we can get to them, the faster we can remove any evidence of Nomads activity.',
         vid = 'N03_M2PostIntro_1.sfd', bank = 'N03_VO', cue = 'M2PostIntro_1', faction = 'Nomads'
     },
     {
@@ -552,7 +592,7 @@ M2PostIntro = {
 
 
 
--- Third crystal is reclaimed
+-- Third section is reclaimed
 ThirdCrystalReclaimed = {
     {
         text = '[Nichols]: Another section reclaimed, sir. Keep up the good work.',
@@ -564,7 +604,7 @@ ThirdCrystalReclaimed = {
     },
 }
 
--- Fourth crystal is reclaimed, arty satellite
+-- Fourth section is reclaimed, arty satellite
 FourthCrystalReclaimed = {
     {
         text = '[Benson]: The fourth section has been reclaimed. Tracking and targeting systems , are coming online again. Engineers are confirming orbital support satellite functionality is now available, sir.',
@@ -579,21 +619,21 @@ FourthCrystalReclaimed = {
 -- All 5 ship parts reclaimed, objective completed (map didnt expand yet)
 AllCrystalReclaimed1 = {
     {
-        text = '[Nichols]: All ship sections are now reclaimed, Captain. Well done.',
-        vid = 'N03_AllCrystalReclaimed1_1.sfd', bank = 'N03_VO', cue = 'AllCrystalReclaimed1_1', faction = 'UEF'},
-    {
         text = '[Benson]: All ship systems are tested and operational, and fully capable of space flight, as well as FTL travel. We\'re clear to leave the planet, sir.',
         vid = 'N03_AllCrystalReclaimed1_2.sfd', bank = 'N03_VO', cue = 'AllCrystalReclaimed1_2', faction = 'UEF'},
     {
-        text = '[Nichols]: Captain, we\'ll need to deal with those orbital cannons first before we can go anywhere.',
+        text = '[Nichols]: Hang on, bad news! That last sections tampering defences were tripped! We dont know for sure but the Aeon might have found something!',
+        vid = 'N03_AllCrystalReclaimed1_1.sfd', bank = 'N03_VO', cue = 'AllCrystalReclaimed1_1', faction = 'UEF'},
+    {
+        text = '[Nichols]: We cant afford to take any chances! There are a few datacentres around the area, we will need to find and destory them.',
         vid = 'N03_AllCrystalReclaimed1_3.sfd', bank = 'N03_VO', cue = 'AllCrystalReclaimed1_3', faction = 'UEF'},
     {
-        text = '[Nichols]: We\'re picking up a lot of enemy signatures incoming from the north-west. Regroup your units and defend the ship.',
+        text = '[Nichols]: Worse, we\'re picking up a lot of enemy signatures incoming from the north-west. Regroup and defend the ship!',
         vid = 'N03_AllCrystalReclaimed1_4.sfd', bank = 'N03_VO', cue = 'AllCrystalReclaimed1_4', faction = 'UEF'},
 }
 
 
--- All 5 crystals reclaimed, objective completed (map has already expanded)
+-- All 5 ship parts reclaimed, objective completed (map has already expanded)
 AllCrystalReclaimed2 = {
     {
         text = '[Nichols]: That\'s all of them, Captain. Excellent work out there.',
@@ -636,7 +676,7 @@ M2RailBoatUnlock = {
 -- Unlock T2 Arty
 M2T2ArtyUnlock = {
     {
-        text = '[Benson]: YUse T2 Static Artillery to defend your shores against those enemy Destroyers, sir. We\'re uploading the blueprint for you now.',
+        text = '[Benson]: Use T2 Static Artillery to defend your shores against those enemy Destroyers, sir. We\'re uploading the blueprint for you now.',
         vid = 'N03_M2T2ArtyUnlock.sfd', bank = 'N03_VO', cue = 'M2T2ArtyUnlock', faction = 'Nomads'
     },
 }
@@ -654,7 +694,7 @@ M2Dialogue = {
 -- Before the enemy ACU is shown
 M2ACUNIS1 = {
     {
-        text = '[Benson]: Sir,  our scans are picking up an unusual energy reading  from the north.',
+        text = '[Benson]: Sir, our scans are picking up an unusual energy reading from the north.',
         vid = 'N03_M2ACUNIS1.sfd', bank = 'N03_VO', cue = 'M2ACUNIS1', faction = 'Nomads'
     },
 }
@@ -663,6 +703,14 @@ M2ACUNIS1 = {
 M2ACUNIS2 = {
     {
         text = '[Nichols]: An enemy ACU just gated in! While this frozen rock could stand to be a bit warmer, I don\'t think this is the heat we\'re looking for right now. Move it, Captain.',
+        vid = 'N03_M2ACUNIS2.sfd', bank = 'N03_VO', cue = 'M2ACUNIS2', faction = 'Nomads'
+    },
+    {
+        text = '[Aeon Commander]: I have arrived! All symbyonts will be cleansed!',
+        vid = 'N03_M2ACUNIS2.sfd', bank = 'N03_VO', cue = 'M2ACUNIS2', faction = 'Nomads'
+    },
+    {
+        text = '[Aeon Technician]: Please, help us! They\'re destroying our research!',
         vid = 'N03_M2ACUNIS2.sfd', bank = 'N03_VO', cue = 'M2ACUNIS2', faction = 'Nomads'
     },
 }
@@ -780,7 +828,7 @@ M3CounterAttackDefeated = {
 -- Obj to locate research buildings
 M3LocateOrbitalCannons = {
     {
-        text = '[Nichols]: Commander, you need to find the orbital cannons that shot down the ship. We will need to destroy they them before we can leave the planet',
+        text = '[Nichols]: Commander, the Aeon have stored critical intel on our technology in datacentres around the planet. We will need to destroy they them before we can leave the planet',
         vid = 'N03_M3LocateOrbitalCannons.sfd', bank = 'N03_VO', cue = 'M3LocateOrbitalCannons', faction = 'Nomads'
     },
 }
@@ -788,7 +836,7 @@ M3LocateOrbitalCannons = {
 -- Player sees research buildings
 M3OrbitalCannonSpotted = {
     {
-        text = '[Nichols]: There\'s the orbital cannon that shot down the ship.',
+        text = '[Nichols]: There\'s a datacentre. We need to destroy it, or Counter-Intel will probably order a heavy bombardment of this system, with us in it.',
         vid = 'N03_M3OrbitalCannonSpotted.sfd', bank = 'N03_VO', cue = 'M3OrbitalCannonSpotted', faction = 'Nomads'
     },
 }
@@ -796,7 +844,7 @@ M3OrbitalCannonSpotted = {
 -- Remind player to locate the research buildings
 M3LocateCannonsReminder = {
     {
-        text = '[Nichols]: Commander, you need to locate the orbital cannons.',
+        text = '[Nichols]: Commander, you need to locate the datacentres. You dont want to deal with the mess we will be in if the Aeon get that intel off this planet.',
         vid = 'N03_M3LocateCannonsReminder.sfd', bank = 'N03_VO', cue = 'M3LocateCannonsReminder', faction = 'Nomads'
     },
 }
@@ -806,7 +854,7 @@ M3LocateCannonsReminder = {
 -- Just before map expands to the last part with more research buildings
 M3MapExpansion = {
     {
-        text = '[Nichols]: Sir, this isn\'t the only orbital cannon in the area. We\'re picking up more to the east.',
+        text = '[Nichols]: Sir, this isn\'t the only datacentre in the area. We\'re picking up more to the east.',
         vid = 'N03_M3MapExpansion.sfd', bank = 'N03_VO', cue = 'M3MapExpansion', faction = 'Nomads'
     },
 }
@@ -850,8 +898,8 @@ M3P1Title = 'Survive Aeon Counter Attack'
 M3P1Description = 'Aeon forces just launched a major attack at your position. Defeat all incoming units and continue with the operation.'
 
 -- Primary Objective
-M3P2Title = 'Locate orbital cannons'
-M3P2Description = 'The orbital cannons need to be somewhere in this area. Send scouts to find them.'
+M3P2Title = 'Locate data centres'
+M3P2Description = 'The data centres need to be somewhere in this area. Send scouts to find them.'
 
 -- Secondary Objective
 M3S1Title = 'Defeat Aeon ACU'
@@ -865,7 +913,7 @@ M3S1Description = 'Eliminate the Aeon commander to secure the north west part of
 -- Assign obj to kill research buildings
 M4DestroyCannons = {
     {
-        text = '[Nichols]: Sir, our scans revealed that there are 4 outposts with orbital cannons, you will have to destroy them all so we can leave this planet.',
+        text = '[Nichols]: Sir, our scans revealed that there are 4 outposts with data centres, you will have to destroy them all so we can leave this planet.',
         vid = 'N03_M4DestroyCannons_1.sfd', bank = 'N03_VO', cue = 'M4DestroyCannons_1', faction = 'Nomads'
     },
     {
@@ -877,7 +925,7 @@ M4DestroyCannons = {
 -- First research location destroyed
 M4OrbicalCannonDestroyed1 = {
     {
-        text = '[Nichols]: First orbital cannon emplacement destroyed.',
+        text = '[Nichols]: First data centre destroyed.',
         vid = 'N03_M4OrbicalCannonDestroyed1.sfd', bank = 'N03_VO', cue = 'M4OrbicalCannonDestroyed1', faction = 'Nomads'
     },
 }
@@ -885,7 +933,7 @@ M4OrbicalCannonDestroyed1 = {
 -- Second research location destroyed
 M4OrbicalCannonDestroyed2 = {
     {
-        text = '[Nichols]: Another orbital cannon battery has been destroyed, keep up the good work sir.',
+        text = '[Nichols]: Another data centre has been destroyed, keep up the good work sir.',
         vid = 'N03_M4OrbicalCannonDestroyed2.sfd', bank = 'N03_VO', cue = 'M4OrbicalCannonDestroyed2', faction = 'Nomads'
     },
 }
@@ -893,7 +941,7 @@ M4OrbicalCannonDestroyed2 = {
 -- Third research location destroyed
 M4OrbicalCannonDestroyed3 = {
     {
-        text = '[Nichols]: Third orbital cannon emplacement is down, just one more to go.',
+        text = '[Nichols]: Third data centre is down, just one more to go.',
         vid = 'N03_M4OrbicalCannonDestroyed3.sfd', bank = 'N03_VO', cue = 'M4OrbicalCannonDestroyed3', faction = 'Nomads'
     },
 }
@@ -909,7 +957,7 @@ M4OrbicalCannonDestroyed4 = {
 -- Reminder 1 to destroy the research building
 M4OrbitalCannonsReminder1 = {
     {
-        text = '[Nichols]: Sir, the orbital cannons are blocking us from escaping the planet, destroy them as soon as possible.',
+        text = '[Nichols]: Sir, the data centres are holding potential keys to Nomads technology, destroy them as soon as possible.',
         vid = 'N03_M4M4OrbitalCannonsReminder1.sfd', bank = 'N03_VO', cue = 'M4M4OrbitalCannonsReminder1', faction = 'Nomads'
     },
 }
@@ -917,7 +965,7 @@ M4OrbitalCannonsReminder1 = {
 -- Reminder 2 to destroy the research building
 M4OrbitalCannonsReminder2 = {
     {
-        text = '[Nichols]: Sir, destroy the orbital cannons so we can leave this planet.',
+        text = '[Nichols]: Sir, destroy the data centres so we can leave this planet.',
         vid = 'N03_M4M4OrbitalCannonsReminder2.sfd', bank = 'N03_VO', cue = 'M4M4OrbitalCannonsReminder2', faction = 'Nomads'
     },
 }
@@ -1066,12 +1114,8 @@ TAUNT2 = {
 -- Aeon taunt
 TAUNT3 = {
     {
-        text = '[Aeon]: Your pathetic spaceship wont help you... my orbital cannons will blow it out of the orbit.',
+        text = '[Aeon]: Your pathetic spaceship wont help you... my aircraft will take it down before it ever gets to orbit.',
         vid = 'N03_TAUNT3_1.sfd', bank = 'N03_VO', cue = 'TAUNT3_1', faction = 'Aeon'
-    },
-    {
-        text = '[Nichols]: Sir, the Aeon started active radar scans of the upper atmosphere. Destroy him before he can track the ship!',
-        vid = 'N03_TAUNT3_2.sfd', bank = 'N03_VO', cue = 'TAUNT3_2', faction = 'Nomads'
     },
 }
 
