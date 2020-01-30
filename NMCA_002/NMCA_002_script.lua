@@ -181,10 +181,17 @@ function M1IntroScene()
     Cinematics.CameraMoveToMarker(ScenarioUtils.GetMarker('P1Cam3'), 2)
     WaitSeconds(3)
     ScenarioFramework.Dialogue(OpStrings.M2_Intro_CDR_Dropped_Dialogue_2, nil, true)
+    local VisMarker1_3 = ScenarioFramework.CreateVisibleAreaLocation(60, 'P1Vision3', 0, ArmyBrains[Player1])
+    local VisMarker1_4 = ScenarioFramework.CreateVisibleAreaLocation(60, 'P1Vision4', 0, ArmyBrains[Player1])
+    local VisMarker1_5 = ScenarioFramework.CreateVisibleAreaLocation(60, 'P1Vision5', 0, ArmyBrains[Player1])
     Cinematics.CameraMoveToMarker(ScenarioUtils.GetMarker('P1Cam1'), 1)
+    
 
     VisMarker1_1:Destroy()
     VisMarker1_2:Destroy()
+    VisMarker1_3:Destroy()
+    VisMarker1_4:Destroy()
+    VisMarker1_5:Destroy()
     
     units = ScenarioUtils.CreateArmyGroupAsPlatoon('UEF', 'P1ULandPatrol1_D'.. Difficulty, 'AttackFormation')
     ScenarioFramework.PlatoonPatrolChain(units, 'P1UB2landPatrol1' )
