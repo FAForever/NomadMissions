@@ -28,6 +28,7 @@ local UEFaiP1 = import('/maps/NMCA_002/UEFaiP1.lua')
 local UEFaiP2 = import('/maps/NMCA_002/UEFaiP2.lua')
 local UEFaiP3 = import('/maps/NMCA_002/UEFaiP3.lua')
 
+local UEFTM = TauntManager.CreateTauntManager('UEF1TM', '/maps/NMCA_002/NMCA_002_strings.lua')
 
 -- Global Variables
 ScenarioInfo.Player1 = 1
@@ -387,6 +388,7 @@ function M2NISIntro()
     
     if ScenarioInfo.M1P1.Active then
     ScenarioInfo.M1P1:ManualResult(false)
+    ForkThread(M2Extraattack)
     end
 
     -- Spawn M2 Units
@@ -623,6 +625,35 @@ function M2Objectives()
     ForkThread(M2SecondaryObjectives)
     
     ScenarioFramework.CreateTimerTrigger(M3NISIntro, M2ExpansionTime[Difficulty])    
+end
+
+function M2Extraattack()
+    
+    WaitSeconds(20)
+    --UEF Extra assault Forces
+    ForkThread(function()
+    
+            local destination = ScenarioUtils.MarkerToPosition('P2UAssaultDrop2')
+
+            local transports = ScenarioUtils.CreateArmyGroup('UEF', 'P2UAssaulttrans1_D' .. Difficulty)
+            local units = ScenarioUtils.CreateArmyGroupAsPlatoon('UEF', 'P2UAssaults4_D' .. Difficulty, 'AttackFormation')
+            WaitSeconds(6)
+            import('/lua/ai/aiutilities.lua').UseTransports(units:GetPlatoonUnits(), transports, destination)
+            
+            for _, transport in transports do
+                ScenarioFramework.CreateUnitToMarkerDistanceTrigger(DestroyUnit, transport,  ScenarioUtils.MarkerToPosition('Tdeath1'), 15)
+
+                IssueTransportUnload({transport}, destination)
+                IssueMove({transport}, ScenarioUtils.MarkerToPosition('Tdeath1'))
+            end
+        
+            ScenarioFramework.PlatoonPatrolChain(units, 'P2UAssaultDropattack2')
+        end)
+    
+    units = ScenarioUtils.CreateArmyGroupAsPlatoon('UEF', 'P2UAssaults5_D' .. Difficulty, 'GrowthFormation')
+     for k, v in units:GetPlatoonUnits() do
+        ScenarioFramework.GroupPatrolRoute({v}, ScenarioPlatoonAI.GetRandomPatrolRoute(ScenarioUtils.ChainToPositions('P2UAssault3')))
+    end
 end
 
 function M2KillCybranunits()
