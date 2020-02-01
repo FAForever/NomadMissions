@@ -15,6 +15,12 @@ M2_Intro_CDR_Dropped_Dialogue_2 = {
     {text = "[Nichols]: Captain, attack and destroy the UEF and Cybran forces in the Area.", vid = '', bank = '', cue = '', faction = 'UEF'},
 }
 
+M2_Scout_Dialogue_1 = {
+    {text = "[Nichols]: We are Launching a group of scouts to give us some intel on the enemie's postions.", vid = '', bank = '', cue = '', faction = 'UEF'},
+    {text = "[Nichols]: Captian, we spotted some sort of heavy artillary gun, underconstruction north of the town.", vid = '', bank = '', cue = '', faction = 'UEF'},
+    {text = "[Nichols]: Take that thing out before it is completed.", vid = '', bank = '', cue = '', faction = 'UEF'},
+}
+
 M2_Berry_Cybran_Interaction = {
     {text = '<LOC C03_M01_040_010>[{i Berry}]: I\'m not done with you, Cybran.', vid = 'C03_Berry_M01_0428.sfd', bank = 'C03_VO', cue = 'C03_Berry_M01_0428', faction = 'UEF'},
     {text = '[Jerrax]: Damn it another UEF commander? I\'ll take you both on!', vid = '', bank = '', cue = '', faction = 'Cybran'},
