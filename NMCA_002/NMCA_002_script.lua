@@ -236,6 +236,7 @@ function M1IntroScene()
 end
 
 function M1_Play_Berry_Dialogue()
+
     ScenarioFramework.Dialogue(OpStrings.M2_Berry_Cybran_Interaction, nil, true)  
 end
 
@@ -279,6 +280,7 @@ function M1Objectives()
     
     local quantity = {}
     
+    quantity = {20, 40, 60}
     
     ScenarioInfo.M1S3 = Objectives.UnitStatCompare(
         'secondary',
@@ -290,7 +292,7 @@ function M1Objectives()
             Unit = ScenarioInfo.PlayerACU[1],
             StatName = 'KILLS',
             CompareOp = '>=',
-            Value = 20,
+            Value = quantity[Difficulty],
             ShowProgress = true,
         }
     )
@@ -452,13 +454,13 @@ function M2NISIntro()
     Cinematics.EnterNISMode()
     local VisMarker2_1 = ScenarioFramework.CreateVisibleAreaLocation(90, 'P2Vision1', 0, ArmyBrains[Player1])
     Cinematics.CameraMoveToMarker(ScenarioUtils.GetMarker('P2Cam1'), 2)
-    WaitSeconds(3)
+    WaitSeconds(2)
     ScenarioFramework.Dialogue(OpStrings.M2_P2_Cutscene_Dialogue, nil, true)
     WaitSeconds(3)
     Cinematics.CameraMoveToMarker(ScenarioUtils.GetMarker('P2Cam2'), 2)
     WaitSeconds(3)
     Cinematics.CameraMoveToMarker(ScenarioUtils.GetMarker('P2Cam3'), 2)
-    WaitSeconds(2)
+    WaitSeconds(1)
     ScenarioFramework.FakeTeleportUnit(ScenarioInfo.CybranCommander, true)
     WaitSeconds(3)
     local units = ScenarioUtils.CreateArmyGroupAsPlatoon('UEF', 'P2UIntattack5', 'AttackFormation')
@@ -555,7 +557,7 @@ function M2NISIntro()
     --start Second Secondary mission.
     ForkThread(M2T3Artybase)
     ForkThread(M2KillCybranunits)
-    
+    ForkThread(M2NomadScouts)
     --Trigger Mission when player spots T3 arty location
     ScenarioFramework.CreateArmyIntelTrigger(M2T3ArtybaseObjective, ArmyBrains[Player1], 'LOSNow', false, true, categories.ueb4203, true, ArmyBrains[UEF]) 
 end
@@ -885,6 +887,21 @@ function M2T3ArtybaseObjective()
         end
     )
     table.insert(AssignedObjectives, ScenarioInfo.M2S2)
+end
+
+function M2NomadScouts()
+
+    WaitSeconds(5*60)
+    ScenarioFramework.Dialogue(OpStrings.M2_Scout_Dialogue_1, nil, true)
+
+    local units1 = ScenarioUtils.CreateArmyGroupAsPlatoon('Nomads', 'P2nScouts1', 'AttackFormation')
+    ScenarioFramework.PlatoonPatrolChain(units1, 'P2Nscout1')
+    
+    units2 = ScenarioUtils.CreateArmyGroupAsPlatoon('Nomads', 'P2nScouts2', 'AttackFormation')
+    ScenarioFramework.PlatoonPatrolChain(units2, 'P2Nscout2')
+   
+    units3 = ScenarioUtils.CreateArmyGroupAsPlatoon('Nomads', 'P2nScouts3', 'AttackFormation')
+    ScenarioFramework.PlatoonPatrolChain(units3, 'P2Nscout3')  
 end
 
 --M3 Functions
@@ -1238,10 +1255,12 @@ end
 
 -- Utility Functions
 function PlayerDeath(deadCommander)
+
     ScenarioFramework.PlayerDeath(deadCommander, nil, AssignedObjectives)
 end
 
 function DestroyUnit(unit)
+
     unit:Destroy()
 end
 
@@ -1336,6 +1355,4 @@ function UEFTaunts()
     UEFTM:AddUnitsKilledTaunt('TAUNT5', ArmyBrains[Player1], categories.STRUCTURE, 26)  
     end
 end
-
-
 

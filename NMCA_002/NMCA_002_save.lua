@@ -5298,10 +5298,115 @@ Scenario = {
                     ['orientation'] = VECTOR3( 0, -0, 0 ),
                     ['position'] = VECTOR3( 476.438, 55.7095, 970.436 ),
                 },
+                ['Blank Marker 578'] = {
+                    ['color'] = STRING( 'ff800080' ),
+                    ['type'] = STRING( 'Blank Marker' ),
+                    ['prop'] = STRING( '/env/common/props/markers/M_Blank_prop.bp' ),
+                    ['orientation'] = VECTOR3( 0, -0, 0 ),
+                    ['position'] = VECTOR3( 1009.64, 56.3312, 646.603 ),
+                },
+                ['Blank Marker 579'] = {
+                    ['color'] = STRING( 'ff800080' ),
+                    ['type'] = STRING( 'Blank Marker' ),
+                    ['prop'] = STRING( '/env/common/props/markers/M_Blank_prop.bp' ),
+                    ['orientation'] = VECTOR3( 0, -0, 0 ),
+                    ['position'] = VECTOR3( 706.685, 50.1948, 638.509 ),
+                },
+                ['Blank Marker 580'] = {
+                    ['color'] = STRING( 'ff800080' ),
+                    ['type'] = STRING( 'Blank Marker' ),
+                    ['prop'] = STRING( '/env/common/props/markers/M_Blank_prop.bp' ),
+                    ['orientation'] = VECTOR3( 0, -0, 0 ),
+                    ['position'] = VECTOR3( 38.1451, 47.6224, 608.005 ),
+                },
+                ['Blank Marker 581'] = {
+                    ['color'] = STRING( 'ff800080' ),
+                    ['type'] = STRING( 'Blank Marker' ),
+                    ['prop'] = STRING( '/env/common/props/markers/M_Blank_prop.bp' ),
+                    ['orientation'] = VECTOR3( 0, -0, 0 ),
+                    ['position'] = VECTOR3( 998.76, 49.3888, 787.089 ),
+                },
+                ['Blank Marker 582'] = {
+                    ['color'] = STRING( 'ff800080' ),
+                    ['type'] = STRING( 'Blank Marker' ),
+                    ['prop'] = STRING( '/env/common/props/markers/M_Blank_prop.bp' ),
+                    ['orientation'] = VECTOR3( 0, -0, 0 ),
+                    ['position'] = VECTOR3( 525.854, 48.1073, 761.654 ),
+                },
+                ['Blank Marker 583'] = {
+                    ['color'] = STRING( 'ff800080' ),
+                    ['type'] = STRING( 'Blank Marker' ),
+                    ['prop'] = STRING( '/env/common/props/markers/M_Blank_prop.bp' ),
+                    ['orientation'] = VECTOR3( 0, -0, 0 ),
+                    ['position'] = VECTOR3( 130.5, 54, 568.5 ),
+                },
+                ['Blank Marker 584'] = {
+                    ['color'] = STRING( 'ff800080' ),
+                    ['type'] = STRING( 'Blank Marker' ),
+                    ['prop'] = STRING( '/env/common/props/markers/M_Blank_prop.bp' ),
+                    ['orientation'] = VECTOR3( 0, -0, 0 ),
+                    ['position'] = VECTOR3( 1001.25, 68.0469, 937.094 ),
+                },
+                ['Blank Marker 585'] = {
+                    ['color'] = STRING( 'ff800080' ),
+                    ['type'] = STRING( 'Blank Marker' ),
+                    ['prop'] = STRING( '/env/common/props/markers/M_Blank_prop.bp' ),
+                    ['orientation'] = VECTOR3( 0, -0, 0 ),
+                    ['position'] = VECTOR3( 447.095, 50.3757, 872.609 ),
+                },
+                ['Blank Marker 586'] = {
+                    ['color'] = STRING( 'ff800080' ),
+                    ['type'] = STRING( 'Blank Marker' ),
+                    ['prop'] = STRING( '/env/common/props/markers/M_Blank_prop.bp' ),
+                    ['orientation'] = VECTOR3( 0.00872665, -0, 0 ),
+                    ['position'] = VECTOR3( 107.5, 57.4453, 654.5 ),
+                },
+                ['Sdeath1'] = {
+                    ['color'] = STRING( 'ff800080' ),
+                    ['type'] = STRING( 'Blank Marker' ),
+                    ['prop'] = STRING( '/env/common/props/markers/M_Blank_prop.bp' ),
+                    ['orientation'] = VECTOR3( 0, -0, 0 ),
+                    ['position'] = VECTOR3( 29.5, 54, 612.5 ),
+                },
+                ['Sdeath2'] = {
+                    ['color'] = STRING( 'ff800080' ),
+                    ['type'] = STRING( 'Blank Marker' ),
+                    ['prop'] = STRING( '/env/common/props/markers/M_Blank_prop.bp' ),
+                    ['orientation'] = VECTOR3( 0, -0, 0 ),
+                    ['position'] = VECTOR3( 24.9253, 48.6753, 747.734 ),
+                },
+                ['Sdeath3'] = {
+                    ['color'] = STRING( 'ff800080' ),
+                    ['type'] = STRING( 'Blank Marker' ),
+                    ['prop'] = STRING( '/env/common/props/markers/M_Blank_prop.bp' ),
+                    ['orientation'] = VECTOR3( 0, -0, 0 ),
+                    ['position'] = VECTOR3( 16.8518, 42.4781, 860.689 ),
+                },
             },
         },
     },
     Chains = {
+        ['P2Nscout1'] = {
+            Markers = {
+                "Blank Marker 578",
+                "Blank Marker 579",
+                "Blank Marker 580",
+            },
+        },
+        ['P2Nscout2'] = {
+            Markers = {
+                "Blank Marker 581",
+                "Blank Marker 582",
+                "Blank Marker 583",
+            },
+        },
+        ['P2Nscout3'] = {
+            Markers = {
+                "Blank Marker 584",
+                "Blank Marker 585",
+                "Blank Marker 586",
+            },
+        },
         ['P1CB1Airattack1'] = {
             Markers = {
                 "Blank Marker 34",
@@ -6392,8 +6497,8 @@ Scenario = {
     --[[  Armies                                                                   ]]--
     --[[                                                                           ]]--
     next_army_id = '14',
-    next_group_id = '469',
-    next_unit_id = '9440',
+    next_group_id = '473',
+    next_unit_id = '9443',
     Armies = 
     {
         --[[                                                                           ]]--
@@ -30405,6 +30510,51 @@ Scenario = {
                         orders = '',
                         platoon = '',
                         Units = {
+                        },
+                    },
+                    ['P2nScouts'] = GROUP {
+                        orders = '',
+                        platoon = '',
+                        Units = {
+                            ['P2nScouts1'] = GROUP {
+                                orders = '',
+                                platoon = '',
+                                Units = {
+                                    ['UNIT_9440'] = {
+                                        type = 'xna0302',
+                                        orders = '',
+                                        platoon = '',
+                                        Position = { 1020.500000, 56.447266, 651.500000 },
+                                        Orientation = { 0.000000, 0.000000, 0.000000 },
+                                    },
+                                },
+                            },
+                            ['P2nScouts2'] = GROUP {
+                                orders = '',
+                                platoon = '',
+                                Units = {
+                                    ['UNIT_9441'] = {
+                                        type = 'xna0302',
+                                        orders = '',
+                                        platoon = '',
+                                        Position = { 1020.500000, 54.000000, 785.500000 },
+                                        Orientation = { 0.000000, 0.000000, 0.000000 },
+                                    },
+                                },
+                            },
+                            ['P2nScouts3'] = GROUP {
+                                orders = '',
+                                platoon = '',
+                                Units = {
+                                    ['UNIT_9442'] = {
+                                        type = 'xna0302',
+                                        orders = '',
+                                        platoon = '',
+                                        Position = { 1017.500000, 68.031250, 931.500000 },
+                                        Orientation = { 0.000000, 0.000000, 0.000000 },
+                                    },
+                                },
+                            },
                         },
                     },
                 },
