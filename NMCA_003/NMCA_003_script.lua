@@ -1521,7 +1521,7 @@ function M3CounterAttack()
             num = 12
         end
         for i = 1, num do
-            platoon = ScenarioUtils.CreateArmyGroupAsPlatoonVeteran('Aeon', 'M3_Aeon_Adapt_Swifts', 'GrowthFormation', 5)
+            platoon = ScenarioUtils.CreateArmyGroupAsPlatoonVeteran('Aeon', 'M3_Aeon_Adapt_Swifts_D' .. Difficulty, 'GrowthFormation', 5)
             ScenarioFramework.PlatoonPatrolChain(platoon, 'M3_Aeon_Main_Base_Air_Attack_Chain_' .. Random(1, 3))
             AddUnitsToObjTable(platoon)
         end
