@@ -153,22 +153,44 @@ PlayerDies1 = {
 -- }
 
 -- 
+
+--if the Aeon ACU objective is done
 PlayerWin1 = {
     {
         text = '[Nichols]: Excellent job, sir. The area has been secured, and all data centres are reading as offline.',
-        vid = 'N03_PlayerWin1.sfd', bank = 'N03_VO', cue = 'PlayerWin1', faction = 'Nomads'
+        vid = 'N03_PlayerWin1_1.sfd', bank = 'N03_VO', cue = 'PlayerWin1_1', faction = 'Nomads'
     },
     {
-        text = '[Benson]: System checks are complete. The ship is fully operational, and engines are powering up now.',
-        vid = 'N03_PlayerWin2.sfd', bank = 'N03_VO', cue = 'PlayerWin2', faction = 'Nomads'
+        text = '[Nomads_Intel_Officer]: A good thing you managed to take out that enemy commander. Otherwise we would have had to clean up your mess, and this is bad enough already.',
+        vid = 'N03_PlayerWin1_3.sfd', bank = 'N03_VO', cue = 'PlayerWin1_2', faction = 'Nomads'
     },
     {
-        text = '[Nichols]: Running at 100% across the board - the ship is ready to leave at your command, Captain, but sooner rather than later would be an excellent choice.',
-        vid = 'N03_PlayerWin3.sfd', bank = 'N03_VO', cue = 'PlayerWin3', faction = 'Nomads'
+        text = '[Benson]: System checks are complete. The ship is fully operational, and engines are powering up now. We are ready to leave at your command.',
+        vid = 'N03_PlayerWin1_2.sfd', bank = 'N03_VO', cue = 'PlayerWin1_3', faction = 'Nomads'
     },
 }
 
-
+--if the Aeon ACU objective isnt completed
+PlayerWin2 = {
+    {
+        text = '[Nichols]: We have taken out the datacentres, but the ACU is still operational! We are going to get in a lot of trouble for this.',
+        vid = 'N03_PlayerWin2_1.sfd', bank = 'N03_VO', cue = 'PlayerWin2_1', faction = 'Nomads'
+    },
+    {
+        text = '[Benson]: System checks are complete. The ship is ready to take off.',
+        vid = 'N03_PlayerWin2_2.sfd', bank = 'N03_VO', cue = 'PlayerWin2_2', faction = 'Nomads'
+    },
+    {
+        text = '[Nomads_Intel_Officer]: No. It\'s not! The enemy commander is still on the battlefield! What he saw here today is a disaster waiting to happen! Due to your incompetence, I\'m taking matters into my own hands!',
+        vid = 'N03_PlayerWin2_3.sfd', bank = 'N03_VO', cue = 'PlayerWin2_3', faction = 'Nomads'
+    },
+    -- cue pan to aeon ACU, and some nomads T3 strats and torpedo gunships fly in and kill it
+    {
+        text = '[Nomads_Intel_Officer]: We have had to divert valuable resources because of you! Get off this rock. We will be cleaning up here without you.',
+        vid = 'N03_PlayerWin2_3.sfd', bank = 'N03_VO', cue = 'PlayerWin2_3', faction = 'Nomads'
+    },
+    -- pan back to ship taking off
+}
 
 ------------
 -- Mission 1
@@ -190,9 +212,15 @@ M1Intro2 = {
 }
 
 -- Pan camera to second pair of scouts
+-- M1Intro3 = {
+    -- {
+        -- text = '[Nichols]: Thats just what we need. A frozen wasteland thats swarming with enemies. There are more beacons to the North, lets hope the ship is one of them.',
+        -- vid = 'N03_M1Intro3.sfd', bank = 'N03_VO', cue = 'M1Intro3', faction = 'Nomads'
+    -- },
+-- }
 M1Intro3 = {
     {
-        text = '[Nichols]: Thats just what we need. A frozen wasteland thats swarming with enemies. There are more beacons to the North, lets hope the ship is one of them.',
+        text = '[Nomads_Intel_Officer]: Keep searching! That crashed ship was your fleets responsibility, and if it falls into enemy hands, the intel they could get could be war winning!',
         vid = 'N03_M1Intro3.sfd', bank = 'N03_VO', cue = 'M1Intro3', faction = 'Nomads'
     },
 }
@@ -237,6 +265,10 @@ M1AeonMessage1 = {
     {
         text = '[Aeon Technician]: The automated defenses should hold them off until help arrives, we have to find out what they were doing with that ship!',
         vid = 'N03_M1AeonMessage1.sfd', bank = 'N03_VO', cue = 'M1AeonMessage1', faction = 'Aeon'
+    },
+    {
+        text = '[Nomads_Intel_Officer]: If they do, Captain, your whole sub-fleet is going to regret this for a long time. Make sure it doesnt happen.',
+        vid = 'N03_M1AeonIntroduction_2.sfd', bank = 'N03_VO', cue = 'M1AeonIntroduction_2', faction = 'Nomads'
     },
 }
 
@@ -296,6 +328,10 @@ M1ShipAlmostDead = {
         text = '[Benson]: The ship\'s hull is breached! We\'ll lose it if it takes any further damage!',
         vid = 'N03_M1ShipAlmostDead.sfd', bank = 'N03_VO', cue = 'M1ShipAlmostDead', faction = 'Nomads'
     },
+    {
+        text = '[Nomads_Intel_Officer]: Keep that ship alive! What its carrying is worth more than your lives!',
+        vid = 'N03_M1Intro3.sfd', bank = 'N03_VO', cue = 'M1Intro3', faction = 'Nomads'
+    },
 }
 
 
@@ -307,7 +343,7 @@ M1AeonUnitCaptured = {
         vid = 'N03_M1AeonUnitCaptured_1.sfd', bank = 'N03_VO', cue = 'M1AeonUnitCaptured_1', faction = 'Nomads'
     },
     {
-        text = '[]: Theyre dirtying our technology with their blasphemy! Destroy that engineer!',
+        text = '[Aeon Technician]: Theyre dirtying our technology with their blasphemy! Destroy that engineer!',
         vid = 'N03_M1AeonUnitCaptured_2.sfd', bank = 'N03_VO', cue = 'M1AeonUnitCaptured_2', faction = 'Aeon'
     },
 }
@@ -336,11 +372,11 @@ M1UEFBaseDialogue = {
 -- Once player scouts the civilian city, add objective to capture one building
 M1SecondaryObjective = {
     {
-        text = '[Benson]: There appears to be a small civilian settlement south of your position. If we can capture one of their buildings and access their database, there might be some valuable intel we can gather on this area and what we\'re dealing with here.',
+        text = '[Nomads_Intel_Officer]: There appears to be a small civilian settlement south of your position. We need to know more about this place. Capture one of their buildings and get everything you can.',
         vid = 'N03_M1SecondaryObjective_1.sfd', bank = 'N03_VO', cue = 'M1SecondaryObjective_1', faction = 'Nomads'
     },
     {
-        text = '[Nichols]: We\'re sending you the location of the structure now, Captain. Capture that building.',
+        text = '[Nichols]: Sending you the location of the structure now, Captain. Capture that building.',
         vid = 'N03_M1SecondaryObjective_2.sfd', bank = 'N03_VO', cue = 'M1SecondaryObjective_2', faction = 'Nomads'
     },
 }
@@ -351,6 +387,10 @@ M1SecondaryDone = {
         text = '[Benson]: Building is captured, sir. Let\'s see what we\'ve got.',
         vid = 'N03_M1SecondaryDone.sfd', bank = 'N03_VO', cue = 'M1SecondaryDone', faction = 'Nomads'
     },
+    {
+        text = '[Nomads_Intel_Officer]: Its always good to steal enemy information, but in this case things look grim. This appears to be a research outpost, and that means they have the ability to analyse any wrecks we leave behind.',
+        vid = 'N03_M1Intro3.sfd', bank = 'N03_VO', cue = 'M1Intro3', faction = 'Nomads'
+    },
 }
 
 -- When the civ building dies
@@ -359,12 +399,24 @@ M1SecondaryFailed = {
         text = '[Benson]: We\'ve lost the energy readings from that building - looks like it\'s been destroyed, Captain. Data extraction is no longer viable.',
         vid = 'N03_M1SecondaryFailed.sfd', bank = 'N03_VO', cue = 'M1SecondaryFailed', faction = 'Nomads'
     },
+    {
+        text = '[Nomads_Intel_Officer]: Why are you so incompetent!? First your fleet crashes a ship containing Level 5 classified data and now they cant even mount a proper cleanup operation!',
+        vid = 'N03_M1Intro3.sfd', bank = 'N03_VO', cue = 'M1Intro3', faction = 'Nomads'
+    },
 }
 
 -- Remind to capture the building
 M1SecondaryReminder = {
     {
         text = '[Benson]: We\'re standing by to extract intel from that building, sir. Capture it now, or we\'re flying blind here.',
+        vid = 'N03_M1SecondaryReminder.sfd', bank = 'N03_VO', cue = 'M1SecondaryReminder', faction = 'Nomads'
+    },
+}
+
+-- Remind to capture the building
+M1SecondaryReminder2 = {
+    {
+        text = '[Nomads_Intel_Officer]: Captain. What, precisely, is so difficult about capturing a civilian structure? Intel ages very quickly. We need it now.',
         vid = 'N03_M1SecondaryReminder.sfd', bank = 'N03_VO', cue = 'M1SecondaryReminder', faction = 'Nomads'
     },
 }
@@ -411,6 +463,10 @@ M1Enginners3 = {
         text = '[Benson]: Engineers are assessing the damage now. Looks like Aeon aircraft shot it down just as it was taking off.',
         vid = 'N03_M1Enginners3.sfd', bank = 'N03_VO', cue = 'M1Enginners3', faction = 'Nomads'
     },
+    {
+        text = '[Nomads_Intel_Officer]: The data stored in there is secure, but its so well protected you cant transmit it. You will have to repair the ship and bring it to orbit.',
+        vid = 'N03_M1Enginners3.sfd', bank = 'N03_VO', cue = 'M1Enginners3', faction = 'Nomads'
+    },
 }
 
 -- Few seconds after, assign objective to reclaim crystal
@@ -420,7 +476,7 @@ M1CrystalsObjective = {
         vid = 'N03_M1CrystalsObjective.sfd', bank = 'N03_VO', cue = 'M1CrystalsObjective', faction = 'Nomads'
     },
     {
-        text = '[Nichols]: This is bad. Counter-Intel Branch is at our necks for this information leak. All of the ship parts have to be retrieved, or the Aeon might reverse engineer things we\'d rather keep secret.',
+        text = '[Nichols]: This is bad. Counter-Intel Branch is already at our necks for this information leak. All of the ship parts have to be retrieved, or the Aeon might reverse engineer things we\'d rather keep secret.',
         vid = 'N03_CrystalsReminder1.sfd', bank = 'N03_VO', cue = 'CrystalsReminder1', faction = 'Nomads'
     },
     {
@@ -473,7 +529,8 @@ SecondCrystalReclaimed1 = {
     },
     {
         text = '[Benson]: Our engineers are reporting that there are more ship parts still out there. I\'m scanning the area for more sections now, sir.',
-        vid = 'N03_SecondCrystalReclaimed1_2.sfd', bank = 'N03_VO', cue = 'SecondCrystalReclaimed1_2', faction = 'Nomads', delay = 5},
+        vid = 'N03_SecondCrystalReclaimed1_2.sfd', bank = 'N03_VO', cue = 'SecondCrystalReclaimed1_2', faction = 'Nomads', delay = 5
+    },
 }
 
 -- Second crystal reclaimed, resource bonus, map doesn't expand
@@ -513,8 +570,13 @@ M1NavalAttack = {
 -- Map expands by the timer, this dialogue is followed by cinematics intro of M2
 M1MapExpansion = {
     {
-        text = '[Benson]: Sir, my calculations are showing that there should be more sections out there. I\'m scanning the area for more crashed parts now.',
-        vid = 'N03_M1MapExpansion.sfd', bank = 'N03_VO', cue = 'M1MapExpansion', faction = 'Nomads', delay = 5},
+        text = '[Nomads_Intel_Officer]: There are ship parts unaccounted for. This is a disaster. They cannot fall into enemy hands. Get out there and find them!',
+        vid = 'N03_M1MapExpansion.sfd', bank = 'N03_VO', cue = 'M1MapExpansion', faction = 'Nomads', delay = 5
+    },
+    {
+        text = '[Benson]: I\'m scanning the area for more crashed parts now.',
+        vid = 'N03_M1MapExpansion.sfd', bank = 'N03_VO', cue = 'M1MapExpansion', faction = 'Nomads', delay = 5
+    },
 }
 
 
@@ -533,7 +595,7 @@ M1P3Description = 'Reclaim the sections of the crashed ship in order to make the
 
 -- Secondary Objective
 M1S1Title = 'Capture the Enemy civilian centre'
-M1S1Description = 'Capture the civilian building. We may be able to gather intel from itl.'
+M1S1Description = 'Capture the civilian building. We may be able to gather intel from it.'
 
 -- Bonus Objective
 M1B1Title = 'Technology Study'
@@ -595,7 +657,7 @@ M2PostIntro = {
 -- Third section is reclaimed
 ThirdCrystalReclaimed = {
     {
-        text = '[Nichols]: Another section reclaimed, sir. Keep up the good work.',
+        text = '[Nichols]: Another section secured, sir. Keep up the good work.',
         vid = 'N03_ThirdCrystalReclaimed_1.sfd', bank = 'N03_VO', cue = 'ThirdCrystalReclaimed_1', faction = 'Nomads'
     },
     {
@@ -625,7 +687,7 @@ AllCrystalReclaimed1 = {
         text = '[Nichols]: Hang on, bad news! That last sections tampering defences were tripped! We dont know for sure but the Aeon might have found something!',
         vid = 'N03_AllCrystalReclaimed1_1.sfd', bank = 'N03_VO', cue = 'AllCrystalReclaimed1_1', faction = 'UEF'},
     {
-        text = '[Nichols]: We cant afford to take any chances! There are a few datacentres around the area, we will need to find and destory them.',
+        text = '[Nomads_Intel_Officer]: We cant afford to take any chances! There are a few datacentres around the area. Find and destory them. All of them.',
         vid = 'N03_AllCrystalReclaimed1_3.sfd', bank = 'N03_VO', cue = 'AllCrystalReclaimed1_3', faction = 'UEF'},
     {
         text = '[Nichols]: Worse, we\'re picking up a lot of enemy signatures incoming from the north-west. Regroup and defend the ship!',
@@ -828,7 +890,11 @@ M3CounterAttackDefeated = {
 -- Obj to locate research buildings
 M3LocateOrbitalCannons = {
     {
-        text = '[Nichols]: Commander, the Aeon have stored critical intel on our technology in datacentres around the planet. We will need to destroy they them before we can leave the planet',
+        text = '[Nichols]: Commander, the Aeon have stored critical intel on our technology in datacentres around the planet. We will need to destroy them before we can leave the planet.',
+        vid = 'N03_M3LocateOrbitalCannons.sfd', bank = 'N03_VO', cue = 'M3LocateOrbitalCannons', faction = 'Nomads'
+    },
+    {
+        text = '[Nomads_Intel_Officer]: I don\'t think I need to remind you what position you are in, Captain. Contain this information leak at all costs.',
         vid = 'N03_M3LocateOrbitalCannons.sfd', bank = 'N03_VO', cue = 'M3LocateOrbitalCannons', faction = 'Nomads'
     },
 }
@@ -877,6 +943,10 @@ M3Secondary = {
         text = '[Nichols]: The Aeon ACU is located in the island to your north west.',
         vid = 'N03_M3Secondary.sfd', bank = 'N03_VO', cue = 'M3Secondary', faction = 'Nomads'
     },
+    {
+        text = '[Nomads_Intel_Officer]: This is already an intelligence disaster, but it would be even worse if that commander is left alive. You must take it out.',
+        vid = 'N03_M3Secondary.sfd', bank = 'N03_VO', cue = 'M3Secondary', faction = 'Nomads'
+    },
 }
 
 -- ACU killed, obj done, TODO: Add either scream when dying or something like "I will live on in the way" depending on the character we pick for the Aeon ACU
@@ -887,6 +957,10 @@ M3SecondaryDone = {
     },
     {
         text = '[Nichols]: The enemy ACU is gone. The base on the north west ceased all operations.',
+        vid = 'N03_M3SecondaryDone_2.sfd', bank = 'N03_VO', cue = 'M3SecondaryDone_2', faction = 'Nomads'
+    },
+    {
+        text = '[Nomads_Intel_Officer]: At least you can deal with cleanup operations properly.',
         vid = 'N03_M3SecondaryDone_2.sfd', bank = 'N03_VO', cue = 'M3SecondaryDone_2', faction = 'Nomads'
     },
 }
@@ -965,7 +1039,7 @@ M4OrbitalCannonsReminder1 = {
 -- Reminder 2 to destroy the research building
 M4OrbitalCannonsReminder2 = {
     {
-        text = '[Nichols]: Sir, destroy the data centres so we can leave this planet.',
+        text = '[Nomads_Intel_Officer]: Captain, if those datacentres are storing vital Nomads intel, then we may have already lost this war. Take them out.',
         vid = 'N03_M4M4OrbitalCannonsReminder2.sfd', bank = 'N03_VO', cue = 'M4M4OrbitalCannonsReminder2', faction = 'Nomads'
     },
 }
