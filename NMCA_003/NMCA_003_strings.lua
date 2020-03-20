@@ -198,7 +198,7 @@ PlayerWin2 = {
 -- Follow the first pair of scouts
 M1Intro1 = {
     {
-        text = '[Nichols]: Our scouts are already searching for the crashed ship, Captain. Wing three has detected something - sending them there now.',
+        text = '[Nichols]: Our scouts are entering the planet’s atmosphere and scanning for the ship’s transmitter now, Captain.. Squad three has detected something - sending them to recon. One hell of a place to set up that beacon - this place is a frozen wasteland.',
         vid = 'N03_M1Intro1.sfd', bank = 'N03_VO', cue = 'M1Intro1', faction = 'Nomads'
     },
 }
@@ -206,7 +206,7 @@ M1Intro1 = {
 -- Scout wingman gets shot down, and then main scout is shot down
 M1Intro2 = {
     {
-        text = '[Nichols]: Wing three is under fire! Theres a hostile base right on top of one of the transponders! Looks like the transmission is from a detached part of the ship.',
+        text = '[Nichols]: Wing three is under fire! There’s a hostile base right on top of one of our beacons! It must have become detached from the ship when it went down..',
         vid = 'N03_M1Intro2.sfd', bank = 'N03_VO', cue = 'M1Intro2', faction = 'Nomads'
     },
 }
@@ -228,7 +228,7 @@ M1Intro3 = {
 -- Move cam to crashed ship, and then to the landing ACU
 M1Intro4 = {
     {
-        text = '[Nichols]: There it is, Captain! No time to waste - get out there and assess the damage to that ship. We need clean up this whole mess and get the hell off this block of ice.',
+        text = '[Nichols]: There it is, Captain! No time to waste - get out there and assess the damage to that ship. We need clean up this whole mess and get the hell off giant popsicle.',
         vid = 'N03_M1Intro4.sfd', bank = 'N03_VO', cue = 'M1Intro4', faction = 'Nomads'
     },
 }
@@ -251,7 +251,7 @@ M1PostIntro = {
 -- Aeon Researcher
 M1AeonIntroduction = {
     {
-        text = '[Aeon Technician]: It\'s the Cybrans! They\'re coming! Call for reinforcements!',
+        text = '[Aeon Technician]: Cybrans! What are they doing here? We’ve had no intel that they’ve been operating in this region. Call for reinforcements! We can’t take the risk of them being a small, outlying unit.',
         vid = 'N03_M1AeonIntroduction_1.sfd', bank = 'N03_VO', cue = 'M1AeonIntroduction_1', faction = 'Aeon'
     },
     {
@@ -687,7 +687,7 @@ AllCrystalReclaimed1 = {
         text = '[Nichols]: Hang on, bad news! That last sections tampering defences were tripped! We dont know for sure but the Aeon might have found something!',
         vid = 'N03_AllCrystalReclaimed1_1.sfd', bank = 'N03_VO', cue = 'AllCrystalReclaimed1_1', faction = 'UEF'},
     {
-        text = '[Nomads_Intel_Officer]: We cant afford to take any chances! There are a few datacentres around the area. Find and destory them. All of them.',
+        text = '[Nomads_Intel_Officer]: We cant afford to take any chances! There are a few datacentres around the area. Find and destroy them. All of them.',
         vid = 'N03_AllCrystalReclaimed1_3.sfd', bank = 'N03_VO', cue = 'AllCrystalReclaimed1_3', faction = 'UEF'},
     {
         text = '[Nichols]: Worse, we\'re picking up a lot of enemy signatures incoming from the north-west. Regroup and defend the ship!',
