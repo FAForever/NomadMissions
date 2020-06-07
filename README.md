@@ -50,6 +50,14 @@ You are all set to enable the missions! Follow either the official (downlords) c
 1. Switch maps to a map from the Nomads campaign, and enjoy!
 1. It is important to note that you need to disable these changes if you want to play coop missions without nomads later! To do this, simply uncheck the read only option from your ```init_coop.lua``` or delete it and it will be patched next time you run coop. You are can play non-coop games normally without disabling these changes, so if you only play Nomads coop missions then you dont need to do anything. Additionally, running coop with Downlords client will not work while you have this file set to read-only!
 
+### Instructions if you used the installer:
+These are the instructions if you have just used the installer to install the files. The installer completes the steps shown above, so all you need to do is tell the FA client to load the game with nomads campaign:
+
+1. In the client, click on `Settings`, then on `Forged Alliance Forever`. Under the `Advanced` section, put ```C:\ProgramData\FAForever\bin\ForgedAlliance.exe /init init_NomadsCoop.lua``` into the `Command line format for executable` field, deleting entirely anything that was there before.
+  * Note: Do not include any quotation marks around the contents you put into this field.
+1. Host a coop mission on any map, switch maps to a map from the Nomads campaign, and enjoy!
+1. It is important to note that you need to disable these changes if you want to play _any_ game without nomads later! To do this, replace the entire contents of the field with `"%s"` (including the quotation marks), reversing step 5. The file can stay in your folder and wont be active unless you do step 5 again.
+
 ## How do i test the missions with the development version of Nomads?
 ----------------------------
 You can also play these missions offline against the github repository of nomads, which lets you test them with future nomads patches. 
