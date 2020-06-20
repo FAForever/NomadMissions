@@ -146,7 +146,7 @@ function M1IntroScene()
     Cinematics.CameraMoveToMarker(ScenarioUtils.GetMarker('P1Cam1'), 2)
 
     ForkThread(function()
-        for i = 1, table.getn(ScenarioInfo.HumanPlayers) do
+        for i = 1, table.getsize(ScenarioInfo.HumanPlayers) do
             ScenarioInfo.PlayerACU[i] = ScenarioFramework.SpawnCommander('Player'..i, 'Commander', 'Warp', true, true, PlayerDeath)
             WaitSeconds(1)
         end
