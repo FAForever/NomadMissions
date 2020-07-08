@@ -342,6 +342,7 @@ M1ShipHalfDead = {
 M1ShipAlmostDead = {
     {
         text = '[Aeon Commander]: Just a little bit more and they will be grounded! All units attack!',
+        vid = 'N03_M1ShipAlmostDead1.sfd', bank = 'N03_VO', cue = 'M1AeonMessage1', faction = 'Aeon'
     },
     {
         text = '[Benson]: The ship\'s hull is breached! We\'ll lose it if it takes any further damage!',
@@ -744,6 +745,7 @@ M2BasesDestroyed = {
     },
     {
         text = '[Aeon Commander]: You will pay for this! Nothing can stop the Way!',
+        vid = 'N03_M2AeonBasesDestroyed2.sfd', bank = 'N03_VO', cue = 'M2OneBaseDestroyed', faction = 'Nomads'
     },
 }
 
@@ -790,6 +792,7 @@ M2ACUNIS2 = {
         vid = 'N03_M2ACUNIS2.sfd', bank = 'N03_VO', cue = 'M2ACUNIS2', faction = 'Nomads'
     },
     {
+        text = '[Aeon Commander]: I have arrived! Fear not, for all symbionts will be cleansed!',
         vid = 'N03_M2ACUNIS2.sfd', bank = 'N03_VO', cue = 'M2ACUNIS2', faction = 'Nomads'
     },
     {
