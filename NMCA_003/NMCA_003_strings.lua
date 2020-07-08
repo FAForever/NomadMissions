@@ -278,6 +278,14 @@ M1AeonMessage1 = {
         text = '[Aeon Technician]: Stay back! Cybran monsters!',
         vid = 'N03_M1AeonMessage1.sfd', bank = 'N03_VO', cue = 'M1AeonMessage1', faction = 'Aeon'
     },
+    {
+        text = '[Aeon Commander]: Fear not and have faith! Help is on the way!',
+        vid = 'N03_M1AeonMessage2.sfd', bank = 'N03_VO', cue = 'M1AeonMessage1', faction = 'Aeon'
+    },
+    {
+        text = '[Nichols]: That doesn\'t sound good. The last thing we need is more of their help. We need to leave before they arrive!',
+        vid = 'N03_M1AeonMessage3.sfd', bank = 'N03_VO', cue = 'M1AeonBaseDestroyed', faction = 'Nomads'
+    },
 }
 
 -- Player kills the first Aeon base
@@ -318,12 +326,23 @@ M1ShipDamaged = {
 M1ShipHalfDead = {
     {
         text = '[Benson]: The ship is sustaining significant damage, Captain!',
-        vid = 'N03_M1ShipHalfDead.sfd', bank = 'N03_VO', cue = 'M1ShipHalfDead', faction = 'Nomads'
+        vid = 'N03_M1ShipHalfDead1.sfd', bank = 'N03_VO', cue = 'M1ShipHalfDead', faction = 'Nomads'
+    },
+    {
+        text = '[Aeon Commander]: Surrender your ship and we will spare your lives! The Way is ca-', --muted halfway through by Nichols
+        vid = 'N03_M1ShipHalfDead2.sfd', bank = 'N03_VO', cue = 'M1AeonMessage1', faction = 'Aeon'
+    },
+    {
+        text = '[Nichols]: We don\'t need to hear that.',
+        vid = 'N03_M1ShipHalfDead3.sfd', bank = 'N03_VO', cue = 'M1AeonMessage1', faction = 'Aeon'
     },
 }
 
 -- When the ship is nearly destroyed
 M1ShipAlmostDead = {
+    {
+        text = '[Aeon Commander]: Just a little bit more and they will be grounded! All units attack!',
+    },
     {
         text = '[Benson]: The ship\'s hull is breached! We\'ll lose it if it takes any further damage!',
         vid = 'N03_M1ShipAlmostDead.sfd', bank = 'N03_VO', cue = 'M1ShipAlmostDead', faction = 'Nomads'
@@ -713,7 +732,7 @@ AllCrystalReclaimed2 = {
 M2OneBaseDestroyed = {
     {
         text = '[Nichols]: Yes! First enemy base in the west has been destroyed.',
-        vid = 'N03_M2OneBaseDestroyed.sfd', bank = 'N03_VO', cue = 'M2OneBaseDestroyed', faction = 'Nomads'
+        vid = 'N03_M2OneBaseDestroyed1.sfd', bank = 'N03_VO', cue = 'M2OneBaseDestroyed', faction = 'Nomads'
     },
 }
 
@@ -722,6 +741,9 @@ M2BasesDestroyed = {
     {
         text = '[Nichols]: That\'s two for two with those enemy bases in the west, Captain. Just what I like to see.',
         vid = 'N03_M2AeonBasesDestroyed.sfd', bank = 'N03_VO', cue = 'M2AeonBasesDestroyed', faction = 'Nomads'
+    },
+    {
+        text = '[Aeon Commander]: You will pay for this! Nothing can stop the Way!',
     },
 }
 
@@ -768,7 +790,6 @@ M2ACUNIS2 = {
         vid = 'N03_M2ACUNIS2.sfd', bank = 'N03_VO', cue = 'M2ACUNIS2', faction = 'Nomads'
     },
     {
-        text = '[Aeon Commander]: I have arrived! All symbyonts will be cleansed!',
         vid = 'N03_M2ACUNIS2.sfd', bank = 'N03_VO', cue = 'M2ACUNIS2', faction = 'Nomads'
     },
     {
@@ -880,6 +901,10 @@ M3PostIntro = {
 -- All attacking units dead
 M3CounterAttackDefeated = {
     {
+        text = '[Aeon Commander]: Damn! More! We need to send more!',
+        vid = 'N03_M3CounterAttackDefeated.sfd', bank = 'N03_VO', cue = 'M3CounterAttackDefeated', faction = 'Nomads'
+    },
+    {
         text = '[Nichols]: Enemy forces defeated. Proceed with the mission.',
         vid = 'N03_M3CounterAttackDefeated.sfd', bank = 'N03_VO', cue = 'M3CounterAttackDefeated', faction = 'Nomads'
     },
@@ -952,7 +977,7 @@ M3Secondary = {
 -- ACU killed, obj done, TODO: Add either scream when dying or something like "I will live on in the way" depending on the character we pick for the Aeon ACU
 M3SecondaryDone = {
     {
-        text = '[Aeon]: Smth.',
+        text = '[Aeon]: I shall live on in the Way!',
         vid = 'N03_M3SecondaryDone_1.sfd', bank = 'N03_VO', cue = 'M3SecondaryDone_1', faction = 'Aeon'
     },
     {
@@ -1113,7 +1138,7 @@ M4Tempest90PercentDone = {
 -- Tempest 100% Completed
 M4Tempest100PercentDone = {
     {
-        text = '[Nichols]: Sir, the Aeon unit finished and it\'s moving towards your base, destroy it!',
+        text = '[Nichols]: Sir, the Aeon unit is finished and it\'s moving towards your base, destroy it!',
         vid = 'N03_M4Tempest100PercentDone.sfd', bank = 'N03_VO', cue = 'M4Tempest100PercentDone', faction = 'Nomads'
     },
 }
