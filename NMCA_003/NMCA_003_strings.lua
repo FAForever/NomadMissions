@@ -212,12 +212,6 @@ M1Intro2 = {
 }
 
 -- Pan camera to second pair of scouts
--- M1Intro3 = {
-    -- {
-        -- text = '[Nichols]: Thats just what we need. A frozen wasteland thats swarming with enemies. There are more beacons to the North, lets hope the ship is one of them.',
-        -- vid = 'N03_M1Intro3.sfd', bank = 'N03_VO', cue = 'M1Intro3', faction = 'Nomads'
-    -- },
--- }
 M1Intro3 = {
     {
         text = '[Nomads_Intel_Officer]: Keep searching! That crashed ship was your fleets responsibility, and if it falls into enemy hands, the intel they could get could be war winning!',
@@ -328,6 +322,13 @@ M1ShipHalfDead = {
         text = '[Benson]: The ship is sustaining significant damage, Captain!',
         vid = 'N03_M1ShipHalfDead1.sfd', bank = 'N03_VO', cue = 'M1ShipHalfDead', faction = 'Nomads'
     },
+}
+
+M1ShipHalfDeadWithCommander = {
+    {
+        text = '[Benson]: The ship is sustaining significant damage, Captain!',
+        vid = 'N03_M1ShipHalfDead1.sfd', bank = 'N03_VO', cue = 'M1ShipHalfDead', faction = 'Nomads'
+    },
     {
         text = '[Aeon Commander]: Surrender your ship and we will spare your lives! The Way is ca-', --muted halfway through by Nichols
         vid = 'N03_M1ShipHalfDead2.sfd', bank = 'N03_VO', cue = 'M1AeonMessage1', faction = 'Aeon'
@@ -340,6 +341,17 @@ M1ShipHalfDead = {
 
 -- When the ship is nearly destroyed
 M1ShipAlmostDead = {
+    {
+        text = '[Benson]: The ship\'s hull is breached! We\'ll lose it if it takes any further damage!',
+        vid = 'N03_M1ShipAlmostDead.sfd', bank = 'N03_VO', cue = 'M1ShipAlmostDead', faction = 'Nomads'
+    },
+    {
+        text = '[Nomads_Intel_Officer]: Keep that ship alive! What its carrying is worth more than your lives!',
+        vid = 'N03_M1Intro3.sfd', bank = 'N03_VO', cue = 'M1Intro3', faction = 'Nomads'
+    },
+}
+
+M1ShipAlmostDeadWithCommander = {
     {
         text = '[Aeon Commander]: Just a little bit more and they will be grounded! All units attack!',
         vid = 'N03_M1ShipAlmostDead1.sfd', bank = 'N03_VO', cue = 'M1AeonMessage1', faction = 'Aeon'
@@ -698,6 +710,8 @@ FourthCrystalReclaimed = {
     }, 
 }
 
+
+
 -- All 5 ship parts reclaimed, objective completed (map didnt expand yet)
 AllCrystalReclaimed1 = {
     {
@@ -801,6 +815,22 @@ M2ACUNIS2 = {
     },
 }
 
+-- a couple of minutes after the Aeon ACU Arrives
+-- this dialogue is new and needs to be added
+M2ACUCaptureObjective = {
+    {
+        text = '[Aeon Commander]: They are going after these parts of the ship! They must be important. Find some and study them right away!',
+        vid = 'N03_M2ACUNIS2_1.sfd', bank = 'N03_VO', cue = 'M2ACUNIS2', faction = 'Nomads'
+    },
+    {
+        text = '[Aeon Technician]: G-good idea!',
+        vid = 'N03_M2ACUNIS2_2.sfd', bank = 'N03_VO', cue = 'M2ACUNIS2', faction = 'Nomads'
+    },
+    {
+        text = '[Nomads_Intel_Officer]: Captain. If they find out anything, anything at all from those fragments, your fleet will not live for long.',
+        vid = 'N03_M2ACUNIS2_3.sfd', bank = 'N03_VO', cue = 'M2ACUNIS2', faction = 'Nomads'
+    },
+}
 
 
 -- Bonus obj done, engineer drop killed
@@ -870,7 +900,26 @@ M2B2Description = 'You shot down a transport drop of enemy engineers before they
 BombardmentTitle = 'Artillery strike'
 BombardmentDescription = 'Mark an area on the map for the orbital artillery strike. The strike will be available again after a short cooldown.'
 
-
+-- when the Aeon capture one of the ship parts
+-- this is new and needs to be added
+M2ACUCaptureObjective = {
+    {
+        text = '[Aeon Commander]: At last! Let us see what they have been hiding.',
+        vid = 'N03_M2ACUNIS2_1.sfd', bank = 'N03_VO', cue = 'M2ACUNIS2', faction = 'Nomads'
+    },
+    {
+        text = '[Aeon Technician]: Right away! We will begin studying them as soon as we can!',
+        vid = 'N03_M2ACUNIS2_2.sfd', bank = 'N03_VO', cue = 'M2ACUNIS2', faction = 'Nomads'
+    },
+    {
+        text = '[Aeon Commander]: They will try to take the fragments back, ensure it is defended.',
+        vid = 'N03_M2ACUNIS2_1.sfd', bank = 'N03_VO', cue = 'M2ACUNIS2', faction = 'Nomads'
+    },
+    {
+        text = '[Nomads_Intel_Officer]: A disaster. A fully unmitigated disaster! Your incompetence is astounding Captain! Take it back before they learn anything!',
+        vid = 'N03_M2ACUNIS2_3.sfd', bank = 'N03_VO', cue = 'M2ACUNIS2', faction = 'Nomads'
+    },
+}
 
 ------------
 -- Mission 3
@@ -904,7 +953,7 @@ M3PostIntro = {
 -- All attacking units dead
 M3CounterAttackDefeated = {
     {
-        text = '[Aeon Commander]: Damn! More! We need to send more!',
+        text = '[Aeon Commander]: No! More! We need to send more!',
         vid = 'N03_M3CounterAttackDefeated.sfd', bank = 'N03_VO', cue = 'M3CounterAttackDefeated', faction = 'Nomads'
     },
     {
@@ -977,7 +1026,7 @@ M3Secondary = {
     },
 }
 
--- ACU killed, obj done, TODO: Add either scream when dying or something like "I will live on in the way" depending on the character we pick for the Aeon ACU
+-- ACU killed, obj done
 M3SecondaryDone = {
     {
         text = '[Aeon]: I shall live on in the Way!',
@@ -1030,6 +1079,26 @@ M4OrbicalCannonDestroyed1 = {
         text = '[Nichols]: First data centre destroyed.',
         vid = 'N03_M4OrbicalCannonDestroyed1.sfd', bank = 'N03_VO', cue = 'M4OrbicalCannonDestroyed1', faction = 'Nomads'
     },
+    {
+        text = '[Aeon Commander]: Cease! These centres contain prized records, not your precious secrets! You have nothing to gain in doing this!',
+        vid = 'N03_M4OrbicalCannonDestroyed1.sfd', bank = 'N03_VO', cue = 'M4TempestKilled', faction = 'Nomads'
+    },
+    {
+        text = '[Nomads_Intel_Officer]: Ignore her Captain, we will not take chances. You will proceed with the mission.',
+        vid = 'N03_M4OrbicalCannonDestroyed1.sfd', bank = 'N03_VO', cue = 'M4TempestKilled', faction = 'Nomads'
+    },
+}
+
+-- this dialogue is new and needs to be added
+M4OrbicalCannonDestroyedACUDead1 = {
+    {
+        text = '[Nichols]: First data centre destroyed.',
+        vid = 'N03_M4OrbicalCannonDestroyed1.sfd', bank = 'N03_VO', cue = 'M4OrbicalCannonDestroyed1', faction = 'Nomads'
+    },
+    {
+        text = '[Aeon Technician]: Theyre destroying our research! What do we do!',
+        vid = 'N03_M4TempestKilled.sfd', bank = 'N03_VO', cue = 'M4TempestKilled', faction = 'Nomads'
+    },
 }
 
 -- Second research location destroyed
@@ -1046,6 +1115,18 @@ M4OrbicalCannonDestroyed3 = {
         text = '[Nichols]: Third data centre is down, just one more to go.',
         vid = 'N03_M4OrbicalCannonDestroyed3.sfd', bank = 'N03_VO', cue = 'M4OrbicalCannonDestroyed3', faction = 'Nomads'
     },
+    {
+        text = '[Aeon Commander]: All forces! Defend the last centre at all costs! Preserve our legacy!',
+        vid = 'N03_M4TempestKilled.sfd', bank = 'N03_VO', cue = 'M4TempestKilled', faction = 'Nomads'
+    },
+}
+
+-- this dialogue is new and needs to be added
+M4OrbicalCannonDestroyedACUDead3 = {
+    {
+        text = '[Nichols]: Third data centre is down, just one more to go.',
+        vid = 'N03_M4OrbicalCannonDestroyed3.sfd', bank = 'N03_VO', cue = 'M4OrbicalCannonDestroyed3', faction = 'Nomads'
+    },
 }
 
 -- All research locations destroyed
@@ -1053,6 +1134,22 @@ M4OrbicalCannonDestroyed4 = {
     {
         text = '[Nichols]: That\'s all of them, good job sir.',
         vid = 'N03_M4OrbicalCannonDestroyed4.sfd', bank = 'N03_VO', cue = 'M4OrbicalCannonDestroyed4', faction = 'Nomads'
+    },
+    {
+        text = '[Aeon Commander]: I hope you are satisfied! Those were innocent people you killed, and for what? For nothing! We did not store any of your precious secrets there!',
+        vid = 'N03_M4TempestKilled.sfd', bank = 'N03_VO', cue = 'M4TempestKilled', faction = 'Nomads'
+    },
+}
+
+-- this dialogue is new and needs to be added
+M4OrbicalCannonDestroyedACUDead4 = {
+    {
+        text = '[Nichols]: That\'s all of them, good job sir.',
+        vid = 'N03_M4OrbicalCannonDestroyed4.sfd', bank = 'N03_VO', cue = 'M4OrbicalCannonDestroyed4', faction = 'Nomads'
+    },
+    {
+        text = '[Aeon Technician]: It\'s gone! It\'s all gone! My life\'s work! You monsters!',
+        vid = 'N03_M4TempestKilled.sfd', bank = 'N03_VO', cue = 'M4TempestKilled', faction = 'Nomads'
     },
 }
 
@@ -1094,6 +1191,10 @@ M4TempestBuilt = {
 M4TempestKilled = {
     {
         text = '[Nichols]: The unit is destroyed, great job!',
+        vid = 'N03_M4TempestKilled.sfd', bank = 'N03_VO', cue = 'M4TempestKilled', faction = 'Nomads'
+    },
+    {
+        text = '[Aeon Commander]: No matter! The Aeon will be victorious regardless!',
         vid = 'N03_M4TempestKilled.sfd', bank = 'N03_VO', cue = 'M4TempestKilled', faction = 'Nomads'
     },
 }
@@ -1143,6 +1244,14 @@ M4Tempest100PercentDone = {
     {
         text = '[Nichols]: Sir, the Aeon unit is finished and it\'s moving towards your base, destroy it!',
         vid = 'N03_M4Tempest100PercentDone.sfd', bank = 'N03_VO', cue = 'M4Tempest100PercentDone', faction = 'Nomads'
+    },
+    {
+        text = '[Aeon Commander]: With this craft complete, you will bow before the might of the Illuminate!',
+        vid = 'N03_M4Tempest100PercentDone.sfd', bank = 'N03_VO', cue = 'M4Tempest100PercentDone', faction = 'Nomads'
+    },
+    {
+        text = '[Nichols]: That\'s just what we need. A frozen wasteland which also has a giant blob of destruction in it.',
+        vid = 'N03_M1Intro3.sfd', bank = 'N03_VO', cue = 'M1Intro3', faction = 'Nomads'
     },
 }
 
@@ -1200,7 +1309,7 @@ M4B1Description = 'You\'ve destroyed the Tempest before it was completed.'
 -- Aeon taunt
 TAUNT1 = {
     {
-        text = '[Aeon]: I will cleanse you.',
+        text = '[Aeon]: You shall be cleansed from this place.',
         vid = 'N03_TAUNT1.sfd', bank = 'N03_VO', cue = 'TAUNT1', faction = 'Aeon'
     },
 }
@@ -1216,7 +1325,7 @@ TAUNT2 = {
 -- Aeon taunt
 TAUNT3 = {
     {
-        text = '[Aeon]: Your pathetic spaceship wont help you... my aircraft will take it down before it ever gets to orbit.',
+        text = '[Aeon]: Your spaceship wont help you... my aircraft will take it down before it ever gets to orbit.',
         vid = 'N03_TAUNT3_1.sfd', bank = 'N03_VO', cue = 'TAUNT3_1', faction = 'Aeon'
     },
 }
@@ -1224,7 +1333,7 @@ TAUNT3 = {
 -- Aeon taunt
 TAUNT4 = {
     {
-        text = '[Aeon]: Surrender now, the way will prevail despite of your efforts.',
+        text = '[Aeon]: Surrender now, the Way will prevail despite of your efforts.',
         vid = 'N03_TAUNT4.sfd', bank = 'N03_VO', cue = 'TAUNT4', faction = 'Aeon'
     },
 }
