@@ -108,14 +108,14 @@ OPERATION_DESCRIPTION = 'Your long range communications have picked up an emerge
 -- Showed on the score screen if player wins
 Debriefing_Win = {
     {
-        text = 'You win', faction = 'Nomads'
+        text = 'With the ship repaired and the information on Nomads technology safe once more, your fleet is able to depart, with only a minimum of harassment from the counter-intelligence branch, who were very displeased about the crashed ship. The data you recovered is fed to Fleet Command, using which they are able to locate a safe path to the cradle of humanity. Earth. Soon, the final preparations for an assault on Black Sun will be underway. You are ordered to move to a nearby system where QAI has arranged for a staging area.', faction = 'Nomads'
     },
 }
 
 -- Showed on the score screen if player loses
 Debriefing_Lose = {
     {
-        text = 'You lose', faction = 'Nomads'
+        text = 'The mission was a disaster. Shortly after the Aeon forces overwhelmed the position around the crashed ship, it was destroyed, and its parts studied. The sensitive data it carried is now in the hands of the Illuminate, who now know of the Nomads, their technology, and their homeworlds. Emergency preparations are underway on the colonies to repel the arriving ACUs, but with no teleportation technology, the Nomads fleets cannot possibly respond in time to every threat. Many worlds are projected to fall, and leadership is considering surrender, or a desparate escape towards a distant galaxy.', faction = 'Nomads'
     },
 }
 
