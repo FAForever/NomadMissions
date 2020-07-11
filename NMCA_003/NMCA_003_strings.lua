@@ -199,7 +199,7 @@ PlayerWin2 = {
 -- Follow the first pair of scouts
 M1Intro1 = {
     {
-        text = '[Nichols]: Our scouts are entering the planet’s atmosphere and scanning for the ship’s transmitter now, Captain.. Squad three has detected something - sending them to recon. One hell of a place to set up that beacon - this place is a frozen wasteland.',
+        text = '[Nichols]: Our scouts are entering the planet’s atmosphere and scanning for the ship’s transmitter now, Captain. Squad three has detected something - sending them to recon. One hell of a place to set up that beacon - this place is a frozen wasteland.',
         vid = 'N03_M1Intro1.sfd', bank = 'N03_VO', cue = 'M1Intro1', faction = 'Nomads'
     },
 }
@@ -207,7 +207,7 @@ M1Intro1 = {
 -- Scout wingman gets shot down, and then main scout is shot down
 M1Intro2 = {
     {
-        text = '[Nichols]: Wing three is under fire! There’s a hostile base right on top of one of our beacons! It must have become detached from the ship when it went down..',
+        text = '[Nichols]: Wing three is under fire! There’s a hostile base right on top of one of our beacons! It must have become detached from the ship when it went down.',
         vid = 'N03_M1Intro2.sfd', bank = 'N03_VO', cue = 'M1Intro2', faction = 'Nomads'
     },
 }
@@ -243,48 +243,6 @@ M1PostIntro = {
 }
 
 
--- Aeon Researcher
--- this dialogue is new and needs to be added
-M1AeonIntroduction = {
-    {
-        text = '[Aeon Technician]: Cybrans! What are they doing here? We’ve had no intel that they’ve been operating in this region. Call for reinforcements! We can’t take the risk of them being a small, outlying unit.',
-        vid = 'N03_M1AeonIntroduction_1.sfd', bank = 'N03_VO', cue = 'M1AeonIntroduction_1', faction = 'Aeon'
-    },
-    {
-        text = '[Nichols]: Looks like our disguised signature is working so far; no need to correct their mistake.',
-        vid = 'N03_M1AeonIntroduction_2.sfd', bank = 'N03_VO', cue = 'M1AeonIntroduction_2', faction = 'Nomads'
-    },
-}
-
--- Aeon Researcher when sending an attack a few minutes later.
--- this dialogue is new and needs to be added
-M1AeonMessage1 = {
-    {
-        text = '[Aeon Technician]: The automated defenses should hold them off until help arrives, we have to find out what they were doing with that ship!',
-        vid = 'N03_M1AeonMessage1_1.sfd', bank = 'N03_VO', cue = 'M1AeonMessage1_1', faction = 'Aeon'
-    },
-    {
-        text = '[Nomads_Intel_Officer]: If they do, Captain, your whole sub-fleet is going to regret this for a long time. Make sure it doesnt happen.',
-        vid = 'N03_M1AeonMessage1_2.sfd', bank = 'N03_VO', cue = 'M1AeonMessage1_2', faction = 'Nomads'
-    },
-}
-
--- Aeon Researcher when you destroy the outer defenses of the first base
--- this dialogue is new and needs to be added
-M1AeonMessage2 = {
-    {
-        text = '[Aeon Technician]: Stay back! Cybran monsters!',
-        vid = 'N03_M1AeonMessage2_1.sfd', bank = 'N03_VO', cue = 'M1AeonMessage2_1', faction = 'Aeon'
-    },
-    {
-        text = '[Aeon Commander]: Fear not and have faith! Help is on the way!',
-        vid = 'N03_M1AeonMessage2_2.sfd', bank = 'N03_VO', cue = 'M1AeonMessage2_2', faction = 'Aeon'
-    },
-    {
-        text = '[Nichols]: That doesn\'t sound good. The last thing we need is more of their help. We need to leave before they arrive!',
-        vid = 'N03_M1AeonMessage2_3.sfd', bank = 'N03_VO', cue = 'M1AeonMessage2_3', faction = 'Nomads'
-    },
-}
 
 -- Player kills the first Aeon base
 M1AeonBaseDestroyed = {
@@ -386,11 +344,53 @@ M1AeonUnitCaptured = {
 }
 
 
+
 -- First Aeon units close the the player
 M1AeonAttackWarning = {
     {
         text = '[Nichols]: We\'ve got readings on what look like more hostiles heading your way, Captain. Prepare to engage!',
         vid = 'N03_M1AeonAttackWarning.sfd', bank = 'N03_VO', cue = 'M1AeonAttackWarning', faction = 'Nomads'
+    },
+}
+
+-- Aeon Researcher
+M1AeonIntroduction = {
+    {
+        text = '[Aeon Technician]: Cybrans! What are they doing here? We’ve had no intel that they’ve been operating in this region. Call for reinforcements! We can’t take the risk of them being a small, outlying unit.',
+        vid = 'N03_M1AeonIntroduction_1.sfd', bank = 'N03_VO', cue = 'M1AeonIntroduction_1', faction = 'Aeon'
+    },
+    {
+        text = '[Nichols]: Looks like our disguised signature is working so far; no need to correct their mistake.',
+        vid = 'N03_M1AeonIntroduction_2.sfd', bank = 'N03_VO', cue = 'M1AeonIntroduction_2', faction = 'Nomads'
+    },
+}
+
+-- Aeon Researcher when sending an attack a few minutes later.
+M1AeonMessage1 = {
+    {
+        text = '[Aeon Technician]: The automated defenses should hold them off until help arrives, we have to find out what they were doing with that ship!',
+        vid = 'N03_M1AeonMessage1_1.sfd', bank = 'N03_VO', cue = 'M1AeonMessage1_1', faction = 'Aeon'
+    },
+    {
+        text = '[Nomads_Intel_Officer]: If they do, Captain, your whole sub-fleet is going to regret this for a long time. Make sure it doesnt happen.',
+        vid = 'N03_M1AeonMessage1_2.sfd', bank = 'N03_VO', cue = 'M1AeonMessage1_2', faction = 'Nomads'
+    },
+}
+
+-- Aeon Researcher when you destroy the outer defenses of the first base
+-- this dialogue is new and needs to be added
+M1AeonMessage2 = {
+    {
+        text = '[Aeon Technician]: Stay back! Cybran monsters!',
+        vid = 'N03_M1AeonMessage2_1.sfd', bank = 'N03_VO', cue = 'M1AeonMessage2_1', faction = 'Aeon'
+    },
+    {
+        text = '[Aeon Commander]: Fear not and have faith! Help is on the way!',
+        vid = 'N03_M1AeonMessage2_2.sfd', bank = 'N03_VO', cue = 'M1AeonMessage2_2', faction = 'Aeon'
+    },
+    {
+        text = '[Nichols]: That doesn\'t sound good. The last thing we need is more of their help. We need to leave before they arrive!',
+        vid = 'N03_M1AeonMessage2_3.sfd', bank = 'N03_VO', cue = 'M1AeonMessage2_3', faction = 'Nomads'
     },
 }
 
@@ -507,74 +507,74 @@ M1Enginners3 = {
 }
 
 -- Few seconds after, assign objective to reclaim crystal
-M1CrystalsObjective = {
+M1ShipPartsObjective = {
     {
         text = '[Benson]: The damage is extensive, sir. It looks like several sections were either torn, or blown off when it was brought down. Scans of the area indicate that there are large sections of the ship close by.',
-        vid = 'N03_M1CrystalsObjective_1.sfd', bank = 'N03_VO', cue = 'M1CrystalsObjective1', faction = 'Nomads'
+        vid = 'N03_M1ShipPartsObjective_1.sfd', bank = 'N03_VO', cue = 'M1ShipPartsObjective1', faction = 'Nomads'
     },
     {
         text = '[Nichols]: This is bad. Counter-Intel Branch is already at our necks for this information leak. All of the ship parts have to be retrieved, or the Aeon might reverse engineer things we\'d rather keep secret.',
-        vid = 'N03_M1CrystalsObjective_2.sfd', bank = 'N03_VO', cue = 'M1CrystalsObjective2', faction = 'Nomads'
+        vid = 'N03_M1ShipPartsObjective_2.sfd', bank = 'N03_VO', cue = 'M1ShipPartsObjective2', faction = 'Nomads'
     },
     {
         text = '[Benson]: Additionally, we can use the materials from them to restore the ships functions. I\'m sending you the coordinates now. Reclaim the marked sections.',
-        vid = 'N03_M1CrystalsObjective_3.sfd', bank = 'N03_VO', cue = 'M1CrystalsObjective3', faction = 'Nomads'
+        vid = 'N03_M1ShipPartsObjective_3.sfd', bank = 'N03_VO', cue = 'M1ShipPartsObjective3', faction = 'Nomads'
     },
 }
 
 -- Remind player to reclaim the sections
-CrystalsReminder1 = {
+ShipPartReminder1 = {
     {
         text = '[Nichols]: Sir, I don\'t mean to interrupt your little holiday, but our engineers are still waiting for you to reclaim those sections.',
-        vid = 'N03_CrystalsReminder1.sfd', bank = 'N03_VO', cue = 'CrystalsReminder1', faction = 'Nomads'
+        vid = 'N03_ShipPartReminder1.sfd', bank = 'N03_VO', cue = 'ShipPartReminder1', faction = 'Nomads'
     },
 }
 
 -- Remind player to reclaim the sections
-CrystalsReminder2 = {
+ShipPartReminder2 = {
     {
         text = '[Nichols]: Captain, a sense of urgency would be quite appropriate roundabout now. We need the materials for the repairs ASAP.',
-        vid = 'N03_CrystalsReminder2.sfd', bank = 'N03_VO', cue = 'CrystalsReminder2', faction = 'Nomads'
+        vid = 'N03_ShipPartReminder2.sfd', bank = 'N03_VO', cue = 'ShipPartReminder2', faction = 'Nomads'
     },
 }
 
 -- Remind player to reclaim the sections
-CrystalsReminder3 = {
+ShipPartReminder3 = {
     {
         text = '[Nichols]: You are cutting it very fine here, Captain. Reclaim those ship sections now!',
-        vid = 'N03_CrystalsReminder3.sfd', bank = 'N03_VO', cue = 'CrystalsReminder3', faction = 'Nomads'
+        vid = 'N03_ShipPartReminder3.sfd', bank = 'N03_VO', cue = 'ShipPartReminder3', faction = 'Nomads'
     },
 }
 
 -- When the first section is reclaimed
-FirstCrystalReclaimed = {
+FirstShipPartReclaimed = {
     {
         text = '[Nichols]: Excellent, sir. The first part of the ship has been reclaimed.',
-        vid = 'N03_FirstCrystalReclaimed_1.sfd', bank = 'N03_VO', cue = 'FirstCrystalReclaimed_1', faction = 'Nomads'
+        vid = 'N03_FirstShipPartReclaimed_1.sfd', bank = 'N03_VO', cue = 'FirstShipPartReclaimed_1', faction = 'Nomads'
     },
     {
         text = '[Benson]: The engineers are incorporating the materials now. Repairs to the ship are moving along nicely.',
-        vid = 'N03_FirstCrystalReclaimed_2.sfd', bank = 'N03_VO', cue = 'FirstCrystalReclaimed_2', faction = 'Nomads'
+        vid = 'N03_FirstShipPartReclaimed_2.sfd', bank = 'N03_VO', cue = 'FirstShipPartReclaimed_2', faction = 'Nomads'
     },
 }
 
 -- Second section reclaimed, resource bonus, map expands to the second part
-SecondCrystalReclaimed1 = {
+SecondShipPartReclaimed1 = {
     {
         text = '[Benson]: Captain, fabrication systems on the crashed ship are coming online. We can divert their resource generation to you now.',
-        vid = 'N03_SecondCrystalReclaimed1_1.sfd', bank = 'N03_VO', cue = 'SecondCrystalReclaimed1_1', faction = 'Nomads'
+        vid = 'N03_SecondShipPartReclaimed1_1.sfd', bank = 'N03_VO', cue = 'SecondShipPartReclaimed1_1', faction = 'Nomads'
     },
     {
         text = '[Benson]: Our engineers are reporting that there are more ship parts still out there. I\'m scanning the area for more sections now, sir.',
-        vid = 'N03_SecondCrystalReclaimed1_2.sfd', bank = 'N03_VO', cue = 'SecondCrystalReclaimed1_2', faction = 'Nomads', delay = 5
+        vid = 'N03_SecondShipPartReclaimed1_2.sfd', bank = 'N03_VO', cue = 'SecondShipPartReclaimed1_2', faction = 'Nomads', delay = 5
     },
 }
 
 -- Second crystal reclaimed, resource bonus, map doesn't expand
-SecondCrystalReclaimed2 = {
+SecondShipPartReclaimed2 = {
     {
         text = '[Benson]: Support systems are also now online, sir. Diverting more resources to you.',
-        vid = 'N03_SecondCrystalReclaimed2.sfd', bank = 'N03_VO', cue = 'SecondCrystalReclaimed2', faction = 'Nomads'
+        vid = 'N03_SecondShipPartReclaimed2.sfd', bank = 'N03_VO', cue = 'SecondShipPartReclaimed2', faction = 'Nomads'
     },
 }
 
@@ -692,57 +692,57 @@ M2PostIntro = {
 
 
 -- Third section is reclaimed
-ThirdCrystalReclaimed = {
+ThirdShipPartReclaimed = {
     {
         text = '[Nichols]: Another section secured, sir. Keep up the good work.',
-        vid = 'N03_ThirdCrystalReclaimed_1.sfd', bank = 'N03_VO', cue = 'ThirdCrystalReclaimed_1', faction = 'Nomads'
+        vid = 'N03_ThirdShipPartReclaimed_1.sfd', bank = 'N03_VO', cue = 'ThirdShipPartReclaimed_1', faction = 'Nomads'
     },
     {
         text = '[Benson]: Our engineers are continuing with the repairs.',
-        vid = 'N03_ThirdCrystalReclaimed_2.sfd', bank = 'N03_VO', cue = 'ThirdCrystalReclaimed_2', faction = 'Nomads'
+        vid = 'N03_ThirdShipPartReclaimed_2.sfd', bank = 'N03_VO', cue = 'ThirdShipPartReclaimed_2', faction = 'Nomads'
     },
 }
 
 -- Fourth section is reclaimed, arty satellite
-FourthCrystalReclaimed = {
+FourthShipPartReclaimed = {
     {
         text = '[Benson]: The fourth section has been reclaimed. Tracking and targeting systems , are coming online again. Engineers are confirming orbital support satellite functionality is now available, sir.',
-        vid = 'N03_FourthCrystalReclaimed_1.sfd', bank = 'N03_VO', cue = 'FourthCrystalReclaimed_1', faction = 'Nomads'
+        vid = 'N03_FourthShipPartReclaimed_1.sfd', bank = 'N03_VO', cue = 'FourthShipPartReclaimed_1', faction = 'Nomads'
     },
     {
         text = '[Benson]: The satellite\'s long range weapons are active. Identify a target to launch an orbital strike.',
-        vid = 'N03_FourthCrystalReclaimed_2.sfd', bank = 'N03_VO', cue = 'FourthCrystalReclaimed_2', faction = 'Nomads'
+        vid = 'N03_FourthShipPartReclaimed_2.sfd', bank = 'N03_VO', cue = 'FourthShipPartReclaimed_2', faction = 'Nomads'
     }, 
 }
 
 
 
 -- All 5 ship parts reclaimed, objective completed (map didnt expand yet)
-AllCrystalReclaimed1 = {
+AllShipPartReclaimed1 = {
     {
         text = '[Benson]: All ship systems are tested and operational, and fully capable of space flight, as well as FTL travel. We\'re clear to leave the planet, sir.',
-        vid = 'N03_AllCrystalReclaimed1_1.sfd', bank = 'N03_VO', cue = 'AllCrystalReclaimed1_1', faction = 'Nomads'},
+        vid = 'N03_AllShipPartReclaimed1_1.sfd', bank = 'N03_VO', cue = 'AllShipPartReclaimed1_1', faction = 'Nomads'},
     {
         text = '[Nichols]: Hang on, bad news! That last sections tampering defences were tripped! We don\'t know for sure but the Aeon might have found something!',
-        vid = 'N03_AllCrystalReclaimed1_2.sfd', bank = 'N03_VO', cue = 'AllCrystalReclaimed1_2', faction = 'Nomads'},
+        vid = 'N03_AllShipPartReclaimed1_2.sfd', bank = 'N03_VO', cue = 'AllShipPartReclaimed1_2', faction = 'Nomads'},
     {
         text = '[Nomads_Intel_Officer]: We can\'t afford to take any chances! There are a few datacentres around the area. Find and destroy them. All of them.',
-        vid = 'N03_AllCrystalReclaimed1_3.sfd', bank = 'N03_VO', cue = 'AllCrystalReclaimed1_3', faction = 'Nomads'},
+        vid = 'N03_AllShipPartReclaimed1_3.sfd', bank = 'N03_VO', cue = 'AllShipPartReclaimed1_3', faction = 'Nomads'},
     {
         text = '[Nichols]: Worse, we\'re picking up a lot of enemy signatures incoming from the north-west. Regroup and defend the ship!',
-        vid = 'N03_AllCrystalReclaimed1_4.sfd', bank = 'N03_VO', cue = 'AllCrystalReclaimed1_4', faction = 'Nomads'},
+        vid = 'N03_AllShipPartReclaimed1_4.sfd', bank = 'N03_VO', cue = 'AllShipPartReclaimed1_4', faction = 'Nomads'},
 }
 
 
 -- All 5 ship parts reclaimed, objective completed (map has already expanded)
-AllCrystalReclaimed2 = {
+AllShipPartReclaimed2 = {
     {
         text = '[Nichols]: That\'s all of them, Captain. Excellent work out there.',
-        vid = 'N03_AllCrystalReclaimed2_1.sfd', bank = 'N03_VO', cue = 'AllCrystalReclaimed2_1', faction = 'Nomads'
+        vid = 'N03_AllShipPartReclaimed2_1.sfd', bank = 'N03_VO', cue = 'AllShipPartReclaimed2_1', faction = 'Nomads'
     },
     {
         text = '[Benson]: All systems are go, sir. Ready to leave on your command.',
-        vid = 'N03_AllCrystalReclaimed2_2.sfd', bank = 'N03_VO', cue = 'AllCrystalReclaimed2_2', faction = 'Nomads'
+        vid = 'N03_AllShipPartReclaimed2_2.sfd', bank = 'N03_VO', cue = 'AllShipPartReclaimed2_2', faction = 'Nomads'
     },
 }
 
@@ -821,7 +821,6 @@ M2ACUNIS2 = {
 }
 
 -- a couple of minutes after the Aeon ACU Arrives
--- this dialogue is new and needs to be added
 M2ACUSectionCapture = {
     {
         text = '[Aeon Commander]: They are going after these parts of the ship! They must be important. Find some and study them right away!',
@@ -836,6 +835,28 @@ M2ACUSectionCapture = {
         vid = 'N03_M2ACUSectionCapture_3.sfd', bank = 'N03_VO', cue = 'M2ACUSectionCapture3', faction = 'Nomads'
     },
 }
+
+-- when the Aeon capture one of the ship parts
+-- this is new and needs to be added
+M2ACUSectionCaptured = {
+    {
+        text = '[Aeon Commander]: At last! Let us see what they have been hiding.',
+        vid = 'N03_M2ACUSectionCaptured_1.sfd', bank = 'N03_VO', cue = 'M2ACUSectionCaptured_1', faction = 'Aeon'
+    },
+    {
+        text = '[Aeon Technician]: Right away! We will begin studying them as soon as we can!',
+        vid = 'N03_M2ACUSectionCaptured_2.sfd', bank = 'N03_VO', cue = 'M2ACUSectionCaptured_2', faction = 'Aeon'
+    },
+    {
+        text = '[Aeon Commander]: They will try to take the fragments back, ensure it is defended.',
+        vid = 'N03_M2ACUSectionCaptured_3.sfd', bank = 'N03_VO', cue = 'M2ACUSectionCaptured_3', faction = 'Aeon'
+    },
+    {
+        text = '[Nomads_Intel_Officer]: A disaster. A fully unmitigated disaster! Your incompetence is astounding Captain! Take it back before they learn anything!',
+        vid = 'N03_M2ACUSectionCaptured_4.sfd', bank = 'N03_VO', cue = 'M2ACUSectionCaptured_4', faction = 'Nomads'
+    },
+}
+
 
 
 -- Bonus obj done, engineer drop killed
@@ -905,26 +926,7 @@ M2B2Description = 'You shot down a transport drop of enemy engineers before they
 BombardmentTitle = 'Artillery strike'
 BombardmentDescription = 'Mark an area on the map for the orbital artillery strike. The strike will be available again after a short cooldown.'
 
--- when the Aeon capture one of the ship parts
--- this is new and needs to be added
-M2ACUSectionCaptured = {
-    {
-        text = '[Aeon Commander]: At last! Let us see what they have been hiding.',
-        vid = 'N03_M2ACUSectionCaptured_1.sfd', bank = 'N03_VO', cue = 'M2ACUSectionCaptured_1', faction = 'Aeon'
-    },
-    {
-        text = '[Aeon Technician]: Right away! We will begin studying them as soon as we can!',
-        vid = 'N03_M2ACUSectionCaptured_2.sfd', bank = 'N03_VO', cue = 'M2ACUSectionCaptured_2', faction = 'Aeon'
-    },
-    {
-        text = '[Aeon Commander]: They will try to take the fragments back, ensure it is defended.',
-        vid = 'N03_M2ACUSectionCaptured_3.sfd', bank = 'N03_VO', cue = 'M2ACUSectionCaptured_3', faction = 'Aeon'
-    },
-    {
-        text = '[Nomads_Intel_Officer]: A disaster. A fully unmitigated disaster! Your incompetence is astounding Captain! Take it back before they learn anything!',
-        vid = 'N03_M2ACUSectionCaptured_4.sfd', bank = 'N03_VO', cue = 'M2ACUSectionCaptured_4', faction = 'Nomads'
-    },
-}
+
 
 ------------
 -- Mission 3
@@ -1095,98 +1097,95 @@ M4DestroyCannons = {
 }
 
 -- First research location destroyed
-M4OrbicalCannonDestroyed1 = {
+M4DataCentreDestroyed1 = {
     {
         text = '[Nichols]: First data centre destroyed.',
-        vid = 'N03_M4OrbicalCannonDestroyed1_1.sfd', bank = 'N03_VO', cue = 'M4OrbicalCannonDestroyed1_1', faction = 'Nomads'
+        vid = 'N03_M4DataCentreDestroyed1_1.sfd', bank = 'N03_VO', cue = 'M4DataCentreDestroyed1_1', faction = 'Nomads'
     },
     {
         text = '[Aeon Commander]: Cease! These centres contain prized records, not your precious secrets! You have nothing to gain in doing this!',
-        vid = 'N03_M4OrbicalCannonDestroyed1_2.sfd', bank = 'N03_VO', cue = 'M4OrbicalCannonDestroyed1_2', faction = 'Aeon'
+        vid = 'N03_M4DataCentreDestroyed1_2.sfd', bank = 'N03_VO', cue = 'M4DataCentreDestroyed1_2', faction = 'Aeon'
     },
     {
         text = '[Nomads_Intel_Officer]: Ignore her Captain, we will not take chances. You will proceed with the mission.',
-        vid = 'N03_M4OrbicalCannonDestroyed1_3.sfd', bank = 'N03_VO', cue = 'M4OrbicalCannonDestroyed1_3', faction = 'Nomads'
+        vid = 'N03_M4DataCentreDestroyed1_3.sfd', bank = 'N03_VO', cue = 'M4DataCentreDestroyed1_3', faction = 'Nomads'
     },
 }
 
--- this dialogue is new and needs to be added
-M4OrbicalCannonDestroyedACUDead1 = {
+M4DataCentreDestroyedACUDead1 = {
     {
         text = '[Nichols]: First data centre destroyed.',
-        vid = 'N03_M4OrbicalCannonDestroyed1_1.sfd', bank = 'N03_VO', cue = 'M4OrbicalCannonDestroyed1_1', faction = 'Nomads'
+        vid = 'N03_M4DataCentreDestroyed1_1.sfd', bank = 'N03_VO', cue = 'M4DataCentreDestroyed1_1', faction = 'Nomads'
     },
     {
         text = '[Aeon Technician]: They\'re destroying our research! What do we do!',
-        vid = 'N03_M4OrbicalCannonDestroyedAcuDead1_1.sfd', bank = 'N03_VO', cue = 'M4OrbicalCannonDestroyedAcuDead1_1', faction = 'Aeon'
+        vid = 'N03_M4DataCentreDestroyedAcuDead1_1.sfd', bank = 'N03_VO', cue = 'M4DataCentreDestroyedAcuDead1_1', faction = 'Aeon'
     },
 }
 
 -- Second research location destroyed
-M4OrbicalCannonDestroyed2 = {
+M4DataCentreDestroyed2 = {
     {
         text = '[Nichols]: Another data centre has been destroyed, keep up the good work sir.',
-        vid = 'N03_M4OrbicalCannonDestroyed2.sfd', bank = 'N03_VO', cue = 'M4OrbicalCannonDestroyed2', faction = 'Nomads'
+        vid = 'N03_M4DataCentreDestroyed2.sfd', bank = 'N03_VO', cue = 'M4DataCentreDestroyed2', faction = 'Nomads'
     },
 }
 
 -- Third research location destroyed
-M4OrbicalCannonDestroyed3 = {
+M4DataCentreDestroyed3 = {
     {
         text = '[Nichols]: Third data centre is down, just one more to go.',
-        vid = 'N03_M4OrbicalCannonDestroyed3_1.sfd', bank = 'N03_VO', cue = 'M4OrbicalCannonDestroyed3_1', faction = 'Nomads'
+        vid = 'N03_M4DataCentreDestroyed3_1.sfd', bank = 'N03_VO', cue = 'M4DataCentreDestroyed3_1', faction = 'Nomads'
     },
     {
         text = '[Aeon Commander]: All forces! Defend the last centre at all costs! Preserve our legacy!',
-        vid = 'N03_M4OrbicalCannonDestroyed3_2.sfd', bank = 'N03_VO', cue = 'M4OrbicalCannonDestroyed3_2', faction = 'Aeon'
+        vid = 'N03_M4DataCentreDestroyed3_2.sfd', bank = 'N03_VO', cue = 'M4DataCentreDestroyed3_2', faction = 'Aeon'
     },
 }
 
--- this dialogue is new and needs to be added
-M4OrbicalCannonDestroyedACUDead3 = {
+M4DataCentreDestroyedACUDead3 = {
     {
         text = '[Nichols]: Third data centre is down, just one more to go.',
-        vid = 'N03_M4OrbicalCannonDestroyed3_1.sfd', bank = 'N03_VO', cue = 'M4OrbicalCannonDestroyed3_1', faction = 'Nomads'
+        vid = 'N03_M4DataCentreDestroyed3_1.sfd', bank = 'N03_VO', cue = 'M4DataCentreDestroyed3_1', faction = 'Nomads'
     },
 }
 
 -- All research locations destroyed
-M4OrbicalCannonDestroyed4 = {
+M4DataCentreDestroyed4 = {
     {
         text = '[Nichols]: That\'s all of them, good job sir.',
-        vid = 'N03_M4OrbicalCannonDestroyed4_1.sfd', bank = 'N03_VO', cue = 'M4OrbicalCannonDestroyed4_1', faction = 'Nomads'
+        vid = 'N03_M4DataCentreDestroyed4_1.sfd', bank = 'N03_VO', cue = 'M4DataCentreDestroyed4_1', faction = 'Nomads'
     },
     {
         text = '[Aeon Commander]: I hope you are satisfied! Those were innocent people you killed, and for what? For nothing! We did not store any of your precious secrets there!',
-        vid = 'N03_M4OrbicalCannonDestroyed4_2.sfd', bank = 'N03_VO', cue = 'M4OrbicalCannonDestroyed4_2', faction = 'Aeon'
+        vid = 'N03_M4DataCentreDestroyed4_2.sfd', bank = 'N03_VO', cue = 'M4DataCentreDestroyed4_2', faction = 'Aeon'
     },
 }
 
--- this dialogue is new and needs to be added
-M4OrbicalCannonDestroyedACUDead4 = {
+M4DataCentreDestroyedACUDead4 = {
     {
         text = '[Nichols]: That\'s all of them, good job sir.',
-        vid = 'N03_M4OrbicalCannonDestroyed4_1.sfd', bank = 'N03_VO', cue = 'M4OrbicalCannonDestroyed4_1', faction = 'Nomads'
+        vid = 'N03_M4DataCentreDestroyed4_1.sfd', bank = 'N03_VO', cue = 'M4DataCentreDestroyed4_1', faction = 'Nomads'
     },
     {
         text = '[Aeon Technician]: It\'s gone! It\'s all gone! My life\'s work! You monsters!',
-        vid = 'N03_M4OrbicalCannonDestroyedACUDead4_2.sfd', bank = 'N03_VO', cue = 'M4OrbicalCannonDestroyedACUDead4_1', faction = 'Aeon'
+        vid = 'N03_M4DataCentreDestroyedACUDead4_2.sfd', bank = 'N03_VO', cue = 'M4DataCentreDestroyedACUDead4_1', faction = 'Aeon'
     },
 }
 
 -- Reminder 1 to destroy the research building
-M4OrbitalCannonsReminder1 = {
+M4DataCentreReminder1 = {
     {
         text = '[Nichols]: Sir, the data centres are holding potential keys to Nomads technology, destroy them as soon as possible.',
-        vid = 'N03_M4M4OrbitalCannonsReminder1.sfd', bank = 'N03_VO', cue = 'M4M4OrbitalCannonsReminder1', faction = 'Nomads'
+        vid = 'N03_M4DataCentreReminder1.sfd', bank = 'N03_VO', cue = 'M4DataCentreReminder1', faction = 'Nomads'
     },
 }
 
 -- Reminder 2 to destroy the research building
-M4OrbitalCannonsReminder2 = {
+M4DataCentreReminder2 = {
     {
         text = '[Nomads_Intel_Officer]: Captain, if those datacentres are storing vital Nomads intel, then we may have already lost this war. Take them out.',
-        vid = 'N03_M4M4OrbitalCannonsReminder2.sfd', bank = 'N03_VO', cue = 'M4M4OrbitalCannonsReminder2', faction = 'Nomads'
+        vid = 'N03_M4DataCentreReminder2.sfd', bank = 'N03_VO', cue = 'M4DataCentreReminder2', faction = 'Nomads'
     },
 }
 
@@ -1208,8 +1207,8 @@ M4TempestBuilt = {
     },
 }
 
--- Tempest killed after it ws completed, only secondary objective done
-M4TempestKilled = {
+-- Tempest killed after it ws completed, only secondary objective done, Aeon ACU alive
+M4TempestKilled1 = {
     {
         text = '[Nichols]: The unit is destroyed, great job!',
         vid = 'N03_M4TempestKilled_1.sfd', bank = 'N03_VO', cue = 'M4TempestKilled_1', faction = 'Nomads'
@@ -1217,6 +1216,14 @@ M4TempestKilled = {
     {
         text = '[Aeon Commander]: No matter! The Aeon will be victorious regardless!',
         vid = 'N03_M4TempestKilled_2.sfd', bank = 'N03_VO', cue = 'M4TempestKilled_2', faction = 'Aeon'
+    },
+}
+
+-- Tempest killed after it ws completed, only secondary objective done, Aeon ACU dead
+M4TempestKilled2 = {
+    {
+        text = '[Nichols]: The unit is destroyed, great job!',
+        vid = 'N03_M4TempestKilled_1.sfd', bank = 'N03_VO', cue = 'M4TempestKilled_1', faction = 'Nomads'
     },
 }
 
@@ -1260,8 +1267,8 @@ M4Tempest90PercentDone = {
     },
 }
 
--- Tempest 100% Completed
-M4Tempest100PercentDone = {
+-- Tempest 100% Completed, Aeon ACU alive
+M4Tempest100PercentDone1 = {
     {
         text = '[Nichols]: Sir, the Aeon unit is finished and it\'s moving towards your base, destroy it!',
         vid = 'N03_M4Tempest100PercentDone_1.sfd', bank = 'N03_VO', cue = 'M4Tempest100PercentDone_1', faction = 'Nomads'
@@ -1269,6 +1276,18 @@ M4Tempest100PercentDone = {
     {
         text = '[Aeon Commander]: With this craft complete, you will bow before the might of the Illuminate!',
         vid = 'N03_M4Tempest100PercentDone_2.sfd', bank = 'N03_VO', cue = 'M4Tempest100PercentDone_2', faction = 'Aeon'
+    },
+    {
+        text = '[Nichols]: That\'s just what we need. A frozen wasteland which also has a giant blob of destruction in it.',
+        vid = 'N03_M4Tempest100PercentDone_3.sfd', bank = 'N03_VO', cue = 'M4Tempest100PercentDone_3', faction = 'Nomads'
+    },
+}
+
+-- Tempest 100% Completed, Aeon ACU dead
+M4Tempest100PercentDone2 = {
+    {
+        text = '[Nichols]: Sir, the Aeon unit is finished and it\'s moving towards your base, destroy it!',
+        vid = 'N03_M4Tempest100PercentDone_1.sfd', bank = 'N03_VO', cue = 'M4Tempest100PercentDone_1', faction = 'Nomads'
     },
     {
         text = '[Nichols]: That\'s just what we need. A frozen wasteland which also has a giant blob of destruction in it.',
