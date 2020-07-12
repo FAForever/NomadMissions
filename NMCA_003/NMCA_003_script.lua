@@ -135,7 +135,7 @@ local NIS1InitialDelay = 2
 -----------------
 -- Taunt Managers
 -----------------
--- local AeonTM = TauntManager.CreateTauntManager('AeonTM', '/maps/NMCA_003/NMCA_003_strings.lua')
+local AeonM1TM = TauntManager.CreateTauntManager('AeonTM', '/maps/NMCA_003/NMCA_003_strings.lua')
 local NicholsTM = TauntManager.CreateTauntManager('NicholsTM', '/maps/NMCA_003/NMCA_003_strings.lua')
 
 --------
@@ -515,9 +515,6 @@ function StartMission1()
         end
     )
 
-    -- VOs when ship takes damage
-    SetupNicholsM1Warnings()
-
     ----------------------------------------
     -- Primary Objective - Destroy Aeon Base
     ----------------------------------------
@@ -577,21 +574,19 @@ function StartMission1()
         end
     )
 
+    -- Setup taunts and dialogues
+    SetupNicholsM1Warnings()
+    SetupAeonM1Taunts()
+
     -----------
     -- Triggers
     -----------
     -- Capture Admin Building Objective once seen
     ScenarioFramework.CreateArmyIntelTrigger(M1SecondaryObjective, ArmyBrains[Player1], 'LOSNow', false, true, categories.CIVILIAN, true, ArmyBrains[Aeon_Neutral])
 
-    -- Aeon units are close the Players' bases
-    ScenarioFramework.CreateAreaTrigger(M1AeonAttackWarning, 'M1_UEF_Base_Area', categories.ALLUNITS - categories.SCOUT - categories.ENGINEER, true, false, ArmyBrains[Aeon])
-
     for _, player in ScenarioInfo.HumanPlayers do
         -- Players see the dead UEF Base (make sure the orbital frigate wont trigger it)
         ScenarioFramework.CreateAreaTrigger(M1UEFBaseDialogue, 'M1_UEF_Base_Area', categories.ALLUNITS - categories.xno0001, true, false, ArmyBrains[player])
-    
-        -- Aeon spots the Nomads
-        ScenarioFramework.CreateArmyIntelTrigger(M1AeonIntroduction, ArmyBrains[Aeon], 'LOSNow', false, true, categories.ALLUNITS - categories.xno0001, true, ArmyBrains[player])
     end
 
     -- Unlock T2 shield
@@ -640,33 +635,11 @@ function M1SecondaryObjective()
     ScenarioFramework.CreateTimerTrigger(M1S1Reminder, 600)
 end
 
-function M1AeonAttackWarning()
-    ScenarioFramework.Dialogue(OpStrings.M1AeonAttackWarning)
-end
-
 function M1UEFBaseDialogue()
     if not ScenarioInfo.M1UEFDialoguePlayed then
         ScenarioInfo.M1UEFDialoguePlayed = true
         ScenarioFramework.Dialogue(OpStrings.M1UEFBaseDialogue)
     end
-end
-
-function M1AeonIntroduction()
-    if not ScenarioInfo.M1AeonIntroductionPlayed then
-        ScenarioInfo.M1AeonIntroductionPlayed = true
-        ScenarioFramework.Dialogue(OpStrings.M1AeonIntroduction)
-
-        ScenarioFramework.CreateTimerTrigger(M1AeonMessage1, 90)
-    end
-end
-
-function M1AeonMessage1()
-    ScenarioFramework.Dialogue(OpStrings.M1AeonMessage1)
-end
-
-function M1AeonMessage2()
-    -- TODO: trigger for this
-    ScenarioFramework.Dialogue(OpStrings.M1AeonMessage2)
 end
 
 function M1ShieldUnlock()
@@ -1825,6 +1798,9 @@ function M3SecondaryKillAeonACU()
             end
         end
     )
+
+    -- Reminder
+    ScenarioFramework.CreateTimerTrigger(M3S1Reminder1, 15*60)
 end
 
 function M3MapExpansionTimer()
@@ -2375,6 +2351,20 @@ function M3P2Reminder()
     end
 end
 
+function M3S1Reminder1()
+    if ScenarioInfo.M3S1.Active then
+        ScenarioFramework.Dialogue(OpStrings.M3SecondaryReminder1)
+
+        ScenarioFramework.CreateTimerTrigger(M3S1Reminder2, 15*60)
+    end
+end
+
+function M3S1Reminder2()
+    if ScenarioInfo.M3S1.Active then
+        ScenarioFramework.Dialogue(OpStrings.M3SecondaryReminder2)
+    end
+end
+
 function M4P1Reminder1()
     if ScenarioInfo.M4P1.Active then
         ScenarioFramework.Dialogue(OpStrings.M4DataCentreReminder1)
@@ -2393,11 +2383,22 @@ end
 -- Taunt Manager Dialogues
 --------------------------
 function SetupNicholsM1Warnings()
+    -- Enemy units approaching
+    NicholsTM:AddAreaTaunt('M1AeonAttackWarning', 'M1_UEF_Base_Area', categories.ALLUNITS - categories.SCOUT - categories.ENGINEER, ArmyBrains[Aeon])
     -- TODO: better system for this
     -- Ship damaged to x
     NicholsTM:AddDamageTaunt('M1ShipDamaged', ScenarioInfo.CrashedShip, .90)
     NicholsTM:AddDamageTaunt('M1ShipHalfDead', ScenarioInfo.CrashedShip, .95)
     NicholsTM:AddDamageTaunt('M1ShipAlmostDead', ScenarioInfo.CrashedShip, .98)
+end
+
+function SetupAeonM1Taunts()
+    -- Aeon spots Nomads
+    AeonM1TM:AddIntelCategoryTaunt('M1AeonIntroduction', ArmyBrains[Aeon], ArmyBrains[Player1], categories.ALLUNITS - categories.xno0001)
+    -- After losing first few units, "automated defenses should hold"
+    AeonM1TM:AddUnitsKilledTaunt('M1AeonMessage1', ArmyBrains[Aeon], categories.MOBILE, 15)
+    -- Some small talk when first Aeon defenses are destroyed
+    AeonM1TM:AddUnitsKilledTaunt('M1AeonMessage2', ArmyBrains[Aeon], categories.STRUCTURE * categories.DEFENSE, 3)
 end
 
 function SetupAeonM2Taunts()

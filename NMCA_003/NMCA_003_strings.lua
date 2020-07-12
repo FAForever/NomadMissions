@@ -377,8 +377,7 @@ M1AeonMessage1 = {
     },
 }
 
--- Aeon Researcher when you destroy the outer defenses of the first base
--- this dialogue is new and needs to be added
+-- Aeon Researcher when you destroy the outer defenses of the first base, used by M1 taunt manager
 M1AeonMessage2 = {
     {
         text = '[Aeon Technician]: Stay back! Cybran monsters!',
@@ -1033,19 +1032,17 @@ M3Secondary = {
     },
 }
 
--- this dialogue is new and needs to be added
 M3SecondaryReminder1 = {
     {
         text = '[Nomads_Intel_Officer]: Why is that ACU still intact Captain? I thought I gave you an order! Carry it out!',
-        vid = 'N03_M3SecondaryReminder1_2.sfd', bank = 'N03_VO', cue = 'M3SecondaryReminder1_2', faction = 'Nomads'
+        vid = 'N03_M3SecondaryReminder1.sfd', bank = 'N03_VO', cue = 'M3SecondaryReminder1', faction = 'Nomads'
     },
 }
 
--- this dialogue is new and needs to be added
 M3SecondaryReminder2 = {
     {
         text = '[Nichols]: Captain, the intel branch will not be happy if we leave that ACU alive. We best take it out, quickly.',
-        vid = 'N03_M3SecondaryReminder2_2.sfd', bank = 'N03_VO', cue = 'M3SecondaryReminder2_2', faction = 'Nomads'
+        vid = 'N03_M3SecondaryReminder2.sfd', bank = 'N03_VO', cue = 'M3SecondaryReminder2', faction = 'Nomads'
     },
 }
 
