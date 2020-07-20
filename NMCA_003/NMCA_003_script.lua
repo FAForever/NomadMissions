@@ -129,6 +129,9 @@ local CrystalBonuses = {
     },
 }
 
+-- Mass that has to be send to the destroyer fleet to launch the nukes in the last part of the mission
+local MassRequiredForNukes = 30000
+
 -- How long should we wait at the beginning of the NIS to allow slower machines to catch up?
 local NIS1InitialDelay = 2
 
@@ -141,6 +144,7 @@ local NicholsTM = TauntManager.CreateTauntManager('NicholsTM', '/maps/NMCA_003/N
 --------
 -- Debug
 --------
+local Debug = false
 local SkipNIS1 = false
 local SkipNIS2 = false
 local SkipNIS3 = false
@@ -217,6 +221,10 @@ function OnPopulate(self)
     ScenarioInfo.CrashedShip:StopRotators()
     local thread = ForkThread(ShipHPThread)
     ScenarioInfo.CrashedShip.Trash:Add(thread)
+
+    if Debug then
+        ScenarioInfo.CrashedShip:SetCanBeKilled(false)
+    end
 
     -- Wreckages
     ScenarioUtils.CreateArmyGroup('Crystals', 'M1_Wrecks', true)
@@ -770,7 +778,7 @@ function M1ShipPartsObjective()
     )
     ScenarioInfo.M1P3:AddProgressCallback(
         function(current, total)
-            CrystalReclaimed(current)
+            ShipPartReclaimed(current)
 
             if current == 1 then
                 ScenarioFramework.Dialogue(OpStrings.FirstShipPartReclaimed, nil, true)
@@ -783,12 +791,12 @@ function M1ShipPartsObjective()
                     ScenarioFramework.Dialogue(OpStrings.SecondShipPartReclaimed2, nil, true)
                 end
             elseif current == 3 then
-                ScenarioFramework.Dialogue(OpStrings.ThirdCrystalReclaimed, nil, true)
+                ScenarioFramework.Dialogue(OpStrings.ThirdShipPartReclaimed, nil, true)
             elseif current == 4 then
                 -- Orbital Frigate Bombardment
                 ForkThread(SetUpBombardmentPing, true)
 
-                ScenarioFramework.Dialogue(OpStrings.FourthCrystalReclaimed, nil, true)
+                ScenarioFramework.Dialogue(OpStrings.FourthShipPartReclaimed, nil, true)
             end
         end
     )
@@ -1669,7 +1677,7 @@ function StartMission3()
     ScenarioInfo.M3P1:AddResultCallback(
         function(result)
             if result then
-                ScenarioFramework.Dialogue(OpStrings.M3CounterAttackDefeated, M3MapExpansionTimer, true)
+                ScenarioFramework.Dialogue(OpStrings.M3CounterAttackDefeated, M3MapExpansion, true)
             end
         end
     )
@@ -1679,8 +1687,8 @@ function StartMission3()
     -----------
     -- Triggers
     -----------
-    -- Objective to locate Research Buildings
-    ScenarioFramework.CreateTimerTrigger(M3LocateResearchBuildings, 30)
+    -- Objective to locate Data Centre
+    ScenarioFramework.CreateTimerTrigger(M3LocateDataCentres, 30)
 
     -- Unlock RAS
     ScenarioFramework.CreateTimerTrigger(M3RASUnlock, 2*60)
@@ -1709,12 +1717,12 @@ function StartMission3()
     end
 end
 
-function M3LocateResearchBuildings()
-    ScenarioFramework.Dialogue(OpStrings.M3LocateOrbitalCannons, nil, true)
+function M3LocateDataCentres()
+    ScenarioFramework.Dialogue(OpStrings.M3LocateDataCentres, nil, true)
 
-    ------------------------------------------------
-    -- Primary Objective - Locate Research Buildings
-    ------------------------------------------------
+    -----------------------------------------
+    -- Primary Objective - Locate Data Centre
+    -----------------------------------------
     ScenarioInfo.M3P2 = Objectives.Locate(
         'primary',
         'incomplete',
@@ -1727,13 +1735,21 @@ function M3LocateResearchBuildings()
     ScenarioInfo.M3P2:AddResultCallback(
         function(result)
             if result then
-                ScenarioFramework.Dialogue(OpStrings.M3OrbitalCannonSpotted, M3MapExpansionTimer, true)
+                -- Different dialogue for Intel fleet scouting it for player
+                if ScenarioInfo.IntelFrigate then
+                    ScenarioFramework.Dialogue(OpStrings.M3IntelSpotsDataCentres, M3MapExpansion, true)
+                else
+                    ScenarioFramework.Dialogue(OpStrings.M3DataCentresSpotted, M3MapExpansion, true)
+                end
             end
         end
     )
 
     -- Reminder
-    ScenarioFramework.CreateTimerTrigger(M3P2Reminder, 10*60)
+    ScenarioFramework.CreateTimerTrigger(M3P2Reminder, 8*60)
+
+    -- Continue to the last part of the mission, 10min should be enough to send some scouts
+    ScenarioFramework.CreateTimerTrigger(M3IntelFleetShowsUp, 12*60)
 end
 
 function M3RASUnlock()
@@ -1803,11 +1819,38 @@ function M3SecondaryKillAeonACU()
     ScenarioFramework.CreateTimerTrigger(M3S1Reminder1, 15*60)
 end
 
-function M3MapExpansionTimer()
-    if Objectives.IsComplete(ScenarioInfo.M3P1) and Objectives.IsComplete(ScenarioInfo.M3P2) then
-        WaitSeconds(30)
+function M3IntelFleetShowsUp()
+    -- Player takes too long, so the Intel Fleet shows up to save the day and locate the data centres
+    if not ScenarioInfo.M3P2.Active then
+        return
+    end
 
-        ScenarioFramework.Dialogue(OpStrings.M3MapExpansion, IntroMission4, true)
+    ScenarioFramework.Dialogue(OpStrings.M3IntelFleetShowsUp, nil, true)
+
+    -- Spawn the Intel Frigate
+    ScenarioInfo.IntelFrigate = ScenarioUtils.CreateArmyUnit('Crashed_Ship', 'Intel_Frigate')
+    IssueMove({ScenarioInfo.IntelFrigate}, ScenarioUtils.MarkerToPosition('Intel_Frigate_Destination'))
+    -- Wait for it to move on the map
+    WaitSeconds(10)
+
+    -- Launch Intel Probe
+    ScenarioFramework.Dialogue(OpStrings.M3IntelLaunchesProbes, nil, true)
+    for i = 1, 4 do
+        ScenarioInfo.IntelFrigate:LaunchProbe(ScenarioUtils.MarkerToPosition('M3_Probe_Marker_' .. i), 'IntelProbeAdvanced', {Lifetime = 60})
+        WaitSeconds(1.5)
+    end
+end
+
+function M3MapExpansion()
+    if Objectives.IsComplete(ScenarioInfo.M3P1) and Objectives.IsComplete(ScenarioInfo.M3P2) then
+        -- Different dialogues if the Intel fleet is on the map, it has better intel capabilities, so you dont have to wait that long.
+        if ScenarioInfo.IntelFrigate then
+            WaitSeconds(5)
+            ScenarioFramework.Dialogue(OpStrings.M3MapExpansionIntel, IntroMission4, true)
+        else
+            WaitSeconds(20)
+            ScenarioFramework.Dialogue(OpStrings.M3MapExpansion, IntroMission4, true)
+        end
     end
 end
 
@@ -1934,8 +1977,8 @@ function IntroMission4()
     ArmyBrains[Aeon]:GiveResource('MASS', num[Difficulty])
     ArmyBrains[Aeon]:GiveResource('ENERGY', 30000)
 
-    -- Tell player to destroy the Research Buildings
-    ScenarioFramework.Dialogue(OpStrings.M4DestroyCannons, StartMission4, true)
+    -- Dialogue choice for either kill or capture the buildings
+    ScenarioFramework.Dialogue(OpStrings.M4PlayersChoice, M4ScenarioChoice, true)
 end
 
 function M4TMLOutpost(location)
@@ -1965,7 +2008,7 @@ function M4TMLOutpost(location)
         true
     )
 
-    local delay = {105, 75, 45}
+    local delay = {150, 120, 90}
     WaitSeconds(delay[Difficulty])
 
     for _, v in units do
@@ -1978,81 +2021,224 @@ function M4TMLOutpost(location)
     end
 end
 
+function M4ScenarioChoice()
+    local dialogue = CreateDialogue(OpStrings.M4ChoiceTitle, {OpStrings.M4ChoiceKill, OpStrings.M4ChoiceCapture}, 'right')
+    dialogue.OnButtonPressed = function(self, info)
+        dialogue:Destroy()
+        if info.buttonID == 1 then
+            -- Build the gate
+            ScenarioInfo.M4PlayersPlan = 'kill'
+            ScenarioFramework.Dialogue(OpStrings.M4DestroyDataCentre, StartMission4, true)
+        else
+            -- Use Charis' gate
+            ScenarioInfo.M4PlayersPlan = 'capture'
+            ScenarioFramework.Dialogue(OpStrings.M4CaptureDataCentre, StartMission4, true)
+        end
+    end
+
+    WaitSeconds(30)
+
+    -- Remind player to pick the plan
+    if not ScenarioInfo.M4PlayersPlan then
+        ScenarioFramework.Dialogue(OpStrings.M4ChoiceReminder, nil, true)
+    else
+        return
+    end
+
+    WaitSeconds(15)
+
+    -- If player takes too long, continue with the mission
+    if not ScenarioInfo.M4PlayersPlan then
+        dialogue:Destroy()
+        ScenarioInfo.M4PlayersPlan = 'kill'
+        ScenarioFramework.Dialogue(OpStrings.M4ForceChoice, StartMission4, true)
+    end
+end
+
 function StartMission4()
-    -------------------------------------------------
-    -- Primary Objective - Destroy Research Buildings
-    -------------------------------------------------
-    ScenarioInfo.M4P1 = Objectives.CategoriesInArea(
-        'primary',
-        'incomplete',
-        OpStrings.M4P1Title,
-        OpStrings.M4P1Description,
-        'kill',
-        {
-            MarkUnits = true,
-            MarkArea = true,
-            Requirements = {
-                {
-                    Area = 'M3_Aeon_Research_Base_Area',
-                    Category = categories.CIVILIAN,
-                    CompareOp = '<=',
-                    Value = 0,
-                    ArmyIndex = Aeon,
+    if ScenarioInfo.M4PlayersPlan == 'kill' then
+        -------------------------------------------------
+        -- Primary Objective - Destroy Research Buildings
+        -------------------------------------------------
+        ScenarioInfo.M4P1 = Objectives.CategoriesInArea(
+            'primary',
+            'incomplete',
+            OpStrings.M4P1TitleKill,
+            OpStrings.M4P1DescriptionKill,
+            'kill',
+            {
+                MarkUnits = true,
+                MarkArea = true,
+                Requirements = {
+                    {
+                        Area = 'M3_Aeon_Research_Base_Area',
+                        Category = categories.CIVILIAN,
+                        CompareOp = '<=',
+                        Value = 0,
+                        ArmyIndex = Aeon,
+                    },
+                    {
+                        Area = 'M4_Aeon_Research_Base_North_Area',
+                        Category = categories.CIVILIAN,
+                        CompareOp = '<=',
+                        Value = 0,
+                        ArmyIndex = Aeon,
+                    },
+                    {
+                        Area = 'M4_Aeon_Research_Base_East_Area',
+                        Category = categories.CIVILIAN,
+                        CompareOp = '<=',
+                        Value = 0,
+                        ArmyIndex = Aeon,
+                    },
+                    {
+                        Area = 'M4_Aeon_Research_Base_South_Area',
+                        Category = categories.CIVILIAN,
+                        CompareOp = '<=',
+                        Value = 0,
+                        ArmyIndex = Aeon,
+                    },
                 },
-                {
-                    Area = 'M4_Aeon_Research_Base_North_Area',
-                    Category = categories.CIVILIAN,
-                    CompareOp = '<=',
-                    Value = 0,
-                    ArmyIndex = Aeon,
-                },
-                {
-                    Area = 'M4_Aeon_Research_Base_East_Area',
-                    Category = categories.CIVILIAN,
-                    CompareOp = '<=',
-                    Value = 0,
-                    ArmyIndex = Aeon,
-                },
-                {
-                    Area = 'M4_Aeon_Research_Base_South_Area',
-                    Category = categories.CIVILIAN,
-                    CompareOp = '<=',
-                    Value = 0,
-                    ArmyIndex = Aeon,
-                },
-            },
+            }
+        )
+        ScenarioInfo.M4P1:AddProgressCallback(
+            function(current, total)
+                -- Don't use these dialogues if we're nuking the targets
+                if not ScenarioInfo.M4NukesLaunched then
+                    if current == 1 then
+                        if not ScenarioInfo.M3AeonACU.Dead then
+                            ScenarioFramework.Dialogue(OpStrings.M4DataCentreDestroyed1)
+                        else
+                            ScenarioFramework.Dialogue(OpStrings.M4DataCentreDestroyedACUDead1)
+                        end
+                    elseif current == 2 then
+                        ScenarioFramework.Dialogue(OpStrings.M4DataCentreDestroyed2)
+                    elseif current == 3 then
+                        if not ScenarioInfo.M3AeonACU.Dead then
+                            ScenarioFramework.Dialogue(OpStrings.M4DataCentreDestroyed3)
+                        else
+                            ScenarioFramework.Dialogue(OpStrings.M4DataCentreDestroyedACUDead3)
+                        end
+                    end
+                end
+            end
+        )
+        ScenarioInfo.M4P1:AddResultCallback(
+            function(result)
+                if result then
+                    -- Different dialogue when we nuke the centres and when we kill them the normal way
+                    if ScenarioInfo.M4NukesLaunched then
+                        ScenarioFramework.Dialogue(OpStrings.M4DataCentresNuked, nil, true)
+                    elseif not ScenarioInfo.M3AeonACU.Dead then
+                        ScenarioFramework.Dialogue(OpStrings.M4DataCentreDestroyed4, nil, true)
+                    else
+                        ScenarioFramework.Dialogue(OpStrings.M4DataCentreDestroyedACUDead4, nil, true)
+                    end
+                end
+            end
+        )
+
+        -- Offer player to nuke the target bases with enough mass provided
+        ScenarioFramework.CreateTimerTrigger(M4NukeOption, 40)
+
+    elseif ScenarioInfo.M4PlayersPlan == 'capture' then
+        -- Fill the required number of structures as it differs based on difficulty
+        local objTbl = {
+            ['M3_Aeon_Research_Base_Area'] = 0,
+            ['M4_Aeon_Research_Base_North_Area'] = 0,
+            ['M4_Aeon_Research_Base_East_Area'] = 0,
+            ['M4_Aeon_Research_Base_South_Area'] = 0,
         }
-    )
-    ScenarioInfo.M4P1:AddProgressCallback(
-        function(current, total)
-            if current == 1 then
-                if not ScenarioInfo.M3AeonACU.Dead then
-                    ScenarioFramework.Dialogue(OpStrings.M4DataCentreDestroyed1)
-                else
-                    ScenarioFramework.Dialogue(OpStrings.M4DataCentreDestroyedACUDead1)
-                end
-            elseif current == 2 then
-                ScenarioFramework.Dialogue(OpStrings.M4DataCentreDestroyed2)
-            elseif current == 3 then
-                if not ScenarioInfo.M3AeonACU.Dead then
-                    ScenarioFramework.Dialogue(OpStrings.M4DataCentreDestroyed3)
-                else
-                    ScenarioFramework.Dialogue(OpStrings.M4DataCentreDestroyedACUDead3)
-                end
+        for area, count in objTbl do
+            local units = ArmyBrains[Aeon]:GetListOfUnits(categories.CIVILIAN, false)
+            objTbl[area] = table.getn(units)
+
+            -- Make sure the civilian structures won't die as we want to capture them
+            for _, unit in units do
+                SetUnitInvincible(unit)
+                -- And also that it won't die once it's captured!
+                ScenarioFramework.CreateUnitCapturedTrigger(nil, SetUnitInvincible, unit)
             end
         end
-    )
-    ScenarioInfo.M4P1:AddResultCallback(
-        function(result)
-            if result then
-                if not ScenarioInfo.M3AeonACU.Dead then
-                    ScenarioFramework.Dialogue(OpStrings.M4DataCentreDestroyed4, nil, true)
-                else
-                    ScenarioFramework.Dialogue(OpStrings.M4DataCentreDestroyedACUDead4, nil, true)
+
+        -------------------------------------------------
+        -- Primary Objective - Capture Research Buildings
+        -------------------------------------------------
+        ScenarioInfo.M4P1 = Objectives.CategoriesInArea(
+            'primary',
+            'incomplete',
+            OpStrings.M4P1TitleCapture,
+            OpStrings.M4P1DescriptionCapture,
+            'capture',
+            {
+                MarkUnits = true,
+                MarkArea = true,
+                Requirements = {
+                    {
+                        Area = 'M3_Aeon_Research_Base_Area',
+                        Category = categories.CIVILIAN,
+                        CompareOp = '>=',
+                        Value = objTbl['M3_Aeon_Research_Base_Area'],
+                        Armies = {'HumanPlayers'},
+                    },
+                    {
+                        Area = 'M4_Aeon_Research_Base_North_Area',
+                        Category = categories.CIVILIAN,
+                        CompareOp = '>=',
+                        Value = objTbl['M4_Aeon_Research_Base_North_Area'],
+                        Armies = {'HumanPlayers'},
+                    },
+                    {
+                        Area = 'M4_Aeon_Research_Base_East_Area',
+                        Category = categories.CIVILIAN,
+                        CompareOp = '>=',
+                        Value = objTbl['M4_Aeon_Research_Base_East_Area'],
+                        Armies = {'HumanPlayers'},
+                    },
+                    {
+                        Area = 'M4_Aeon_Research_Base_South_Area',
+                        Category = categories.CIVILIAN,
+                        CompareOp = '>=',
+                        Value = objTbl['M4_Aeon_Research_Base_South_Area'],
+                        Armies = {'HumanPlayers'},
+                    },
+                },
+            }
+        )
+        ScenarioInfo.M4P1:AddProgressCallback(
+            function(current, total)
+                if current == 1 then
+                    if not ScenarioInfo.M3AeonACU.Dead then
+                        ScenarioFramework.Dialogue(OpStrings.M4DataCentreCaptured1)
+                    else
+                        ScenarioFramework.Dialogue(OpStrings.M4DataCentreCapturedACUDead1)
+                    end
+                elseif current == 2 then
+                    ScenarioFramework.Dialogue(OpStrings.M4DataCentreCaptured2)
+                elseif current == 3 then
+                    if not ScenarioInfo.M3AeonACU.Dead then
+                        ScenarioFramework.Dialogue(OpStrings.M4DataCentreCaptured3)
+                    else
+                        ScenarioFramework.Dialogue(OpStrings.M4DataCentreCapturedACUDead3)
+                    end
                 end
             end
-        end
-    )
+        )
+        ScenarioInfo.M4P1:AddResultCallback(
+            function(result)
+                if result then
+                    if not ScenarioInfo.M3AeonACU.Dead then
+                        ScenarioFramework.Dialogue(OpStrings.M4DataCentreCaptured4, nil, true)
+                    else
+                        ScenarioFramework.Dialogue(OpStrings.M4DataCentreCapturedACUDead4, nil, true)
+                    end
+                end
+            end
+        )
+
+        -- Free intel on the bases form the Intel fleet
+        ScenarioFramework.CreateTimerTrigger(M4IntelOnDataCentres, 15)
+    end
 
     -- Objective group to handle winning, research buildings and reclaiming ship parts
     ScenarioInfo.M4Objectives = Objectives.CreateGroup('M4Objectives', PlayerWin)
@@ -2071,6 +2257,65 @@ function StartMission4()
     ScenarioFramework.CreateArmyIntelTrigger(M4SecondaryKillTempest, ArmyBrains[Player1], 'LOSNow', false, true, categories.uas0401, true, ArmyBrains[Aeon])
 
     ScenarioFramework.CreateTimerTrigger(M4UnlockFiendEngie, 7*60)
+end
+
+function M4IntelOnDataCentres()
+    -- Spawn the Intel frigate if we don't have it yet
+    if not ScenarioInfo.IntelFrigate then
+        ScenarioFramework.Dialogue(OpStrings.M4IntelFleetShowsUp)
+
+        -- Spawn the Intel Frigate
+        ScenarioInfo.IntelFrigate = ScenarioUtils.CreateArmyUnit('Crashed_Ship', 'Intel_Frigate')
+        IssueMove({ScenarioInfo.IntelFrigate}, ScenarioUtils.MarkerToPosition('Intel_Frigate_Destination'))
+        -- Wait for it to move on the map
+        WaitSeconds(10)
+    end
+
+    -- Launch Intel Probes
+    -- TODO: OpStrings.M4IntelLaunchesProbes more logic for different types of probes
+    ScenarioFramework.Dialogue(OpStrings.M4IntelLaunchesAdvancedProbes)
+    for i = 1, 4 do
+        ScenarioInfo.IntelFrigate:LaunchProbe(ScenarioUtils.MarkerToPosition('M4_Probe_Marker_' .. i), 'IntelProbeAdvanced', {Lifetime = 9999}) -- TODO: Remove Lifetime once it's supported
+        WaitSeconds(1.5)
+    end
+end
+
+function M4NukeOption()
+    -- Announce the option from the destroyer fleet to nuke the data cantres for the player
+    ScenarioFramework.Dialogue(OpStrings.M4NukeOffer, nil, true)
+
+    -- Create the nuke launcher offmap, stop it from building missiles and load it with goodies right away!
+    ScenarioInfo.M4NukeLauncher = ScenarioUtils.CreateArmyUnit('Crashed_Ship', 'Nuke_Launcher')
+    IssueStop({ScenarioInfo.M4NukeLauncher})
+    ScenarioInfo.M4NukeLauncher:GiveNukeSiloAmmo(4)
+
+    local sentMass = 0
+
+    local dialogue = CreateDialogue(LOCF(OpStrings.NukeDialog, sentMass, MassRequiredForNukes), {OpStrings.NukeSendMassBtn}, 'right')
+    dialogue.OnButtonPressed = function(self, info)
+        -- Take away the mass
+        local massTaken = ArmyBrains[info.presser]:TakeResource('Mass', ArmyBrains[info.presser]:GetEconomyStored('Mass'))
+        sentMass = sentMass + massTaken
+
+        -- If it's not enough yet, update the dialog
+        if sentMass < MassRequiredForNukes then
+            dialogue:SetText(LOCF(OpStrings.NukeDialog, math.floor(sentMass), MassRequiredForNukes))
+        else
+            -- Once we have enough mass, remove the dialog, pack the mass tightly and send it away!
+            dialogue:Destroy()
+            M4LaunchNukes()
+        end
+    end
+end
+
+function M4LaunchNukes()
+    ScenarioFramework.Dialogue(OpStrings.M4NukesLaunched, nil, true)
+
+    ScenarioInfo.M4NukesLaunched = true
+
+    for i = 1, 4 do
+        IssueNuke({ScenarioInfo.M4NukeLauncher}, ScenarioUtils.MarkerToPosition('M4_Nuke_Marker_' .. i))
+    end
 end
 
 function M4UnlockFiendEngie()
@@ -2347,7 +2592,7 @@ end
 
 function M3P2Reminder()
     if ScenarioInfo.M3P2.Active then
-        ScenarioFramework.Dialogue(OpStrings.M3LocateCannonsReminder)
+        ScenarioFramework.Dialogue(OpStrings.M3LocateDataCentresReminder)
     end
 end
 
@@ -2434,7 +2679,7 @@ end
 
 --- Handles reclaimed crystals
 -- Adds max and current HP, resource production and other bonuses
-function CrystalReclaimed(number)
+function ShipPartReclaimed(number)
     local tbl = CrystalBonuses[number]
 
     -- Increase HP
@@ -2486,6 +2731,12 @@ function CallBombardement(location)
     ScenarioInfo.AttackPing:Destroy()
 
     ScenarioFramework.CreateTimerTrigger(SetUpBombardmentPing, 5*60)
+end
+
+function SetUnitInvincible(unit)
+    unit:SetCanTakeDamage(false)
+    unit:SetCanBeKilled(false)
+    unit:SetReclaimable(false)
 end
 
 -- Functions for randomly picking scenarios
@@ -2574,23 +2825,26 @@ end
 -- Debug Functions
 ------------------
 function OnCtrlF3()
-    ForkThread(M2EnemyACUNIS)
+    ForkThread(M4ScenarioChoice)
 end
 
 function OnCtrlF4()
     if ScenarioInfo.MissionNumber == 1 then
-        M1CrystalsObjective()
+        M1ShipPartsObjective()
         ForkThread(IntroMission2)
     elseif ScenarioInfo.MissionNumber == 2 then
-        ForkThread(IntroMission3)
+        if not ScenarioInfo.M3AeonACU then
+            ForkThread(M2EnemyACUNIS)
+        else
+            ForkThread(IntroMission3)
+        end
     elseif ScenarioInfo.MissionNumber == 3 then
         ForkThread(IntroMission4)
     end
 end
 
 function OnShiftF3()
-    ScenarioFramework.SetPlayableArea('M2_Area', true)
-    ForkThread(SetUpBombardmentPing, true)
+    ForkThread(M4NukeOption)
 end
 
 function OnShiftF4()
