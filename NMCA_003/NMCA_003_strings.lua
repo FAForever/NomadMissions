@@ -973,7 +973,7 @@ M3CounterAttackDefeated = {
 -- Obj to locate research buildings
 M3LocateDataCentres = {
     {
-        text = '[Nichols]: Commander, the Aeon have stored critical intel on our technology in datacentres around the planet. We will need to destroy them before we can leave the planet.',
+        text = '[Nichols]: Commander, the Aeon have stored critical intel on our technology in datacentres around the planet. We will need to find them before we can leave the planet.',
         vid = 'N03_M3LocateDataCentres_1.sfd', bank = 'N03_VO', cue = 'M3LocateDataCentres_1', faction = 'Nomads'
     },
     {
@@ -983,10 +983,9 @@ M3LocateDataCentres = {
 }
 
 -- Player sees research buildings
--- TODO: Retard, this is when player finds it in time, decide if the dialogue is still ok with the posibility of the Intel fleet dialogues
 M3DataCentresSpotted = {
     {
-        text = '[Nichols]: There\'s a data centre. We need to destroy it, or Counter-Intel will probably order a heavy bombardment of this system, with us in it.',
+        text = '[Nichols]: There\'s a data centre. We need to contain that leak, or Counter-Intel will probably glass this whole planet, along with us on it.',
         vid = 'N03_M3DataCentresSpotted.sfd', bank = 'N03_VO', cue = 'M3DataCentresSpotted', faction = 'Nomads'
     },
 }
@@ -1001,34 +1000,37 @@ M3LocateDataCentresReminder = {
 
 
 
--- TODO: Retard
 -- Intel fleet spawns on the map and moves in
 M3IntelFleetShowsUp = {
     {
-        text = '[Intel]: TODO.',
+        text = '[Benson]: I\'m detecting a command frigate entering orbit. Looks like one from the Intel Fleet.',
+        vid = 'N03_M3IntelFleetShowsUp.sfd', bank = 'N03_VO', cue = 'M3IntelFleetShowsUp', faction = 'Nomads'
+    },
+    {
+        text = '[Nichols]: Oh great. They are about to tell us how good they are, arent they.',
+        vid = 'N03_M3IntelFleetShowsUp.sfd', bank = 'N03_VO', cue = 'M3IntelFleetShowsUp', faction = 'Nomads'
+    },
+    {
+        text = '[Nomads_Intel_Officer]: It seems that you are not taking this seriously. Looks like we will have to do things ourselves and find those datacentres.',
         vid = 'N03_M3IntelFleetShowsUp.sfd', bank = 'N03_VO', cue = 'M3IntelFleetShowsUp', faction = 'Nomads'
     },
 }
 
--- TODO: Retard
 -- launch the probes to find the data centres for the player
 M3IntelLaunchesProbes = {
     {
-        text = '[Intel]: TODO.',
+        text = '[Nomads_Intel_Officer]: Launching probes now. Watch and learn. This is how its done.',
         vid = 'N03_M3IntelLaunchesProbes.sfd', bank = 'N03_VO', cue = 'M3IntelLaunchesProbes', faction = 'Nomads'
     },
 }
 
--- TODO: Retard
 -- probe lands and shows the data centres
 M3IntelSpotsDataCentres = {
     {
-        text = '[Intel]: TODO.',
+        text = '[Nomads_Intel_Officer]: There they are. It seems like you need help even with the most basic tasks.',
         vid = 'N03_M3IntelSpotsDataCentres.sfd', bank = 'N03_VO', cue = 'M3IntelSpotsDataCentres', faction = 'Nomads'
     },
 }
-
-
 
 -- Just before map expands to the last part with more research buildings
 M3MapExpansion = {
@@ -1038,11 +1040,10 @@ M3MapExpansion = {
     },
 }
 
--- TODO: Retard
 -- Intel fleet tells you about the other centres instead of Nichols
 M3MapExpansionIntel = {
     {
-        text = '[Intel]: TODO.',
+        text = '[Nomads_Intel_Officer]: What\'s worse, that isn\'t the only centre in the area. Get out there and clean up your mess.',
         vid = 'N03_M3MapExpansionIntel.sfd', bank = 'N03_VO', cue = 'M3MapExpansionIntel', faction = 'Nomads'
     },
 }
@@ -1120,29 +1121,42 @@ M3S1Description = 'Eliminate the Aeon commander to secure the north west part of
 ------------
 -- Mission 4
 ------------
--- TODO: Retard
 -- Dialogue to announce the choice option
 M4PlayersChoice = {
     {
-        text = '[Nichols]: TODO.',
+        text = '[Nichols]: Captain, Fleet Command has ordered us to destroy the datacentres, which should destroy any of the data they hold with them.',
+        vid = 'N03_M4PlayersChoice.sfd', bank = 'N03_VO', cue = 'M4PlayersChoice', faction = 'Nomads'
+    },
+    {
+        text = '[Nomads_Intel_Officer]: No. Your fleet has already shown its incompetence and we cannot take any further risks. Secure the datacentres and we will ensure the intel is scoured clean ourselves.',
+        vid = 'N03_M4PlayersChoice.sfd', bank = 'N03_VO', cue = 'M4PlayersChoice', faction = 'Nomads'
+    },
+    {
+        text = '[Benson]: It would take a long time to sift through the data. We do not want to remain on this planet any longer than necessary.',
+        vid = 'N03_M4PlayersChoice.sfd', bank = 'N03_VO', cue = 'M4PlayersChoice', faction = 'Nomads'
+    },
+    {
+        text = '[Nomads_Intel_Officer]: Your actions have consequences. And now you have to deal with them. If it is dangerous, you should have thought about that before deploying surveying equipment here.',
+        vid = 'N03_M4PlayersChoice.sfd', bank = 'N03_VO', cue = 'M4PlayersChoice', faction = 'Nomads'
+    },
+    {
+        text = '[Nichols]: It seems like we have a choice then. Either we follow orders from Fleet Command, angering the Intel division, or we can go against our orders and keep them happy. What are your orders, Captain?',
         vid = 'N03_M4PlayersChoice.sfd', bank = 'N03_VO', cue = 'M4PlayersChoice', faction = 'Nomads'
     },
 }
 
--- TODO: Retard
 -- Reminder to really pick one up
 M4ChoiceReminder = {
     {
-        text = '[Nichols]: TODO.',
+        text = '[Nichols]: We are waiting on your decision, Captain. What should we do with the datacentres?',
         vid = 'N03_M4ChoiceReminder.sfd', bank = 'N03_VO', cue = 'M4ChoiceReminder', faction = 'Nomads'
     },
 }
 
--- TODO: Retard
 -- Force the options to destroy the buildings
 M4ForceChoice = {
     {
-        text = '[Nichols]: TODO.',
+        text = '[Nichols]: Command has just said that if we don\'t destroy the datacentres, they will order a heavy bombardment of the system, with us in it. Looks like we will be following there orders after all.',
         vid = 'N03_M4ForceChoice.sfd', bank = 'N03_VO', cue = 'M4ForceChoice', faction = 'Nomads'
     },
 }
@@ -1240,41 +1254,49 @@ M4DataCentreDestroyedACUDead4 = {
 
 
 
--- TODO: Retard, this should be more than one line, prolly several different ppl talking and voicing their opinion on this matter.
 -- Destroyer fleet offers you to nuke the shit out of the Aeon bases, for ze mass ofc. 
 M4NukeOffer = {
     {
-        text = '[Nichols]: TODO.',
+        text = '[Nichols]: Oh. A member of the mercenaries is contacting us. This better be good. Get ready I suppose.',
+        vid = 'N03_M4NukeOffer.sfd', bank = 'N03_VO', cue = 'M4NukeOffer', faction = 'Nomads'
+    },
+    {
+        text = '[Nomads_Mercenary_Captain]: Greetings. We were just passing by and it appears you have a slight issue that needs destroying. We would be glad to help you, for the right price of course.',
+        vid = 'N03_M4NukeOffer.sfd', bank = 'N03_VO', cue = 'M4NukeOffer', faction = 'Nomads'
+    },
+    {
+        text = '[Nichols]: And that\'s just the advance payment. We will be down on resources in the future, but if we accept their offer perhaps they will help us out again later. It\'s your choice, Captain.',
         vid = 'N03_M4NukeOffer.sfd', bank = 'N03_VO', cue = 'M4NukeOffer', faction = 'Nomads'
     },
 }
 
--- TODO: Retard
 -- Launching the nukes 
 M4NukesLaunched = {
     {
-        text = '[Nichols]: TODO.',
+        text = '[Nomads_Mercenary_Captain]: All resources are accounted for. We will now be commencing orbital bombardment. Thank you for the business, and enjoy the show.',
         vid = 'N03_M4NukeOffer.sfd', bank = 'N03_VO', cue = 'M4NukeOffer', faction = 'Nomads'
     },
 }
 
--- TODO: Retard
 -- All data centres destroyed by nukes
 M4DataCentresNuked = {
     {
-        text = '[Nichols]: TODO.',
+        text = '[Nichols]: As much as I hate to say it, the mercenaries are good at what they do. All data centres are reading as completely destroyed.',
         vid = 'N03_M4DataCentresNuked.sfd', bank = 'N03_VO', cue = 'M4DataCentresNuked', faction = 'Nomads'
+    },
+    {
+        text = '[Nomads_Mercenary_Captain]: We hope that you have found our services satisfactory, and aim for our continued partnership in the future.',
+        vid = 'N03_M4NukeOffer.sfd', bank = 'N03_VO', cue = 'M4NukeOffer', faction = 'Nomads'
     },
 }
 
 
 
 
--- TODO: Retard, prolly the Intel guy should speak and assign it for you
 -- Assign obj to capture research buildings
 M4CaptureDataCentre = {
     {
-        text = '[Nichols]: Sir, our scans revealed that there are 4 outposts with data centres, you will have to capture them all so we can leave this planet.',
+        text = '[Nomads_Intel_Officer]: Our intel shows that there are four data centres in the area. Capture them all, and then the intel division will make sure that your leaks are contained.',
         vid = 'N03_M4CaptureDataCentre_1.sfd', bank = 'N03_VO', cue = 'M4CaptureDataCentre_1', faction = 'Nomads'
     },
     {
@@ -1283,114 +1305,139 @@ M4CaptureDataCentre = {
     },
 }
 
--- TODO: Retard, write all these, decide on what progress you want the acudead variant as well, I can adjust the script
 -- First location captured
 M4DataCentreCaptured1 = {
     {
-        text = '[Someone]: TODO.',
-        vid = 'N03_M4DataCentreCaptured1.sfd', bank = 'N03_VO', cue = 'M4DataCentreCaptured1', faction = 'Nomads'
+        text = '[Nichols]: First data centre secured. We have tripped the automated defenses and are using them to clear the occupants now.',
+        vid = 'N03_M4DataCentreCaptured1_1.sfd', bank = 'N03_VO', cue = 'M4DataCentreCaptured1_1', faction = 'Nomads'
+    },
+    {
+        text = '[Aeon Commander]: Stop this! These do not hold any data on you! There is no need to kill innocents over your paranoia!',
+        vid = 'N03_M4DataCentreCeptured1_2.sfd', bank = 'N03_VO', cue = 'M4DataCentreCeptured1_2', faction = 'Aeon'
+    },
+    {
+        text = '[Nomads_Intel_Officer]: Ignore that transmission. We are not taking chances.',
+        vid = 'N03_M4DataCentreCeptured1_3.sfd', bank = 'N03_VO', cue = 'M4DataCentreCeptured1_3', faction = 'Nomads'
     },
 }
 
--- TODO: Retard
 -- First location captured, Aeon ACU is dead
 M4DataCentreCapturedACUDead1 = {
     {
-        text = '[Someone]: TODO.',
-        vid = 'N03_M4DataCentreCapturedACUDead1.sfd', bank = 'N03_VO', cue = 'M4DataCentreCapturedACUDead1', faction = 'Nomads'
+        text = '[Nichols]: First data centre secured. We have tripped the automated defenses and are using them to clear the occupants now.',
+        vid = 'N03_M4DataCentreCaptured1.sfd', bank = 'N03_VO', cue = 'M4DataCentreCaptured1', faction = 'Nomads'
+    },
+    {
+        text = '[Aeon Technician]: They\'re going to steal everything! Somebody help us!',
+        vid = 'N03_M4DataCentreCapturedAcuDead1_1.sfd', bank = 'N03_VO', cue = 'M4DataCentreCapturedAcuDead1_1', faction = 'Aeon'
     },
 }
 
--- TODO: Retard
 -- Second location captured
 M4DataCentreCaptured2 = {
     {
-        text = '[Someone]: TODO.',
+        text = '[Nichols]: Another data centre has been captured Sir. Keep it up and we will have them all in no time.',
         vid = 'N03_M4DataCentreCaptured2.sfd', bank = 'N03_VO', cue = 'M4DataCentreCaptured2', faction = 'Nomads'
     },
 }
 
--- TODO: Retard
 -- Third location captured
 M4DataCentreCaptured3 = {
     {
-        text = '[Someone]: TODO.',
+        text = '[Nichols]: Third data centre secured. We have encountered minimal resistance, but had no issues dispatching the personel there. Just one left, Sir.',
+        vid = 'N03_M4DataCentreCaptured3.sfd', bank = 'N03_VO', cue = 'M4DataCentreCaptured3', faction = 'Nomads'
+    },
+    {
+        text = '[Aeon Commander]: All forces! Defend the last centre at all costs! Preserve our legacy!',
+        vid = 'N03_M4DataCentreDestroyed3_2.sfd', bank = 'N03_VO', cue = 'M4DataCentreDestroyed3_2', faction = 'Aeon'
+    },
+}
+
+-- Third location captured, Aeon ACU is dead
+M4DataCentreCapturedACUDead3 = {
+    {
+        text = '[Nichols]: Third data centre secured. We have encountered minimal resistance, but had no issues dispatching the personel there. Just one left, Sir.',
         vid = 'N03_M4DataCentreCaptured3.sfd', bank = 'N03_VO', cue = 'M4DataCentreCaptured3', faction = 'Nomads'
     },
 }
 
--- TODO: Retard
--- Third location captured, Aeon ACU is dead
-M4DataCentreCapturedACUDead3 = {
-    {
-        text = '[Someone]: TODO.',
-        vid = 'N03_M4DataCentreCapturedACUDead3.sfd', bank = 'N03_VO', cue = 'M4DataCentreCapturedACUDead3', faction = 'Nomads'
-    },
-}
-
--- TODO: Retard
 -- All data centres captured
 M4DataCentreCaptured4 = {
     {
-        text = '[Someone]: TODO.',
-        vid = 'N03_M4DataCentreCaptured4.sfd', bank = 'N03_VO', cue = 'M4DataCentreCaptured4', faction = 'Nomads'
+        text = '[Nichols]: All data centres have been captured. Standing by for intel fleet forces now.',
+        vid = 'N03_M4DataCentreCaptured4_1.sfd', bank = 'N03_VO', cue = 'M4DataCentreCaptured4_1', faction = 'Nomads'
+    },
+    {
+        text = '[Nomads_Intel_Officer]: All occupants have been neutralised.  We will be destroying the data centres after taking everything useful. At the very least we can be sure that there are no leaks from here.',
+        vid = 'N03_M4DataCentreCaptured4_2.sfd', bank = 'N03_VO', cue = 'M4DataCentreCaptured4_2', faction = 'Nomads'
+    },
+    {
+        text = '[Aeon Commander]: Just to feed your paranoia you condemn all these people to death? I hope you are happy.',
+        vid = 'N03_M4DataCentreDestroyed4_2.sfd', bank = 'N03_VO', cue = 'M4DataCentreDestroyed4_2', faction = 'Aeon'
     },
 }
 
--- TODO: Retard
+
 -- All data centres captured, Aeon ACU is dead
 M4DataCentreCapturedACUDead4 = {
     {
-        text = '[Someone]: TODO.',
-        vid = 'N03_M4DataCentreCapturedACUDead4.sfd', bank = 'N03_VO', cue = 'M4DataCentreCapturedACUDead4', faction = 'Nomads'
+        text = '[Nichols]: All data centres have been captured. Standing by for intel fleet forces now.',
+        vid = 'N03_M4DataCentreCaptured4_1.sfd', bank = 'N03_VO', cue = 'M4DataCentreCaptured4_1', faction = 'Nomads'
+    },
+    {
+        text = '[Nomads_Intel_Officer]: All occupants have been neutralised.  We will be destroying the data centres after taking everything useful. At the very least we can be sure that there are no leaks from here.',
+        vid = 'N03_M4DataCentreCaptured4_2.sfd', bank = 'N03_VO', cue = 'M4DataCentreCaptured4_2', faction = 'Nomads'
+    },
+    {
+        text = '[Aeon Technician]: It\'s gone! It\'s all gone! My life\'s work! You monsters!',
+        vid = 'N03_M4DataCentreDestroyedACUDead4_2.sfd', bank = 'N03_VO', cue = 'M4DataCentreDestroyedACUDead4_1', faction = 'Aeon'
     },
 }
 
 
 
 -- Reminder 1 to destroy the research building
--- TODO: Retard, reword so it can be used for both kill and capture, if you can't, make a new one plox (or if you think completelly different dialogues woult be better)
 M4DataCentreReminder1 = {
     {
-        text = '[Nichols]: Sir, the data centres are holding potential keys to Nomads technology, destroy them as soon as possible.',
+        text = '[Nichols]: Sir, the data centres are holding potential keys to Nomads technology, deal with them as soon as possible.',
         vid = 'N03_M4DataCentreReminder1.sfd', bank = 'N03_VO', cue = 'M4DataCentreReminder1', faction = 'Nomads'
     },
 }
 
 -- Reminder 2 to destroy the research building
--- TODO: Retard, reword so it can be used for both kill and capture, if you can't, make a new one plox (or if you think completelly different dialogues woult be better)
 M4DataCentreReminder2 = {
     {
-        text = '[Nomads_Intel_Officer]: Captain, if those datacentres are storing vital Nomads intel, then we may have already lost this war. Take them out.',
+        text = '[Nomads_Intel_Officer]: Captain, if those datacentres are storing vital Nomads intel, then we may have already lost this war. Get. Moving.',
         vid = 'N03_M4DataCentreReminder2.sfd', bank = 'N03_VO', cue = 'M4DataCentreReminder2', faction = 'Nomads'
     },
 }
 
 
 
--- TODO: Retard
 -- Intel frigate moves to the map, if it wasnt spawned in M3, do diff dialogue
 M4IntelFleetShowsUp = {
     {
-        text = '[Someone]: TODO.',
+        text = '[Benson]: I\'m detecting a command frigate entering orbit. Looks like one from the Intel Fleet.',
+        vid = 'N03_M3IntelFleetShowsUp.sfd', bank = 'N03_VO', cue = 'M3IntelFleetShowsUp', faction = 'Nomads'
+    },
+    {
+        text = '[Nomads_Intel_Officer]: Since you seem to be taking things at least somewhat seriously.',
         vid = 'N03_M4IntelFleetShowsUp.sfd', bank = 'N03_VO', cue = 'M4IntelFleetShowsUp', faction = 'Nomads'
     },
 }
 
--- TODO: Retard
 -- Launching probes to the data centres to provide radar
 M4IntelLaunchesProbes = {
     {
-        text = '[Someone]: TODO.',
+        text = '[Nomads_Intel_Officer]: The datacentres are located to the east. Dispatching probes to their locations now.',
         vid = 'N03_M4IntelLaunchesProbes.sfd', bank = 'N03_VO', cue = 'M4IntelLaunchesProbes', faction = 'Nomads'
     },
 }
 
--- TODO: Retard
 -- Launching advanced probes to the data centres to provide vision
 M4IntelLaunchesAdvancedProbes = {
     {
-        text = '[Someone]: TODO.',
+        text = '[Nomads_Intel_Officer]: The datacentres are located to the east. We will scout their locations for you.',
         vid = 'N03_M4IntelLaunchesAdvancedProbes.sfd', bank = 'N03_VO', cue = 'M4IntelLaunchesAdvancedProbes', faction = 'Nomads'
     },
 }
@@ -1534,7 +1581,7 @@ M4FieldEngieUnlock = {
 
 
 -- Primary Objective
-M4ChoiceTitle = 'What do you want to do with the data centres?' -- TODO: Retard
+M4ChoiceTitle = 'What do you want to do with the data centres?'
 M4ChoiceKill = 'Destroy them'
 M4ChoiceCapture = 'Capture them'
 
@@ -1556,7 +1603,7 @@ M4B1Title = 'Swift Strike'
 M4B1Description = 'You\'ve destroyed the Tempest before it was completed.'
 
 -- Nuke dialog
-NukeDialog = 'Destroyer fleet needs Mass to send the nukes.\n Provided: %s / %s mass.' -- TODO: Retard, make this text as short as possible so the dialog box doesnt take much space, test with SHIFT F3
+NukeDialog = 'The mercenary fleet needs payment to nuke the data centres. \n Mass provided: %s / %s.'
 NukeSendMassBtn = 'Send Mass'
 
 ---------
