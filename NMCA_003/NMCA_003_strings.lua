@@ -1043,7 +1043,7 @@ M3MapExpansion = {
 -- Intel fleet tells you about the other centres instead of Nichols
 M3MapExpansionIntel = {
     {
-        text = '[Nomads_Intel_Officer]: What\'s worse, that isn\'t the only centre in the area. Get out there and clean up your mess.',
+        text = '[Nomads_Intel_Officer]: What\'s worse, that isn\'t the only centre in the area. There are more to your east.',
         vid = 'N03_M3MapExpansionIntel.sfd', bank = 'N03_VO', cue = 'M3MapExpansionIntel', faction = 'Nomads'
     },
 }
@@ -1429,7 +1429,7 @@ M4IntelFleetShowsUp = {
 -- Launching probes to the data centres to provide radar
 M4IntelLaunchesProbes = {
     {
-        text = '[Nomads_Intel_Officer]: The datacentres are located to the east. Dispatching probes to their locations now.',
+        text = '[Nomads_Intel_Officer]: We\'ve got readings on the data centre locations. Dispatching probes to their locations now.',
         vid = 'N03_M4IntelLaunchesProbes.sfd', bank = 'N03_VO', cue = 'M4IntelLaunchesProbes', faction = 'Nomads'
     },
 }
@@ -1437,7 +1437,7 @@ M4IntelLaunchesProbes = {
 -- Launching advanced probes to the data centres to provide vision
 M4IntelLaunchesAdvancedProbes = {
     {
-        text = '[Nomads_Intel_Officer]: The datacentres are located to the east. We will scout their locations for you.',
+        text = '[Nomads_Intel_Officer]: We are recieving readings on the data center locations now. You are at least trying to contain this leak, so we will send our better probes to provide intel.',
         vid = 'N03_M4IntelLaunchesAdvancedProbes.sfd', bank = 'N03_VO', cue = 'M4IntelLaunchesAdvancedProbes', faction = 'Nomads'
     },
 }
