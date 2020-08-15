@@ -609,7 +609,7 @@ function StartMission1()
 
     -- Annnounce the mission name after few seconds
     WaitSeconds(8)
-    ScenarioFramework.SimAnnouncement(OpStrings.OPERATION_NAME, 'mission by [e]speed2')
+    ScenarioFramework.SimAnnouncement(OpStrings.OPERATION_NAME, 'mission by The \'Mad Men')
 end
 
 function M1SecondaryObjective()
