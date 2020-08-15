@@ -130,7 +130,7 @@ local CrystalBonuses = {
 }
 
 -- Mass that has to be send to the destroyer fleet to launch the nukes in the last part of the mission
-local MassRequiredForNukes = 30000
+local MassRequiredForNukes = 80000
 
 -- How long should we wait at the beginning of the NIS to allow slower machines to catch up?
 local NIS1InitialDelay = 2
