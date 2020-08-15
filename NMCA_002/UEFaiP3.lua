@@ -8,7 +8,6 @@ local Difficulty = ScenarioInfo.Options.Difficulty
 local P3UBase1 = BaseManager.CreateBaseManager()
 local P3UBase2 = BaseManager.CreateBaseManager()
 local P3UBase3 = BaseManager.CreateBaseManager()
-local P3UBase4 = BaseManager.CreateBaseManager()
 
 function P3UEFBase1AI()
     P3UBase1:InitializeDifficultyTables(ArmyBrains[UEF], 'P3UEFBase1', 'P3UB1MK', 120, {P3UBase1 = 300})
@@ -26,18 +25,11 @@ function P3UEFBase2AI()
     P3UB2Landattacks1()
 end
 
-function P3UEFBase4AI()
-    P3UBase3:InitializeDifficultyTables(ArmyBrains[UEF], 'P3UEFBase4', 'P3UB4MK', 70, {P3UBase3 = 300})
+function P3UEFBase3AI()
+    P3UBase3:InitializeDifficultyTables(ArmyBrains[UEF], 'P3UEFBase3', 'P3UB3MK', 70, {P3UBase3 = 300})
     P3UBase3:StartNonZeroBase({{5, 6, 8}, {3, 4, 6}})
     
-    P3UB4Navalattacks1()
-end
-
-function P3UEFBase3AI()
-    P3UBase4:InitializeDifficultyTables(ArmyBrains[UEF], 'P3UEFBase3', 'P3UB3MK', 60, {P3UBase4 = 300})
-    P3UBase4:StartNonZeroBase({{5, 6, 8}, {3, 4, 6}})
-    
-    P3UB3Airattacks1()
+    P3UB3Navalattacks1()
 end
 
 function P3UB1Airattacks1()
@@ -453,7 +445,7 @@ function P3UB2Landattacks1()
     ArmyBrains[UEF]:PBMAddPlatoon( Builder )
 end
 
-function P3UB4Navalattacks1()
+function P3UB3Navalattacks1()
     
     local Temp = {
        'P3UB3NavalAttackTemp0',
@@ -468,10 +460,10 @@ function P3UB4Navalattacks1()
        Priority = 100,
        PlatoonType = 'Sea',
        RequiresConstruction = true,
-       LocationType = 'P3UEFBase4',
+       LocationType = 'P3UEFBase3',
        PlatoonAIFunction = {SPAIFileName, 'PatrolChainPickerThread'},     
        PlatoonData = {
-           PatrolChains = {'P3UB4Navalattack1','P3UB4Navalattack2', 'P3UB4Navalattack3', 'P3UB4Navalattack4'}
+           PatrolChains = {'P3UB4Navalattack1','P3UB4Navalattack2', 'P3UB4Navalattack3'}
        },
     }
     ArmyBrains[UEF]:PBMAddPlatoon( Builder )
@@ -489,10 +481,10 @@ function P3UB4Navalattacks1()
        Priority = 100,
        PlatoonType = 'Sea',
        RequiresConstruction = true,
-       LocationType = 'P3UEFBase4',
+       LocationType = 'P3UEFBase3',
        PlatoonAIFunction = {SPAIFileName, 'PatrolChainPickerThread'},     
        PlatoonData = {
-           PatrolChains = {'P3UB4Navalattack1','P3UB4Navalattack2', 'P3UB4Navalattack3', 'P3UB4Navalattack4'}
+           PatrolChains = {'P3UB4Navalattack1','P3UB4Navalattack2', 'P3UB4Navalattack3'}
        },
     }
     ArmyBrains[UEF]:PBMAddPlatoon( Builder )
@@ -510,10 +502,10 @@ function P3UB4Navalattacks1()
        Priority = 100,
        PlatoonType = 'Sea',
        RequiresConstruction = true,
-       LocationType = 'P3UEFBase4',
+       LocationType = 'P3UEFBase3',
        PlatoonAIFunction = {SPAIFileName, 'PatrolChainPickerThread'},     
        PlatoonData = {
-           PatrolChains = {'P3UB4Navalattack1','P3UB4Navalattack2', 'P3UB4Navalattack3', 'P3UB4Navalattack4'}
+           PatrolChains = {'P3UB4Navalattack1','P3UB4Navalattack2', 'P3UB4Navalattack3'}
        },
     }
     ArmyBrains[UEF]:PBMAddPlatoon( Builder )
@@ -531,117 +523,12 @@ function P3UB4Navalattacks1()
        Priority = 100,
        PlatoonType = 'Sea',
        RequiresConstruction = true,
-       LocationType = 'P3UEFBase4',
+       LocationType = 'P3UEFBase3',
        PlatoonAIFunction = {SPAIFileName, 'PatrolChainPickerThread'},     
        PlatoonData = {
-           PatrolChains = {'P3UB4Navalattack1','P3UB4Navalattack2', 'P3UB4Navalattack3', 'P3UB4Navalattack4'}
+           PatrolChains = {'P3UB4Navalattack1','P3UB4Navalattack2', 'P3UB4Navalattack3'}
        },
     }
     ArmyBrains[UEF]:PBMAddPlatoon( Builder )
 end
     
-function P3UB3Airattacks1()
-    
-    local Temp = {
-       'P3UB4AirAttackTemp0',
-       'NoPlan',
-       { 'uea0203', 1, 6, 'Attack', 'GrowthFormation' }, --Gunships  
-    }
-    local Builder = {
-       BuilderName = 'P3UB4AirAttackBuilder0',
-       PlatoonTemplate = Temp,
-       InstanceCount = 2,
-       Priority = 100,
-       PlatoonType = 'Air',
-       RequiresConstruction = true,
-       LocationType = 'P3UEFBase3',
-       PlatoonAIFunction = {SPAIFileName, 'PatrolChainPickerThread'},     
-       PlatoonData = {
-           PatrolChains = {'P3UB3Airattack1','P3UB3Airattack2', 'P3UB3Airattack3', 'P3UB3Airattack4'}
-       },
-    }
-    ArmyBrains[UEF]:PBMAddPlatoon( Builder )
-    
-    Temp = {
-       'P3UB4AirAttackTemp1',
-       'NoPlan',
-       { 'dea0202', 1, 6, 'Attack', 'GrowthFormation' }, --Gunships  
-    }
-    Builder = {
-       BuilderName = 'P3UB4AirAttackBuilder1',
-       PlatoonTemplate = Temp,
-       InstanceCount = 2,
-       Priority = 100,
-       PlatoonType = 'Air',
-       RequiresConstruction = true,
-       LocationType = 'P3UEFBase3',
-       PlatoonAIFunction = {SPAIFileName, 'PatrolChainPickerThread'},     
-       PlatoonData = {
-           PatrolChains = {'P3UB3Airattack1','P3UB3Airattack2', 'P3UB3Airattack3', 'P3UB3Airattack4'}
-       },
-    }
-    ArmyBrains[UEF]:PBMAddPlatoon( Builder )
-    
-    Temp = {
-       'P3UB4AirAttackTemp2',
-       'NoPlan',
-       { 'dea0202', 1, 4, 'Attack', 'GrowthFormation' }, --Gunships
-       { 'uea0203', 1, 4, 'Attack', 'GrowthFormation' }, --Gunships
-    }
-    Builder = {
-       BuilderName = 'P3UB4AirAttackBuilder2',
-       PlatoonTemplate = Temp,
-       InstanceCount = 2,
-       Priority = 100,
-       PlatoonType = 'Air',
-       RequiresConstruction = true,
-       LocationType = 'P3UEFBase3',
-       PlatoonAIFunction = {SPAIFileName, 'PatrolChainPickerThread'},     
-       PlatoonData = {
-           PatrolChains = {'P3UB3Airattack1','P3UB3Airattack2', 'P3UB3Airattack3', 'P3UB3Airattack4'}
-       },
-    }
-    ArmyBrains[UEF]:PBMAddPlatoon( Builder )
-    
-    Temp = {
-       'P3UB4AirAttackTemp3',
-       'NoPlan',
-       { 'dea0202', 1, 3, 'Attack', 'GrowthFormation' }, --Gunships
-       { 'uea0103', 1, 6, 'Attack', 'GrowthFormation' }, --Gunships
-    }
-    Builder = {
-       BuilderName = 'P3UB4AirAttackBuilder3',
-       PlatoonTemplate = Temp,
-       InstanceCount = 2,
-       Priority = 100,
-       PlatoonType = 'Air',
-       RequiresConstruction = true,
-       LocationType = 'P3UEFBase3',
-       PlatoonAIFunction = {SPAIFileName, 'PatrolChainPickerThread'},     
-       PlatoonData = {
-           PatrolChains = {'P3UB3Airattack1','P3UB3Airattack2', 'P3UB3Airattack3', 'P3UB3Airattack4'}
-       },
-    }
-    ArmyBrains[UEF]:PBMAddPlatoon( Builder )
-    
-    Temp = {
-       'P3UB4AirAttackTemp4',
-       'NoPlan',
-       { 'uea0203', 1, 3, 'Attack', 'GrowthFormation' }, --Gunships
-       { 'uea0102', 1, 6, 'Attack', 'GrowthFormation' }, --Gunships
-    }
-    Builder = {
-       BuilderName = 'P3UB4AirAttackBuilder4',
-       PlatoonTemplate = Temp,
-       InstanceCount = 2,
-       Priority = 100,
-       PlatoonType = 'Air',
-       RequiresConstruction = true,
-       LocationType = 'P3UEFBase3',
-       PlatoonAIFunction = {SPAIFileName, 'PatrolChainPickerThread'},     
-       PlatoonData = {
-           PatrolChains = {'P3UB3Airattack1','P3UB3Airattack2', 'P3UB3Airattack3', 'P3UB3Airattack4'}
-       },
-    }
-    ArmyBrains[UEF]:PBMAddPlatoon( Builder )
-end
