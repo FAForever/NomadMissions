@@ -19,6 +19,35 @@ Be sure to visit our discord server [here](https://discord.gg/Tqar3cu) where you
 These missions are designed to be run on top of the mod, so we need to change how FAF loads the coop mod, so you can then play them. You can play with other people, but every person in the game needs to have followed these instructions to prevent desyncs.
 
 ### Mission file installation:
+Before installing, we must first download the mod files using the FAF client. Do the following:
+1. Host a game of Nomads on FAF. You can quit in the game lobby as soon as the patch has finished downloading
+1. Host a game of Coop on FAF. You can quit in the game lobby as soon as the patch has finished downloading, just like before.
+
+To make things easier for you, we include an installer for the Nomads campaign. It includes the following:
+- The mission maps
+- Voice & Video files for the narration
+- Special files to enable coop play
+- A shortcut for offline play
+
+Get the latest installer from the releases page on this repo, here: https://github.com/FAForever/NomadMissions/releases
+
+1. Follow the on-screen instructions. 
+1. Once that is done, you should be able to launch offline play! Use the shortcut to start the game, it will put you into the main menu. 
+1. Select skirmish. If everything went correctly, you should see Nomads as a faction option, and for the map to be set to a coop map, just as Black Day. 
+1. Switch maps to a Nomads mission of your choice, press the ready button and launch the game!
+
+### Enabling Online Play:
+To play with your friends, you need to tell the FAF client to run the game with Nomads files loaded:
+
+1. In the client, click on `Settings`, then on `Forged Alliance Forever`. Under the `Advanced` section, put ```C:\ProgramData\FAForever\bin\ForgedAlliance.exe /init init_NomadsCoop.lua``` into the `Command line format for executable` field, deleting entirely anything that was there before.
+  * Note: Do not include any quotation marks around the contents you put into this field.
+1. Host a coop mission on any map, switch maps to a map from the Nomads campaign, and enjoy!
+1. It is important to note that you need to disable these changes if you want to play _any_ game without nomads later! To do this, replace the entire contents of the field with `"%s"` (including the quotation marks), reversing step 5. The file can stay in your folder and wont be active unless you do step 5 again.
+
+
+## Manual file installation:
+You should be using the installer above since its easier, but if something is wrong you can follow the instructions below to place all the files manually.
+
 You need to download all the files that the missions need to work, and then enable the missions by following either the Official client instructions, or the legacy client instructions. Also make sure to read the instructions to the very end, as you will need to disable the changes after playing!
 
 1. You need to have the Nomads mod downloaded onto your computer. Simply host a game with Nomads in FAF by double clicking on it in the featured mod list. This will download the files you need. Once in the lobby you can close the game. You only need to perform this step once per Nomads release, simply to keep the files updated.
